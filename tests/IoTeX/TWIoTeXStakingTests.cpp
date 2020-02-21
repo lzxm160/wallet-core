@@ -211,7 +211,7 @@ TEST(TWIoTeXStaking, SignMove) {
     staking->set_contract(IOTEX_STAKING_CONTRACT);
     // call staking API to generate calldata
     byte name[12] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-    auto candidate = WRAPD(TWDataCreateWithBytes(1001,name, 12));
+    auto candidate = WRAPD(TWDataCreateWithBytes(name, 12));
     auto data = WRAPD(TWDataCreateWithSize(0));
     auto moveStake = WRAPD(TWIoTeXStakingMove(1001, candidate.get(), data.get()));
     staking->set_data(TWDataBytes(moveStake.get()), TWDataSize(moveStake.get()));
