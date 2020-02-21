@@ -11,7 +11,7 @@
 #include "Data.h"
 #include "uint256.h"
 #include "proto/IoTeX.pb.h"
-
+#include "HexCoding.h"
 using namespace TW;
 
 TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,uint32_t duration, bool autoStake,TWData* _Nonnull payload) {
@@ -21,7 +21,9 @@ TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnu
     stakeAction.set_stakedduration(duration); 
     stakeAction.set_autostake(autoStake);
     stakeAction.set_payload(data);
-    return TWDataCreateWithHexString(stakeAction.SerializeAsString());
+    auto s = stakeAction.SerializeAsString();
+    auto actionHex = hex(s.begin(), s.end()); 
+    return TWDataCreateWithHexString(actionHex);
 }
 
 /// Function to generate unstake or withdraw message
