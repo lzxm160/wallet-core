@@ -78,7 +78,3 @@ TWData* _Nonnull TWIoTeXStakingMove(uint64_t index, TWData* _Nonnull name, TWDat
     auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(actionHex);
 }
-
-inline std::vector<uint8_t>* dataFromTWData(TWData* data) {
-    return const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
-}

@@ -36,3 +36,7 @@ TW_EXPORT_STATIC_METHOD
 TWData* _Nonnull TWIoTeXStakingMoveStake(uint64_t pyggIndex, TWData* _Nonnull candidate, TWData* _Nonnull data);
 
 TW_EXTERN_C_END
+
+inline std::vector<uint8_t>* dataFromTWData(TWData* data) {
+    return const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
+}
