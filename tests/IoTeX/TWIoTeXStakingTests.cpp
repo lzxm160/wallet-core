@@ -74,7 +74,7 @@ TEST(TWIoTeXStaking, Move) {
     ASSERT_EQ(hex(*result), "d3e41fd200000000000000000000000000000000000000000000000000000000000003e90102030405060708090a0b0c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000000");
 }
 
-TEST(TWIoTeXStaking, SignStake) {
+TEST(TWIoTeXStaking, SignCreate) {
     auto input = Proto::SigningInput();
     input.set_version(1);
     input.set_nonce(123);
@@ -92,7 +92,7 @@ TEST(TWIoTeXStaking, SignStake) {
     auto candidate = WRAPD(TWDataCreateWithBytes(name, 12));
     auto data = WRAPD(TWDataCreateWithBytes((uint8_t *)IOTEX_STAKING_TEST, 14));
     // data = "this is a test" here, it could be null (user leaves data empty when signing the tx)
-    auto stake = WRAPD(TWIoTeXStakingStake(candidate.get(), 1001, true, data.get()));
+    auto stake = WRAPD(TWIoTeXStakingCreate(candidate.get(), 1001, 1000, true, data.get()));
     staking->set_data(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     
     auto signer = IoTeX::Signer(std::move(input));
@@ -107,7 +107,7 @@ TEST(TWIoTeXStaking, SignStake) {
     ASSERT_EQ(hex(output.hash()), "41b1f8be5f6b884c06556fba2611716e8e514b507f5a653fc02ac50ba13fbd6c");
 }
 
-TEST(TWIoTeXStaking, SignUnstake) {
+TEST(TWIoTeXStaking, SignReclaim) {
     auto input = Proto::SigningInput();
     input.set_version(1);
     input.set_nonce(123);
@@ -122,8 +122,8 @@ TEST(TWIoTeXStaking, SignUnstake) {
     staking->set_contract(IOTEX_STAKING_CONTRACT);
     // call staking API to generate calldata
     auto data = WRAPD(TWDataCreateWithSize(0));
-    auto unstake = WRAPD(TWIoTeXStakingUnstake(1001, data.get()));
-    staking->set_data(TWDataBytes(unstake.get()), TWDataSize(unstake.get()));
+    auto reclaim = WRAPD(TWIoTeXStakingReclaim(1001, data.get()));
+    staking->set_data(TWDataBytes(reclaim.get()), TWDataSize(reclaim.get()));
     
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
@@ -134,7 +134,7 @@ TEST(TWIoTeXStaking, SignUnstake) {
     ASSERT_EQ(hex(output.hash()), "b93a2874a72ce4eb8a41a20c209cf3fd188671ed8be8239a57960cbed887e962");
 }
 
-TEST(TWIoTeXStaking, SignWithdraw) {
+TEST(TWIoTeXStaking, SignAddDeposit) {
     auto input = Proto::SigningInput();
     input.set_version(1);
     input.set_nonce(123);
@@ -149,8 +149,8 @@ TEST(TWIoTeXStaking, SignWithdraw) {
     staking->set_contract(IOTEX_STAKING_CONTRACT);
     // call staking API to generate calldata
     auto data = WRAPD(TWDataCreateWithSize(0));
-    auto withdraw = WRAPD(TWIoTeXStakingWithdraw(1001, data.get()));
-    staking->set_data(TWDataBytes(withdraw.get()), TWDataSize(withdraw.get()));
+    auto addDeposit = WRAPD(TWIoTeXStakingAddDeposit(1001, 1000, data.get()));
+    staking->set_data(TWDataBytes(addDeposit.get()), TWDataSize(addDeposit.get()));
     
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
@@ -161,7 +161,7 @@ TEST(TWIoTeXStaking, SignWithdraw) {
     ASSERT_EQ(hex(output.hash()), "2b2657247a72cb262de214b4e793c7a01fa2139fd5d12a46d43c24f87f9e2396");
 }
 
-TEST(TWIoTeXStaking, SignAddStake) {
+TEST(TWIoTeXStaking, SignReStake) {
     auto input = Proto::SigningInput();
     input.set_version(1);
     input.set_nonce(123);
@@ -176,8 +176,8 @@ TEST(TWIoTeXStaking, SignAddStake) {
     staking->set_contract(IOTEX_STAKING_CONTRACT);
     // call staking API to generate calldata
     auto data = WRAPD(TWDataCreateWithSize(0));
-    auto addStake = WRAPD(TWIoTeXStakingAddStake(1001, data.get()));
-    staking->set_data(TWDataBytes(addStake.get()), TWDataSize(addStake.get()));
+    auto reStake = WRAPD(TWIoTeXStakingRestake(1001, 1000, true, data.get()));
+    staking->set_data(TWDataBytes(reStake.get()), TWDataSize(reStake.get()));
     
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
@@ -188,7 +188,7 @@ TEST(TWIoTeXStaking, SignAddStake) {
     ASSERT_EQ(hex(output.hash()), "c71058812a5febe5cdcdaf9499ba0b2c895f88d1acd3203e5097b307c2a5f1d1");
 }
 
-TEST(TWIoTeXStaking, SignMoveStake) {
+TEST(TWIoTeXStaking, SignMove) {
     auto input = Proto::SigningInput();
     input.set_version(1);
     input.set_nonce(123);
@@ -203,9 +203,9 @@ TEST(TWIoTeXStaking, SignMoveStake) {
     staking->set_contract(IOTEX_STAKING_CONTRACT);
     // call staking API to generate calldata
     byte name[12] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-    auto candidate = WRAPD(TWDataCreateWithBytes(name, 12));
+    auto candidate = WRAPD(TWDataCreateWithBytes(1001,name, 12));
     auto data = WRAPD(TWDataCreateWithSize(0));
-    auto moveStake = WRAPD(TWIoTeXStakingMoveStake(1001, candidate.get(), data.get()));
+    auto moveStake = WRAPD(TWIoTeXStakingMove(1001, candidate.get(), data.get()));
     staking->set_data(TWDataBytes(moveStake.get()), TWDataSize(moveStake.get()));
     
     auto signer = IoTeX::Signer(std::move(input));
