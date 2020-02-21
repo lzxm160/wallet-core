@@ -4,8 +4,6 @@
 // terms governing use, modification, and redistribution, is contained in the
 // file LICENSE at the root of the source code distribution tree.
 
-#include <TrustWalletCore/TWEthereumAbiEncoder.h>
-#include <TrustWalletCore/TWEthereumAbiFunction.h>
 #include <TrustWalletCore/TWIoTeXStaking.h>
 
 #include "Data.h"
@@ -13,6 +11,10 @@
 #include "proto/IoTeX.pb.h"
 #include "HexCoding.h"
 using namespace TW;
+
+inline std::vector<uint8_t>* dataFromTWData(TWData* data) {
+    return const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
+}
 
 TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,uint32_t duration, bool autoStake,TWData* _Nonnull payload) {
     auto stakeAction = IoTeX::Proto::StakeCreate();
