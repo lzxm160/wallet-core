@@ -19,19 +19,19 @@ struct TWIoTeXStaking;
 TW_EXPORT_STATIC_METHOD
 TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,uint32_t duration, bool autoStake, TWData* _Nonnull payload);
 
-/// Function to generate Unstake message
+/// Function to generate Reclaim message
 TW_EXPORT_STATIC_METHOD
 TWData* _Nonnull TWIoTeXStakingReclaim(uint64_t index, TWData* _Nonnull payload);
 
-/// Function to generate Withdraw message
+/// Function to generate AddDeposit message
 TW_EXPORT_STATIC_METHOD
 TWData* _Nonnull TWIoTeXStakingAddDeposit(uint64_t index, TWData* _Nonnull amount,TWData* _Nonnull payload);
 
-/// Function to generate AddStake message
+/// Function to generate Restake message
 TW_EXPORT_STATIC_METHOD
 TWData* _Nonnull TWIoTeXStakingRestake(uint64_t index, uint32_t duration, bool autoStake,TWData* _Nonnull payload);
 
-/// Function to generate MoveStake message
+/// Function to generate Move message
 TW_EXPORT_STATIC_METHOD
 TWData* _Nonnull TWIoTeXStakingMove(uint64_t index, TWData* _Nonnull name,TWData* _Nonnull payload);
 
