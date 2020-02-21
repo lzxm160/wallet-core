@@ -28,7 +28,7 @@ TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnu
     stakeAction.set_payload(hex(*p));
     auto s = stakeAction.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end()); 
-    return TWDataCreateWithHexString(actionHex);
+    return TWDataCreateWithHexString(&actionHex);
 }
 
 /// Function to generate unstake or withdraw message
@@ -39,7 +39,7 @@ TWData* _Nonnull TWIoTeXStakingReclaim(uint64_t index, TWData* _Nonnull payload)
     reclaimAction.set_payload(hex(*p));
     auto s = reclaimAction.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
-    return TWDataCreateWithHexString(actionHex);
+    return TWDataCreateWithHexString(&actionHex);
 }
 
 /// Function to generate AddDeposit message
@@ -52,7 +52,7 @@ TWData* _Nonnull TWIoTeXStakingAddDeposit(uint64_t index, TWData* _Nonnull amoun
     addDepositAction.set_payload(hex(*p));
     auto s = addDepositAction.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
-    return TWDataCreateWithHexString(actionHex);
+    return TWDataCreateWithHexString(&actionHex);
 }
 
 /// Function to generate Restake message
@@ -65,7 +65,7 @@ TWData* _Nonnull TWIoTeXStakingRestake(uint64_t index, uint32_t duration,bool au
     restakeAction.set_payload(hex(*p));
     auto s = restakeAction.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
-    return TWDataCreateWithHexString(actionHex);
+    return TWDataCreateWithHexString(&actionHex);
 }
 
 /// Function to generate Move message
@@ -78,5 +78,5 @@ TWData* _Nonnull TWIoTeXStakingMove(uint64_t index, TWData* _Nonnull name, TWDat
     moveAction.set_payload(hex(*p));
     auto s = moveAction.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
-    return TWDataCreateWithHexString(actionHex);
+    return TWDataCreateWithHexString(&actionHex);
 }
