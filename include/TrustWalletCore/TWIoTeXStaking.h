@@ -17,7 +17,7 @@ struct TWIoTeXStaking;
 
 /// Function to generate Stake message
 TW_EXPORT_STATIC_METHOD
-TWData* _Nonnull TWIoTeXStakingStake(TWData* _Nonnull candidate, uint64_t duration, bool nonDecay, TWData* _Nonnull data);
+TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, uint64_t duration, bool nonDecay, TWData* _Nonnull data);
 
 /// Function to generate Unstake message
 TW_EXPORT_STATIC_METHOD

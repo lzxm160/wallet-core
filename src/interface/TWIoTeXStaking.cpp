@@ -14,9 +14,7 @@
 
 using namespace TW;
 
-TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,
-                                      uint32_t duration, bool autoStake,
-                                      TWData* _Nonnull payload) {
+TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,uint32_t duration, bool autoStake,TWData* _Nonnull payload) {
     auto stakeAction = IoTeX::Proto::StakeCreate();
     stakeAction.set_candidatename(candidate); 
     stakeAction.set_stakedamount(amount);
@@ -26,67 +24,38 @@ TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnu
     return TWDataCreateWithHexString(stakeAction.SerializeAsString());
 }
 
-/// Function to generate Unstake message
-TWData* _Nonnull TWIoTeXStakingUnstake(uint64_t pyggIndex, TWData* _Nonnull data) {
-    // TWEthereumAbiFunction* func =
-    // TWEthereumAbiEncoderBuildFunction(TWStringCreateWithUTF8Bytes("unstake"));
-    // assert(func != nullptr);
-
-    // auto v = store(uint256_t(pyggIndex));
-    // TWEthereumAbiFunctionAddParamUInt256(func, &v, false);
-    // TWEthereumAbiFunctionAddParamBytes(func, data, false);
-
-    // auto ret = TWEthereumAbiEncoderEncode(func);
-    // TWEthereumAbiEncoderDeleteFunction(func);
-    // return ret;
-    return 0;
+/// Function to generate unstake or withdraw message
+TWData* _Nonnull TWIoTeXStakingReclaim(uint64_t index, TWData* _Nonnull payload) {
+    auto reclaimAction = IoTeX::Proto::StakeReclaim();
+    reclaimAction.set_bucketindex(index);
+    reclaimAction.set_payload(payload);
+    return TWDataCreateWithHexString(reclaimAction.SerializeAsString());
 }
 
-/// Function to generate Withdraw message
-TWData* _Nonnull TWIoTeXStakingWithdraw(uint64_t pyggIndex, TWData* _Nonnull data) {
-    // TWEthereumAbiFunction* func =
-    // TWEthereumAbiEncoderBuildFunction(TWStringCreateWithUTF8Bytes("withdraw"));
-    // assert(func != nullptr);
-
-    // auto v = store(uint256_t(pyggIndex));
-    // TWEthereumAbiFunctionAddParamUInt256(func, &v, false);
-    // TWEthereumAbiFunctionAddParamBytes(func, data, false);
-
-    // auto ret = TWEthereumAbiEncoderEncode(func);
-    // TWEthereumAbiEncoderDeleteFunction(func);
-    // return ret;
-    return 0;
+/// Function to generate AddDeposit message
+TWData* _Nonnull TWIoTeXStakingAddDeposit(uint64_t index, TWData* _Nonnull amount,TWData* _Nonnull payload) {
+    auto addDepositAction = IoTeX::Proto::StakeAddDeposit();
+    addDepositAction.set_bucketindex(index);
+    addDepositAction.set_amount(amount);
+    addDepositAction.set_payload(payload);
+    return TWDataCreateWithHexString(addDepositAction.SerializeAsString());
 }
 
-/// Function to generate AddStake message
-TWData* _Nonnull TWIoTeXStakingAddStake(uint64_t pyggIndex, TWData* _Nonnull data) {
-    // TWEthereumAbiFunction* func =
-    // TWEthereumAbiEncoderBuildFunction(TWStringCreateWithUTF8Bytes("storeToPygg"));
-    // assert(func != nullptr);
-
-    // auto v = store(uint256_t(pyggIndex));
-    // TWEthereumAbiFunctionAddParamUInt256(func, &v, false);
-    // TWEthereumAbiFunctionAddParamBytes(func, data, false);
-
-    // auto ret = TWEthereumAbiEncoderEncode(func);
-    // TWEthereumAbiEncoderDeleteFunction(func);
-    // return ret;
-    return 0;
+/// Function to generate Restake message
+TWData* _Nonnull TWIoTeXStakingRestake(uint64_t index, uint32_t duration,bool autoStake,TWData* _Nonnull payload) {
+    auto restakeAction = IoTeX::Proto::StakeRestake();
+    restakeAction.set_bucketindex(index);
+    restakeAction.set_stakedduration(duration);
+    restakeAction.set_autostake(autoStake);
+    restakeAction.set_payload(payload);
+    return TWDataCreateWithHexString(restakeAction.SerializeAsString());
 }
 
-/// Function to generate MoveStake message
-TWData* _Nonnull TWIoTeXStakingMoveStake(uint64_t pyggIndex, TWData* _Nonnull candidate, TWData* _Nonnull data) {
-    // TWEthereumAbiFunction* func =
-    // TWEthereumAbiEncoderBuildFunction(TWStringCreateWithUTF8Bytes("revote"));
-    // assert(func != nullptr);
-
-    // auto v = store(uint256_t(pyggIndex));
-    // TWEthereumAbiFunctionAddParamUInt256(func, &v, false);
-    // TWEthereumAbiFunctionAddParamBytesFix(func, 12, candidate, false);
-    // TWEthereumAbiFunctionAddParamBytes(func, data, false);
-
-    // auto ret = TWEthereumAbiEncoderEncode(func);
-    // TWEthereumAbiEncoderDeleteFunction(func);
-    // return ret;
-    return 0;
+/// Function to generate Move message
+TWData* _Nonnull TWIoTeXStakingMove(uint64_t index, TWData* _Nonnull name, TWData* _Nonnull payload) {
+    auto moveAction = IoTeX::Proto::StakeMove();
+    moveAction.set_bucketindex(index);
+    moveAction.set_name(name);
+    moveAction.set_payload(payload);
+    return TWDataCreateWithHexString(moveAction.SerializeAsString());
 }

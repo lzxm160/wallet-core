@@ -21,53 +21,53 @@ using namespace TW::IoTeX;
 static const char *_Nonnull IOTEX_STAKING_CONTRACT = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
 static const char * IOTEX_STAKING_TEST = "this is a test";
 
-TEST(TWIoTeXStaking, Stake) {
+TEST(TWIoTeXStaking, Create) {
     byte name[12] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     auto candidate = WRAPD(TWDataCreateWithBytes(name, 12));
 
     auto test = WRAPD(TWDataCreateWithBytes((uint8_t *)IOTEX_STAKING_TEST, 14));
-    auto stake = WRAPD(TWIoTeXStakingStake(candidate.get(), 1001, true, test.get()));
+    auto stake = WRAPD(TWIoTeXStakingCreate(candidate.get(), 1001, 1000,true, test.get()));
 
     auto result = dataFromTWData(stake.get());
 
     ASSERT_EQ(hex(*result), "07c35fc00102030405060708090a0b0c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003e900000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000000000e7468697320697320612074657374000000000000000000000000000000000000");
 }
 
-TEST(TWIoTeXStaking, Unstake) {
+TEST(TWIoTeXStaking, Reclaim) {
     auto test = WRAPD(TWDataCreateWithBytes((uint8_t *)IOTEX_STAKING_TEST, 14));
-    auto unstake = WRAPD(TWIoTeXStakingUnstake(1001, test.get()));
+    auto unstake = WRAPD(TWIoTeXStakingReclaim(1001, test.get()));
 
     auto result = dataFromTWData(unstake.get());
 
     ASSERT_EQ(hex(*result), "c8fd6ed000000000000000000000000000000000000000000000000000000000000003e90000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000e7468697320697320612074657374000000000000000000000000000000000000");
 }
 
-TEST(TWIoTeXStaking, Withdraw) {
+TEST(TWIoTeXStaking, AddDeposit) {
 
     auto test = WRAPD(TWDataCreateWithBytes((uint8_t *)IOTEX_STAKING_TEST, 14));
-    auto withdraw = WRAPD(TWIoTeXStakingWithdraw(1001, test.get()));
+    auto withdraw = WRAPD(TWIoTeXStakingAddDeposit(1001,1000, test.get()));
 
     auto result = dataFromTWData(withdraw.get());
 
     ASSERT_EQ(hex(*result), "030ba25d00000000000000000000000000000000000000000000000000000000000003e90000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000e7468697320697320612074657374000000000000000000000000000000000000");
 }
 
-TEST(TWIoTeXStaking, AddStake) {
+TEST(TWIoTeXStaking, Restake) {
 
     auto test = WRAPD(TWDataCreateWithSize(0));
-    auto add = WRAPD(TWIoTeXStakingAddStake(1001, test.get()));
+    auto add = WRAPD(TWIoTeXStakingRestake(1001,1000,true, test.get()));
 
     auto result = dataFromTWData(add.get());
 
     ASSERT_EQ(hex(*result), "6e7b301700000000000000000000000000000000000000000000000000000000000003e900000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000");
 }
 
-TEST(TWIoTeXStaking, MoveStake) {
+TEST(TWIoTeXStaking, Move) {
 
     byte name[12] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     auto candidate = TWDataCreateWithBytes(name, 12);
     auto test = WRAPD(TWDataCreateWithSize(0));
-    auto add = WRAPD(TWIoTeXStakingMoveStake(1001, candidate, test.get()));
+    auto add = WRAPD(TWIoTeXStakingMove(1001, candidate, test.get()));
 
     auto result = dataFromTWData(add.get());
 
