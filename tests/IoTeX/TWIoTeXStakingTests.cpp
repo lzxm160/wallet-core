@@ -26,7 +26,9 @@ TEST(TWIoTeXStaking, Create) {
     auto candidate = WRAPD(TWDataCreateWithBytes(name, 12));
 
     auto test = WRAPD(TWDataCreateWithBytes((uint8_t *)IOTEX_STAKING_TEST, 14));
-    auto stake = WRAPD(TWIoTeXStakingCreate(candidate.get(), 1001, 1000,true, test.get()));
+    byte num[2] = {1, 2};
+    auto amount = WRAPD(TWDataCreateWithBytes(num, 2));
+    auto stake = WRAPD(TWIoTeXStakingCreate(candidate.get(), amount.get(), 1000, true, test.get()));
 
     auto result = dataFromTWData(stake.get());
 
@@ -35,9 +37,9 @@ TEST(TWIoTeXStaking, Create) {
 
 TEST(TWIoTeXStaking, Reclaim) {
     auto test = WRAPD(TWDataCreateWithBytes((uint8_t *)IOTEX_STAKING_TEST, 14));
-    auto unstake = WRAPD(TWIoTeXStakingReclaim(1001, test.get()));
+    auto reclaim = WRAPD(TWIoTeXStakingReclaim(1001, test.get()));
 
-    auto result = dataFromTWData(unstake.get());
+    auto result = dataFromTWData(reclaim.get());
 
     ASSERT_EQ(hex(*result), "c8fd6ed000000000000000000000000000000000000000000000000000000000000003e90000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000e7468697320697320612074657374000000000000000000000000000000000000");
 }
@@ -45,9 +47,11 @@ TEST(TWIoTeXStaking, Reclaim) {
 TEST(TWIoTeXStaking, AddDeposit) {
 
     auto test = WRAPD(TWDataCreateWithBytes((uint8_t *)IOTEX_STAKING_TEST, 14));
-    auto withdraw = WRAPD(TWIoTeXStakingAddDeposit(1001,1000, test.get()));
+    byte num[2] = {1, 2};
+    auto amount = WRAPD(TWDataCreateWithBytes(num, 2));
+    auto ad = WRAPD(TWIoTeXStakingAddDeposit(1000, amount.get(), test.get()));
 
-    auto result = dataFromTWData(withdraw.get());
+    auto result = dataFromTWData(ad.get());
 
     ASSERT_EQ(hex(*result), "030ba25d00000000000000000000000000000000000000000000000000000000000003e90000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000e7468697320697320612074657374000000000000000000000000000000000000");
 }
@@ -55,9 +59,9 @@ TEST(TWIoTeXStaking, AddDeposit) {
 TEST(TWIoTeXStaking, Restake) {
 
     auto test = WRAPD(TWDataCreateWithSize(0));
-    auto add = WRAPD(TWIoTeXStakingRestake(1001,1000,true, test.get()));
+    auto rs = WRAPD(TWIoTeXStakingRestake(1001, 1000, true, test.get()));
 
-    auto result = dataFromTWData(add.get());
+    auto result = dataFromTWData(rs.get());
 
     ASSERT_EQ(hex(*result), "6e7b301700000000000000000000000000000000000000000000000000000000000003e900000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000");
 }
@@ -67,9 +71,9 @@ TEST(TWIoTeXStaking, Move) {
     byte name[12] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     auto candidate = TWDataCreateWithBytes(name, 12);
     auto test = WRAPD(TWDataCreateWithSize(0));
-    auto add = WRAPD(TWIoTeXStakingMove(1001, candidate, test.get()));
+    auto mv = WRAPD(TWIoTeXStakingMove(1001, candidate, test.get()));
 
-    auto result = dataFromTWData(add.get());
+    auto result = dataFromTWData(mv.get());
 
     ASSERT_EQ(hex(*result), "d3e41fd200000000000000000000000000000000000000000000000000000000000003e90102030405060708090a0b0c000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000000");
 }
@@ -92,7 +96,9 @@ TEST(TWIoTeXStaking, SignCreate) {
     auto candidate = WRAPD(TWDataCreateWithBytes(name, 12));
     auto data = WRAPD(TWDataCreateWithBytes((uint8_t *)IOTEX_STAKING_TEST, 14));
     // data = "this is a test" here, it could be null (user leaves data empty when signing the tx)
-    auto stake = WRAPD(TWIoTeXStakingCreate(candidate.get(), 1001, 1000, true, data.get()));
+    byte num[2] = {1, 2};
+    auto amount = WRAPD(TWDataCreateWithBytes(num, 2));
+    auto stake = WRAPD(TWIoTeXStakingCreate(candidate.get(), amount.get(), 1000, true, data.get()));
     staking->set_data(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     
     auto signer = IoTeX::Signer(std::move(input));
@@ -149,7 +155,9 @@ TEST(TWIoTeXStaking, SignAddDeposit) {
     staking->set_contract(IOTEX_STAKING_CONTRACT);
     // call staking API to generate calldata
     auto data = WRAPD(TWDataCreateWithSize(0));
-    auto addDeposit = WRAPD(TWIoTeXStakingAddDeposit(1001, 1000, data.get()));
+    byte num[2] = {1, 2};
+    auto amount = WRAPD(TWDataCreateWithBytes(num, 2));
+    auto addDeposit = WRAPD(TWIoTeXStakingAddDeposit(1001, amount.get(), data.get()));
     staking->set_data(TWDataBytes(addDeposit.get()), TWDataSize(addDeposit.get()));
     
     auto signer = IoTeX::Signer(std::move(input));
