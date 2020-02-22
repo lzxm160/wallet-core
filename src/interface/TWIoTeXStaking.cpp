@@ -12,20 +12,18 @@
 #include "HexCoding.h"
 using namespace TW;
 
-inline std::vector<uint8_t>* dataFromTWData(TWData* data) {
-    return const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
+inline std::string stringFromTWData(TWData* data) {
+    auto ret = static_cast<std::string*>(data);
+    return *ret;
 }
 
 TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,uint32_t duration, bool autoStake,TWData* _Nonnull payload) {
     auto stakeAction = IoTeX::Proto::StakeCreate();
-    auto c = dataFromTWData(candidate);
-    stakeAction.set_candidatename(hex(*c)); 
-    auto a = dataFromTWData(amount);
-    stakeAction.set_stakedamount(hex(*a));
+    stakeAction.set_candidatename(stringFromTWData(candidate)); 
+    stakeAction.set_stakedamount(stringFromTWData(amount));
     stakeAction.set_stakedduration(duration); 
     stakeAction.set_autostake(autoStake);
-    auto p = dataFromTWData(payload);
-    stakeAction.set_payload(hex(*p));
+    stakeAction.set_payload(stringFromTWData(payload));
     auto s = stakeAction.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end()); 
     return TWDataCreateWithHexString(&actionHex);
