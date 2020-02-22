@@ -16,10 +16,12 @@ inline std::string stringFromTWData(TWData* data) {
     auto ret = static_cast<std::string*>(data);
     return *ret;
 }
-
+inline std::vector<uint8_t>* dataFromTWData(TWData* data) {
+    return const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
+}
 TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,uint32_t duration, bool autoStake,TWData* _Nonnull payload) {
     auto stakeAction = IoTeX::Proto::StakeCreate();
-    cout << stringFromTWData(candidate) << endl;
+    std::cout << stringFromTWData(candidate) << std::endl;
     stakeAction.set_candidatename(stringFromTWData(candidate)); 
     cout << stringFromTWData(amount) << endl;
     stakeAction.set_stakedamount(stringFromTWData(amount));
