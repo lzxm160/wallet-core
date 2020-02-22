@@ -20,13 +20,12 @@ using namespace TW::IoTeX;
 
 static const char *_Nonnull IOTEX_STAKING_CONTRACT = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
 static const char* _Nonnull IOTEX_STAKING_DATA = "payload";
+static const char* _Nonnull IOTEX_STAKING_AMOUNT = "10";
 
 TEST(TWIoTeXStaking, Create) {
     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CONTRACT, 41));
     auto data = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_DATA, 7));
-
-    byte num[1] = {10};
-    auto amount = WRAPD(TWDataCreateWithBytes(num, 1));
+    auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
     auto stake = WRAPD(TWIoTeXStakingCreate(candidate.get(), amount.get(), 1000, true, data.get()));
 
     auto result = dataFromTWData(stake.get());
