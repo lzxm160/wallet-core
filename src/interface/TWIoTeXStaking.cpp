@@ -15,7 +15,7 @@ using namespace TW;
 inline std::string stringFromTWData(TWData* data) {
     auto ret = const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
     std::string str;
-    str.assign(*v.begin(), *v.end());
+    str.assign(ret->begin(), ret->end());
     return str;
 }
 inline std::vector<uint8_t>* dataFromTWData(TWData* data) {
