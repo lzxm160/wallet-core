@@ -77,6 +77,7 @@ TEST(TWIoTeXStaking, Move) {
     ASSERT_EQ(hex(*result), "08e9071218303130323033303430353036303730383039306130623063");
 }
 */
+/*
 TEST(TWIoTeXStaking, SignCreate) {
     auto input = Proto::SigningInput();
     input.set_version(1);
@@ -87,9 +88,7 @@ TEST(TWIoTeXStaking, SignCreate) {
     input.set_privatekey(keyhex.data(), keyhex.size());
 
     // staking is implemented using the Execution message
-    auto staking = input.mutable_execution();
-    staking->set_amount("0");
-    staking->set_contract(IOTEX_STAKING_CONTRACT);
+    auto staking = input.mutable_stakecreate();
     // call staking API to generate calldata
     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CONTRACT, 41));
     auto data = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_DATA, 7));
@@ -110,6 +109,7 @@ TEST(TWIoTeXStaking, SignCreate) {
     // signed action's hash
     ASSERT_EQ(hex(output.hash()), "a324d56f5b50e86aab27c0c6d33f9699f36d3ed8e27967a56e644f582bbd5e2d");
 }
+*/
 /*
 TEST(TWIoTeXStaking, SignReclaim) {
     auto input = Proto::SigningInput();
