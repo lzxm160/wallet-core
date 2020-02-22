@@ -13,7 +13,7 @@
 using namespace TW;
 
 inline std::string stringFromTWData(TWData* data) {
-    auto ret = static_cast<std::string*>(data);
+    auto ret = const_cast<std::string*>(reinterpret_cast<const std::string*>(data));
     return *ret;
 }
 inline std::vector<uint8_t>* dataFromTWData(TWData* data) {
@@ -23,11 +23,11 @@ TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnu
     auto stakeAction = IoTeX::Proto::StakeCreate();
     std::cout << stringFromTWData(candidate) << std::endl;
     stakeAction.set_candidatename(stringFromTWData(candidate)); 
-    cout << stringFromTWData(amount) << endl;
+    std::cout << stringFromTWData(amount) << std::endl;
     stakeAction.set_stakedamount(stringFromTWData(amount));
     stakeAction.set_stakedduration(duration); 
     stakeAction.set_autostake(autoStake);
-    cout << stringFromTWData(payload) << endl;
+    std::cout << stringFromTWData(payload) << std::endl;
     stakeAction.set_payload(stringFromTWData(payload));
     auto s = stakeAction.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end()); 
