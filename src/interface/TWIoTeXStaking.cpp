@@ -19,10 +19,13 @@ inline std::string stringFromTWData(TWData* data) {
 
 TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,uint32_t duration, bool autoStake,TWData* _Nonnull payload) {
     auto stakeAction = IoTeX::Proto::StakeCreate();
+    cout << stringFromTWData(candidate) << endl;
     stakeAction.set_candidatename(stringFromTWData(candidate)); 
+    cout << stringFromTWData(amount) << endl;
     stakeAction.set_stakedamount(stringFromTWData(amount));
     stakeAction.set_stakedduration(duration); 
     stakeAction.set_autostake(autoStake);
+    cout << stringFromTWData(payload) << endl;
     stakeAction.set_payload(stringFromTWData(payload));
     auto s = stakeAction.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end()); 
