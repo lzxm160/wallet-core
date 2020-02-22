@@ -20,10 +20,9 @@ using namespace TW::IoTeX;
 
 static const char *_Nonnull IOTEX_STAKING_CONTRACT = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
 static const char* _Nonnull IOTEX_STAKING_DATA = "payload";
-static const char * IOTEX_STAKING_TEST = "this is a test";
 
 TEST(TWIoTeXStaking, Create) {
-    auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_TEST, 41));
+    auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CONTRACT, 41));
     auto data = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_DATA, 7));
 
     byte num[1] = {10};
@@ -92,7 +91,7 @@ TEST(TWIoTeXStaking, SignCreate) {
     staking->set_amount("0");
     staking->set_contract(IOTEX_STAKING_CONTRACT);
     // call staking API to generate calldata
-    auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_TEST, 41));
+    auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CONTRACT, 41));
     auto data = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_DATA, 7));
     // data = "this is a test" here, it could be null (user leaves data empty when signing the tx)
     byte num[1] = {10};
