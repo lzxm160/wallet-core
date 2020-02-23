@@ -110,7 +110,8 @@ TEST(TWIoTeXStaking, SignCreate) {
     // build() signs the tx
     auto output = signer.build();
     // signed action's serialized bytes
-    std::count << output.SerializeAsString() << std::endl;
+    auto outputser = output.SerializeAsString();
+    std::count << outputser << std::endl;
     auto encoded = output.encoded();
     ASSERT_EQ(hex(encoded.begin(), encoded.end()), "080118c0843d22023130c2023d0a29696f3178707136326177383575717a72636367397935686e727976386c64326e6b7079636333677a611202313018e80720012a077061796c6f6164");
     // signed action's hash
