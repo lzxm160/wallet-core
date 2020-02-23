@@ -4,7 +4,7 @@
 set -e
 
 echo "#### Initializing... ####"
-tools/install-dependencies
+#tools/install-dependencies
 
 echo "#### Generating files... ####"
 tools/generate-files
