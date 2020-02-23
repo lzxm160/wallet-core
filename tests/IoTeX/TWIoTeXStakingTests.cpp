@@ -76,7 +76,13 @@ TEST(TWIoTeXStaking, Move) {
     ASSERT_EQ(hex(*result), "08e9071218303130323033303430353036303730383039306130623063");
 }
 */
-
+inline std::string stringFromTWData(TWData* data) {
+    auto ret =
+        const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
+    std::string str;
+    str.assign(ret->begin(), ret->end());
+    return str;
+}
 TEST(TWIoTeXStaking, SignCreate) {
     auto input = Proto::SigningInput();
     input.set_version(1);
@@ -92,8 +98,12 @@ TEST(TWIoTeXStaking, SignCreate) {
     auto data = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_DATA, 7));
     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
     auto stake = WRAPD(TWIoTeXStakingCreate(candidate.get(), amount.get(), 1000, true, data.get()));
-    staking->set_data(TWDataBytes(stake.get()), TWDataSize(stake.get()));
-    
+    //staking->set_data(TWDataBytes(stake.get()), TWDataSize(stake.get()));
+    staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()))
+    //const Data ser = parse_hex("0b6d6172696f40747275737402313003424e42044d656d6f001768747470733a2f2"
+      //                         "f747275737477616c6c65742e636f6d");
+    //size_t index = 0;
+    //const auto newFunds = NewFundsContent::deserialize(ser, index);
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
     ASSERT_EQ(hex(signer.hash()), "219483a7309db9f1c41ac3fa0aadecfbdbeb0448b0dfaee54daec4ec178aa9f1");
