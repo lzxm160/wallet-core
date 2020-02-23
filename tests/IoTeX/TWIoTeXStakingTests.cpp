@@ -99,7 +99,7 @@ TEST(TWIoTeXStaking, SignCreate) {
     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
     auto stake = WRAPD(TWIoTeXStakingCreate(candidate.get(), amount.get(), 1000, true, data.get()));
     //staking->set_data(TWDataBytes(stake.get()), TWDataSize(stake.get()));
-    staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()))
+    staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     //const Data ser = parse_hex("0b6d6172696f40747275737402313003424e42044d656d6f001768747470733a2f2"
       //                         "f747275737477616c6c65742e636f6d");
     //size_t index = 0;
