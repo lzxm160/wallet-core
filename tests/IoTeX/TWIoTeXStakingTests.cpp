@@ -70,6 +70,16 @@ TEST(TWIoTeXStaking, Restake) {
     ASSERT_EQ(hex(*result), "080a10e807180122077061796c6f6164");
 }
 
+TEST(TWIoTeXStaking, ChangeCandidate) {
+    auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
+    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
+    auto stake = WRAPD(TWIoTeXStakingChangeCandidate(candidate.get(), 1000, payload.get()));
+
+    auto result = dataFromTWData(stake.get());
+
+    ASSERT_EQ(hex(*result), "080a1a077061796c6f6164");
+}
+
 inline std::string stringFromTWData(TWData* data) {
     auto ret =
         const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
@@ -217,4 +227,34 @@ TEST(TWIoTeXStaking, SignRestake) {
     // signed action's hash
     ASSERT_EQ(hex(output.hash()),
               "8816e8f784a1fce40b54d1cd172bb6976fd9552f1570c73d1d9fcdc5635424a9");
+}
+
+TEST(TWIoTeXStaking, SignChangeCandidate) {
+    auto input = Proto::SigningInput();
+    input.set_version(1);
+    input.set_nonce(0);
+    input.set_gaslimit(1000000);
+    input.set_gasprice("10");
+    auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+    input.set_privatekey(keyhex.data(), keyhex.size());
+
+    // staking is implemented using the stakecreate message
+    auto staking = input.mutable_stakecreate();
+    auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
+    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
+    auto stake = WRAPD(TWIoTeXStakingChangeCandidate(candidate.get(), 1000, payload.get()));
+    staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
+    auto signer = IoTeX::Signer(std::move(input));
+    // raw action's hash
+    ASSERT_EQ(hex(signer.hash()),
+              "58258bd01d7b7e2500f79126feeffec8642ddcc9d6a7c275c144ba8b1c8d6c81");
+    // build() signs the tx
+    auto output = signer.build();
+    // signed action's serialized bytes
+    auto encoded = output.encoded();
+    ASSERT_EQ(
+        hex(encoded.begin(), encoded.end()),"0a18080118c0843d22023130ea020b080a1a077061796c6f6164124104755ce6d8903f6b3793bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30dd6a1038ed9da8daf331a412b801345168f97445ed6f86555878451b8d7da09f72814c4159fe571f81aa7310eebfa17a1b3263b42f102861d485aea91424801a91c678e35527b3a19e16cf201");
+    // signed action's hash
+    ASSERT_EQ(hex(output.hash()),
+              "06a692dee28596e28aa0fe2f7eb65a141d25dde7d1451b4eb529a25fe0572a79");
 }
