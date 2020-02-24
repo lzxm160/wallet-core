@@ -12,71 +12,84 @@
 #include "HexCoding.h"
 using namespace TW;
 
-inline std::vector<uint8_t>* dataFromTWData(TWData* data) {
-    return const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
+const char* _Nonnull charFromTWData(TWData* data) {
+    return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
 }
 
+/// Function to generate Create message
 TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,uint32_t duration, bool autoStake,TWData* _Nonnull payload) {
-    auto stakeAction = IoTeX::Proto::StakeCreate();
-    auto c = dataFromTWData(candidate);
-    stakeAction.set_candidatename(hex(*c)); 
-    auto a = dataFromTWData(amount);
-    stakeAction.set_stakedamount(hex(*a));
-    stakeAction.set_stakedduration(duration); 
-    stakeAction.set_autostake(autoStake);
-    auto p = dataFromTWData(payload);
-    stakeAction.set_payload(hex(*p));
-    auto s = stakeAction.SerializeAsString();
+    auto action = IoTeX::Proto::StakeCreate();
+    action.set_candidatename(charFromTWData(candidate)); 
+    action.set_stakedamount(charFromTWData(amount));
+    action.set_stakedduration(duration); 
+    action.set_autostake(autoStake);
+    action.set_payload(charFromTWData(payload));
+    auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end()); 
     return TWDataCreateWithHexString(&actionHex);
 }
 
-/// Function to generate unstake or withdraw message
-TWData* _Nonnull TWIoTeXStakingReclaim(uint64_t index, TWData* _Nonnull payload) {
-    auto reclaimAction = IoTeX::Proto::StakeReclaim();
-    reclaimAction.set_bucketindex(index);
-    auto p = dataFromTWData(payload);
-    reclaimAction.set_payload(hex(*p));
-    auto s = reclaimAction.SerializeAsString();
+/// Function to generate Unstake message
+TWData* _Nonnull TWIoTeXStakingUnstake(uint64_t index,TWData* _Nonnull payload) {
+    auto action = IoTeX::Proto::StakeReclaim();
+    action.set_bucketindex(index);
+    action.set_payload(charFromTWData(payload));
+    auto s = action.SerializeAsString();
+    auto actionHex = hex(s.begin(), s.end());
+    return TWDataCreateWithHexString(&actionHex);
+}
+
+/// Function to generate Withdraw message
+TWData* _Nonnull TWIoTeXStakingWithdraw(uint64_t index, TWData* _Nonnull payload) {
+    auto action = IoTeX::Proto::StakeReclaim();
+    action.set_bucketindex(index);
+    action.set_payload(charFromTWData(payload));
+    auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(&actionHex);
 }
 
 /// Function to generate AddDeposit message
 TWData* _Nonnull TWIoTeXStakingAddDeposit(uint64_t index, TWData* _Nonnull amount,TWData* _Nonnull payload) {
-    auto addDepositAction = IoTeX::Proto::StakeAddDeposit();
-    addDepositAction.set_bucketindex(index);
-    auto a = dataFromTWData(amount);
-    addDepositAction.set_amount(hex(*a));
-    auto p = dataFromTWData(payload);
-    addDepositAction.set_payload(hex(*p));
-    auto s = addDepositAction.SerializeAsString();
+    auto action = IoTeX::Proto::StakeAddDeposit();
+    action.set_bucketindex(index);
+    action.set_amount(charFromTWData(amount));
+    action.set_payload(charFromTWData(payload));
+    auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(&actionHex);
 }
 
 /// Function to generate Restake message
 TWData* _Nonnull TWIoTeXStakingRestake(uint64_t index, uint32_t duration,bool autoStake,TWData* _Nonnull payload) {
-    auto restakeAction = IoTeX::Proto::StakeRestake();
-    restakeAction.set_bucketindex(index);
-    restakeAction.set_stakedduration(duration);
-    restakeAction.set_autostake(autoStake);
-    auto p = dataFromTWData(payload);
-    restakeAction.set_payload(hex(*p));
-    auto s = restakeAction.SerializeAsString();
+    auto action = IoTeX::Proto::StakeRestake();
+    action.set_bucketindex(index);
+    action.set_stakedduration(duration);
+    action.set_autostake(autoStake);
+    action.set_payload(charFromTWData(payload));
+    auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(&actionHex);
 }
 
-/// Function to generate Move message
-TWData* _Nonnull TWIoTeXStakingMove(uint64_t index, TWData* _Nonnull name, TWData* _Nonnull payload) {
-    auto moveAction = IoTeX::Proto::StakeMove();
-    moveAction.set_bucketindex(index);
-    auto n = dataFromTWData(name);
-    moveAction.set_name(hex(*n));
-    auto p = dataFromTWData(payload);
-    moveAction.set_payload(hex(*p));
-    auto s = moveAction.SerializeAsString();
+/// Function to generate ChangeCandidate message
+TWData* _Nonnull TWIoTeXStakingChangeCandidate(TWData* _Nonnull candidate, uint64_t index,TWData* _Nonnull payload) {
+    auto action = IoTeX::Proto::StakeMove();
+    action.set_name(charFromTWData(candidate));
+    action.set_bucketindex(index);
+    action.set_payload(charFromTWData(payload));
+    auto s = action.SerializeAsString();
+    auto actionHex = hex(s.begin(), s.end());
+    return TWDataCreateWithHexString(&actionHex);
+}
+
+/// Function to generate Transfer message
+TWData* _Nonnull TWIoTeXStakingTransfer(TWData* _Nonnull candidate, uint64_t index,TWData* _Nonnull payload) {
+    auto action = IoTeX::Proto::StakeMove();
+    action.set_name(charFromTWData(candidate));
+    action.set_bucketindex(index);
+    action.set_payload(charFromTWData(payload));
+    auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(&actionHex);
 }

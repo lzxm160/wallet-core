@@ -15,24 +15,31 @@ TW_EXTERN_C_BEGIN
 TW_EXPORT_CLASS
 struct TWIoTeXStaking;
 
-/// Function to generate Stake message
+/// Function to generate Create message
 TW_EXPORT_STATIC_METHOD
-TWData* _Nonnull TWIoTeXStakingStake(TWData* _Nonnull candidate, uint64_t duration, bool nonDecay, TWData* _Nonnull data);
+TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,uint32_t duration, bool autoStake, TWData* _Nonnull payload);
+
+/// Function to generate AddDeposit message
+TW_EXPORT_STATIC_METHOD
+TWData* _Nonnull TWIoTeXStakingAddDeposit(uint64_t index, TWData* _Nonnull amount,TWData* _Nonnull payload);
 
 /// Function to generate Unstake message
 TW_EXPORT_STATIC_METHOD
-TWData* _Nonnull TWIoTeXStakingUnstake(uint64_t pyggIndex, TWData* _Nonnull data);
+TWData* _Nonnull TWIoTeXStakingUnstake(uint64_t index, TWData* _Nonnull payload);
 
 /// Function to generate Withdraw message
 TW_EXPORT_STATIC_METHOD
-TWData* _Nonnull TWIoTeXStakingWithdraw(uint64_t pyggIndex, TWData* _Nonnull data);
+TWData* _Nonnull TWIoTeXStakingWithdraw(uint64_t index, TWData* _Nonnull payload);
 
-/// Function to generate AddStake message
+/// Function to generate Restake message
 TW_EXPORT_STATIC_METHOD
-TWData* _Nonnull TWIoTeXStakingAddStake(uint64_t pyggIndex, TWData* _Nonnull data);
+TWData* _Nonnull TWIoTeXStakingRestake(uint64_t index, uint32_t duration, bool autoStake,TWData* _Nonnull payload);
 
-/// Function to generate MoveStake message
+/// Function to generate ChangeCandidate message
 TW_EXPORT_STATIC_METHOD
-TWData* _Nonnull TWIoTeXStakingMoveStake(uint64_t pyggIndex, TWData* _Nonnull candidate, TWData* _Nonnull data);
+TWData* _Nonnull TWIoTeXStakingChangeCandidate(TWData* _Nonnull candidate, uint64_t index,TWData* _Nonnull payload);
 
+/// Function to generate Transfer message
+TW_EXPORT_STATIC_METHOD
+TWData* _Nonnull TWIoTeXStakingTransfer(TWData* _Nonnull candidate, uint64_t index,TWData* _Nonnull payload);
 TW_EXTERN_C_END
