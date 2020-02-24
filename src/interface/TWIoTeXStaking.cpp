@@ -12,7 +12,7 @@
 #include "HexCoding.h"
 using namespace TW;
 
-inline char* charFromTWData(TWData* data) {
+const char* _Nonnull charFromTWData(TWData* data) {
     //auto ret = const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
     //std::string str;
    // str.assign(ret->begin(), ret->end());
