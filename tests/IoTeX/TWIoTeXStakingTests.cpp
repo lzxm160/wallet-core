@@ -288,18 +288,13 @@ TEST(TWIoTeXStaking, SignTransfer) {
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
     ASSERT_EQ(hex(signer.hash()),
-              "4fe20be23e3de2fd81cacdebb04d4b69b0f80404fd0193a92d6478ae38602d9f");
+              "d22b4b3e630e1d494951e9041a983608232cf64629262296b6ef1f57fa748fd2");
     // build() signs the tx
     auto output = signer.build();
     // signed action's serialized bytes
     auto encoded = output.encoded();
-    ASSERT_EQ(hex(encoded.begin(), encoded.end()),
-              "0a43080118c0843d22023130ea0236080a1229696f3178707136326177383575717a7263636739793568"
-              "6e727976386c64326e6b7079636333677a611a077061796c6f6164124104755ce6d8903f6b3793bddb4e"
-              "a5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef3"
-              "0dd6a1038ed9da8daf331a41d519eb3747163b945b862989b7e82a7f8468001e9683757cb88d5ddd95f8"
-              "1895047429e858bd48f7d59a88bfec92de231d216293aeba1e4fbe11461d9c9fc99801");
+    ASSERT_EQ(hex(encoded.begin(), encoded.end()),"0a43080118c0843d22023130f20236080a1229696f3178707136326177383575717a72636367397935686e727976386c64326e6b7079636333677a611a077061796c6f6164124104755ce6d8903f6b3793bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30dd6a1038ed9da8daf331a41fa26db427ab87a56a129196c1604f2e22c4dd2a1f99b2217bc916260757d00093d9e6dccdf53e3b0b64e41a69d71c238fbf9281625164694a74dfbeba075d0ce01");
     // signed action's hash
     ASSERT_EQ(hex(output.hash()),
-              "186526b5b9fe74e25beb52c83c41780a69108160bef2ddaf3bffb9f1f1e5e73a");
+              "74b2e1d6a09ba5d1298fa422d5850991ae516865077282196295a38f93c78b85");
 }
