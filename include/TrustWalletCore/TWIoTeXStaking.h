@@ -41,6 +41,5 @@ TWData* _Nonnull TWIoTeXStakingChangeCandidate(TWData* _Nonnull candidate, uint6
 
 /// Function to generate Transfer message
 TW_EXPORT_STATIC_METHOD
-TWData* _Nonnull TWIoTeXStakingTransfer(TWData* _Nonnull candidate, uint64_t index,
-                                               TWData* _Nonnull payload);
+TWData* _Nonnull TWIoTeXStakingTransfer(TWData* _Nonnull candidate, uint64_t index,TWData* _Nonnull payload);
 TW_EXTERN_C_END

@@ -36,27 +36,27 @@ TEST(TWIoTeXStaking, Create) {
 TEST(TWIoTeXStaking, AddDeposit) {
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
-    auto ad = WRAPD(TWIoTeXStakingAddDeposit(10, amount.get(), payload.get()));
+    auto stake = WRAPD(TWIoTeXStakingAddDeposit(10, amount.get(), payload.get()));
 
-    auto result = dataFromTWData(ad.get());
+    auto result = dataFromTWData(stake.get());
 
     ASSERT_EQ(hex(*result),"080a120231301a077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, Unstake) {
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto ad = WRAPD(TWIoTeXStakingUnstake(10, payload.get()));
+    auto stake = WRAPD(TWIoTeXStakingUnstake(10, payload.get()));
 
-    auto result = dataFromTWData(ad.get());
+    auto result = dataFromTWData(stake.get());
 
     ASSERT_EQ(hex(*result), "080a12077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, Withdraw) {
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto ad = WRAPD(TWIoTeXStakingWithdraw(10, payload.get()));
+    auto stake = WRAPD(TWIoTeXStakingWithdraw(10, payload.get()));
 
-    auto result = dataFromTWData(ad.get());
+    auto result = dataFromTWData(stake.get());
 
     ASSERT_EQ(hex(*result), "080a12077061796c6f6164");
 }
@@ -87,16 +87,7 @@ TEST(TWIoTeXStaking, Transfer) {
 
     auto result = dataFromTWData(stake.get());
 
-    ASSERT_EQ(hex(*result), "080a1229696f3178707136326177383575717a72636367397935686e727976386c6432"
-                            "6e6b7079636333677a611a077061796c6f6164");
-}
-
-inline std::string stringFromTWData(TWData* data) {
-    auto ret =
-        const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
-    std::string str;
-    str.assign(ret->begin(), ret->end());
-    return str;
+    ASSERT_EQ(hex(*result), "080a1229696f3178707136326177383575717a72636367397935686e727976386c64326e6b7079636333677a611a077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, SignCreate) {

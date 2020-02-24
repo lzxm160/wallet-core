@@ -18,9 +18,6 @@ inline std::string stringFromTWData(TWData* data) {
     str.assign(ret->begin(), ret->end());
     return str;
 }
-inline std::vector<uint8_t>* dataFromTWData(TWData* data) {
-    return const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
-}
 
 /// Function to generate Create message
 TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,uint32_t duration, bool autoStake,TWData* _Nonnull payload) {
@@ -45,7 +42,7 @@ TWData* _Nonnull TWIoTeXStakingUnstake(uint64_t index,TWData* _Nonnull payload) 
     return TWDataCreateWithHexString(&actionHex);
 }
 
-/// Function to generate withdraw message
+/// Function to generate Withdraw message
 TWData* _Nonnull TWIoTeXStakingWithdraw(uint64_t index, TWData* _Nonnull payload) {
     auto action = IoTeX::Proto::StakeReclaim();
     action.set_bucketindex(index);
@@ -90,8 +87,7 @@ TWData* _Nonnull TWIoTeXStakingChangeCandidate(TWData* _Nonnull candidate, uint6
 }
 
 /// Function to generate Transfer message
-TWData* _Nonnull TWIoTeXStakingTransfer(TWData* _Nonnull candidate, uint64_t index,
-                                        TWData* _Nonnull payload) {
+TWData* _Nonnull TWIoTeXStakingTransfer(TWData* _Nonnull candidate, uint64_t index,TWData* _Nonnull payload) {
     auto action = IoTeX::Proto::StakeMove();
     action.set_name(stringFromTWData(candidate));
     action.set_bucketindex(index);
