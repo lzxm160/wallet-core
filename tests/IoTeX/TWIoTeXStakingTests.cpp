@@ -270,7 +270,7 @@ TEST(TWIoTeXStaking, SignChangeCandidate) {
               "186526b5b9fe74e25beb52c83c41780a69108160bef2ddaf3bffb9f1f1e5e73a");
 }
 
-TEST(TWIoTeXStaking, Transfer) {
+TEST(TWIoTeXStaking, SignTransfer) {
     auto input = Proto::SigningInput();
     input.set_version(1);
     input.set_nonce(0);
