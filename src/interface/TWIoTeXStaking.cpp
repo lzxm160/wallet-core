@@ -68,7 +68,7 @@ TWData* _Nonnull TWIoTeXStakingReclaim(uint64_t index, TWData* _Nonnull payload)
 /// Function to generate AddDeposit message
 TWData* _Nonnull TWIoTeXStakingAddDeposit(uint64_t index, TWData* _Nonnull amount,TWData* _Nonnull payload) {
     auto action = IoTeX::Proto::StakeAddDeposit();
-    action.set_stakedamount(stringFromTWData(amount));
+    action.set_amount(stringFromTWData(amount));
     action.set_payload(stringFromTWData(payload));
     auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
