@@ -17,7 +17,7 @@ inline char* charFromTWData(TWData* data) {
     //std::string str;
    // str.assign(ret->begin(), ret->end());
     //return str;
-    return TWStringUTF8Bytes(TWStringCreateWithHexData(TWDataBytes(data), TWDataSize(data)));
+    return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
 }
 
 /// Function to generate Create message
