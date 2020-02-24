@@ -19,13 +19,17 @@ struct TWIoTeXStaking;
 TW_EXPORT_STATIC_METHOD
 TWData* _Nonnull TWIoTeXStakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,uint32_t duration, bool autoStake, TWData* _Nonnull payload);
 
-/// Function to generate Reclaim message
-TW_EXPORT_STATIC_METHOD
-TWData* _Nonnull TWIoTeXStakingReclaim(uint64_t index, TWData* _Nonnull payload);
-
 /// Function to generate AddDeposit message
 TW_EXPORT_STATIC_METHOD
 TWData* _Nonnull TWIoTeXStakingAddDeposit(uint64_t index, TWData* _Nonnull amount,TWData* _Nonnull payload);
+
+/// Function to generate Reclaim message
+TW_EXPORT_STATIC_METHOD
+TWData* _Nonnull TWIoTeXStakingUnstake(uint64_t index, TWData* _Nonnull payload);
+
+/// Function to generate Reclaim message
+TW_EXPORT_STATIC_METHOD
+TWData* _Nonnull TWIoTeXStakingWithdraw(uint64_t index, TWData* _Nonnull payload);
 
 /// Function to generate Restake message
 TW_EXPORT_STATIC_METHOD
