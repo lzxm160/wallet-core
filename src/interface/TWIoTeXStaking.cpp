@@ -88,3 +88,15 @@ TWData* _Nonnull TWIoTeXStakingChangeCandidate(TWData* _Nonnull candidate, uint6
     auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(&actionHex);
 }
+
+/// Function to generate Transfer message
+TWData* _Nonnull TWIoTeXStakingTransfer(TWData* _Nonnull candidate, uint64_t index,
+                                        TWData* _Nonnull payload) {
+    auto action = IoTeX::Proto::StakeMove();
+    action.set_name(stringFromTWData(candidate));
+    action.set_bucketindex(index);
+    action.set_payload(stringFromTWData(payload));
+    auto s = action.SerializeAsString();
+    auto actionHex = hex(s.begin(), s.end());
+    return TWDataCreateWithHexString(&actionHex);
+}

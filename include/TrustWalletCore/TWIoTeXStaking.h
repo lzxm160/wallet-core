@@ -35,8 +35,12 @@ TWData* _Nonnull TWIoTeXStakingWithdraw(uint64_t index, TWData* _Nonnull payload
 TW_EXPORT_STATIC_METHOD
 TWData* _Nonnull TWIoTeXStakingRestake(uint64_t index, uint32_t duration, bool autoStake,TWData* _Nonnull payload);
 
-/// Function to generate Move message
+/// Function to generate ChangeCandidate message
 TW_EXPORT_STATIC_METHOD
 TWData* _Nonnull TWIoTeXStakingChangeCandidate(TWData* _Nonnull candidate, uint64_t index,TWData* _Nonnull payload);
 
+/// Function to generate Transfer message
+TW_EXPORT_STATIC_METHOD
+TWData* _Nonnull TWIoTeXStakingTransfer(TWData* _Nonnull candidate, uint64_t index,
+                                               TWData* _Nonnull payload);
 TW_EXTERN_C_END
