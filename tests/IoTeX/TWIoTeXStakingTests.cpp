@@ -239,7 +239,7 @@ TEST(TWIoTeXStaking, SignChangeCandidate) {
     input.set_privatekey(keyhex.data(), keyhex.size());
 
     // staking is implemented using the stakecreate message
-    auto staking = input.mutable_stakecreate();
+    auto staking = input.mutable_stakechangecandidate();
     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto stake = WRAPD(TWIoTeXStakingChangeCandidate(candidate.get(), 10, payload.get()));
