@@ -44,7 +44,7 @@ TEST(TWIoTeXStaking, AddDeposit) {
 }
 
 TEST(TWIoTeXStaking, Unstake) {
-    auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
+    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto ad = WRAPD(TWIoTeXStakingUnstake(10, payload.get()));
 
     auto result = dataFromTWData(ad.get());
@@ -53,7 +53,7 @@ TEST(TWIoTeXStaking, Unstake) {
 }
 
 TEST(TWIoTeXStaking, Withdraw) {
-    auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
+    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto ad = WRAPD(TWIoTeXStakingWithdraw(10, payload.get()));
 
     auto result = dataFromTWData(ad.get());
@@ -126,7 +126,7 @@ TEST(TWIoTeXStaking, SignAddDeposit) {
               "ca8937d6f224a4e4bf93cb5605581de2d26fb0481e1dfc1eef384ee7ccf94b73");
 }
 
-TEST(TWIoTeXStaking, Unstake) {
+TEST(TWIoTeXStaking, SignUnstake) {
     auto input = Proto::SigningInput();
     input.set_version(1);
     input.set_nonce(0);
