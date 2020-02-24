@@ -64,20 +64,19 @@ TWData* _Nonnull TWIoTeXStakingAddDeposit(uint64_t index, TWData* _Nonnull amoun
     return TWDataCreateWithHexString(&actionHex);
 }
 
-/*
 /// Function to generate Restake message
 TWData* _Nonnull TWIoTeXStakingRestake(uint64_t index, uint32_t duration,bool autoStake,TWData* _Nonnull payload) {
-    auto restakeAction = IoTeX::Proto::StakeRestake();
-    restakeAction.set_bucketindex(index);
-    restakeAction.set_stakedduration(duration);
-    restakeAction.set_autostake(autoStake);
-    auto p = dataFromTWData(payload);
-    restakeAction.set_payload(hex(*p));
-    auto s = restakeAction.SerializeAsString();
+    auto action = IoTeX::Proto::StakeRestake();
+    action.set_bucketindex(index);
+    action.set_stakedduration(duration);
+    action.set_autostake(autoStake);
+    action.set_payload(stringFromTWData(payload));
+    auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(&actionHex);
 }
 
+/*
 /// Function to generate Move message
 TWData* _Nonnull TWIoTeXStakingMove(uint64_t index, TWData* _Nonnull name, TWData* _Nonnull payload) {
     auto moveAction = IoTeX::Proto::StakeMove();
