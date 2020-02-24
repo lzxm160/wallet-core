@@ -77,7 +77,7 @@ TEST(TWIoTeXStaking, ChangeCandidate) {
 
     auto result = dataFromTWData(stake.get());
 
-    ASSERT_EQ(hex(*result), "080a1a077061796c6f6164");
+    ASSERT_EQ(hex(*result), "080a1229696f3178707136326177383575717a72636367397935686e727976386c64326e6b7079636333677a611a077061796c6f6164");
 }
 
 inline std::string stringFromTWData(TWData* data) {
@@ -247,14 +247,14 @@ TEST(TWIoTeXStaking, SignChangeCandidate) {
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
     ASSERT_EQ(hex(signer.hash()),
-              "58258bd01d7b7e2500f79126feeffec8642ddcc9d6a7c275c144ba8b1c8d6c81");
+              "4fe20be23e3de2fd81cacdebb04d4b69b0f80404fd0193a92d6478ae38602d9f");
     // build() signs the tx
     auto output = signer.build();
     // signed action's serialized bytes
     auto encoded = output.encoded();
     ASSERT_EQ(
-        hex(encoded.begin(), encoded.end()),"0a18080118c0843d22023130ea020b080a1a077061796c6f6164124104755ce6d8903f6b3793bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30dd6a1038ed9da8daf331a412b801345168f97445ed6f86555878451b8d7da09f72814c4159fe571f81aa7310eebfa17a1b3263b42f102861d485aea91424801a91c678e35527b3a19e16cf201");
+        hex(encoded.begin(), encoded.end()),"0a43080118c0843d22023130ea0236080a1229696f3178707136326177383575717a72636367397935686e727976386c64326e6b7079636333677a611a077061796c6f6164124104755ce6d8903f6b3793bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30dd6a1038ed9da8daf331a41d519eb3747163b945b862989b7e82a7f8468001e9683757cb88d5ddd95f81895047429e858bd48f7d59a88bfec92de231d216293aeba1e4fbe11461d9c9fc99801");
     // signed action's hash
     ASSERT_EQ(hex(output.hash()),
-              "06a692dee28596e28aa0fe2f7eb65a141d25dde7d1451b4eb529a25fe0572a79");
+              "186526b5b9fe74e25beb52c83c41780a69108160bef2ddaf3bffb9f1f1e5e73a");
 }
