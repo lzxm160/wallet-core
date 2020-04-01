@@ -97,11 +97,21 @@ TWData* _Nonnull stakingTransfer(const Data& candidate, uint64_t index,const Dat
 }
 
 TWData* _Nonnull candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration, bool autoStake, const Data& ownerAddress,const Data& payload){
-    return 0;
+    auto action = IoTeX::Proto::StakeMove();
+    action.set_name(charFromTWData(name));
+    action.set_payload(charFromTWData(payload));
+    auto s = action.SerializeAsString();
+    auto actionHex = hex(s.begin(), s.end());
+    return TWDataCreateWithHexString(&actionHex);
 }
 
 TWData* _Nonnull candidateUpdate(const Data& name,const Data& operatorAddress,const Data& rewardAddress){
-    return 0;
+    auto action = IoTeX::Proto::StakeMove();
+    action.set_name(charFromTWData(name));
+    action.set_payload(charFromTWData(operatorAddress));
+    auto s = action.SerializeAsString();
+    auto actionHex = hex(s.begin(), s.end());
+    return TWDataCreateWithHexString(&actionHex);
 }
 // void stakingStake(const Data& candidate, uint64_t stakeDuration, bool nonDecay, const Data& dataIn, Data& dataOut) {
 //     Function func("createPygg");

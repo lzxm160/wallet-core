@@ -28,30 +28,30 @@ namespace TW::IoTeX {
 // struct TWIoTeXStaking;
 
 /// Function to generate Create message
-void stakingCreate(const Data& candidate, const Data& amount,uint32_t duration, bool autoStake, const Data& payload);
+TWData* _Nonnull stakingCreate(const Data& candidate, const Data& amount,uint32_t duration, bool autoStake, const Data& payload);
 
 /// Function to generate AddDeposit message
-void stakingAddDeposit(uint64_t index, const Data& amount,const Data& payload);
+TWData* _Nonnull stakingAddDeposit(uint64_t index, const Data& amount,const Data& payload);
 
 /// Function to generate Unstake message
-void stakingUnstake(uint64_t index, const Data& payload);
+TWData* _Nonnull stakingUnstake(uint64_t index, const Data& payload);
 
 /// Function to generate Withdraw message
-void stakingWithdraw(uint64_t index, const Data& payload);
+TWData* _Nonnull stakingWithdraw(uint64_t index, const Data& payload);
 
 /// Function to generate Restake message
-void stakingRestake(uint64_t index, uint32_t duration, bool autoStake,const Data& payload);
+TWData* _Nonnull stakingRestake(uint64_t index, uint32_t duration, bool autoStake,const Data& payload);
 
 /// Function to generate ChangeCandidate message
-void stakingChangeCandidate(const Data& candidate, uint64_t index,const Data& payload);
+TWData* _Nonnull stakingChangeCandidate(const Data& candidate, uint64_t index,const Data& payload);
 
 /// Function to generate Transfer message
-void stakingTransfer(const Data& candidate, uint64_t index,const Data& payload);
+TWData* _Nonnull stakingTransfer(const Data& candidate, uint64_t index,const Data& payload);
 
 /// Function to generate candidate register message
-void candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration, bool autoStake, const Data& ownerAddress,const Data& payload);
+TWData* _Nonnull candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration, bool autoStake, const Data& ownerAddress,const Data& payload);
 
 /// Function to generate candidate update message
-void candidateUpdate(const Data& name,const Data& operatorAddress,const Data& rewardAddress);
+TWData* _Nonnull candidateUpdate(const Data& name,const Data& operatorAddress,const Data& rewardAddress);
 
 } // namespace TW::IoTeX
