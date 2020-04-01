@@ -25,7 +25,7 @@ const char* charFromTWData(const Data& data) {
     // return s->data();
     // return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
 }
-void stakingCreate(const Data& candidate, const Data& amount,uint32_t duration, bool autoStake, const Data& payload){
+TWData* _Nonnull stakingCreate(const Data& candidate, const Data& amount,uint32_t duration, bool autoStake, const Data& payload){
     auto action = IoTeX::Proto::StakeCreate();
     action.set_candidatename(charFromTWData(candidate)); 
     action.set_stakedamount(charFromTWData(amount));
@@ -37,7 +37,7 @@ void stakingCreate(const Data& candidate, const Data& amount,uint32_t duration, 
     return TWDataCreateWithHexString(&actionHex);
 }
 
-void stakingAddDeposit(uint64_t index, const Data& amount,const Data& payload){
+TWData* _Nonnull stakingAddDeposit(uint64_t index, const Data& amount,const Data& payload){
     auto action = IoTeX::Proto::StakeAddDeposit();
     action.set_bucketindex(index);
     action.set_amount(charFromTWData(amount));
@@ -47,7 +47,7 @@ void stakingAddDeposit(uint64_t index, const Data& amount,const Data& payload){
     return TWDataCreateWithHexString(&actionHex);
 }
 
-void stakingUnstake(uint64_t index, const Data& payload){
+TWData* _Nonnull stakingUnstake(uint64_t index, const Data& payload){
     auto action = IoTeX::Proto::StakeReclaim();
     action.set_bucketindex(index);
     action.set_payload(charFromTWData(payload));
@@ -56,7 +56,7 @@ void stakingUnstake(uint64_t index, const Data& payload){
     return TWDataCreateWithHexString(&actionHex);
 }
 
-void stakingWithdraw(uint64_t index, const Data& payload){
+TWData* _Nonnull stakingWithdraw(uint64_t index, const Data& payload){
     auto action = IoTeX::Proto::StakeReclaim();
     action.set_bucketindex(index);
     action.set_payload(charFromTWData(payload));
@@ -65,7 +65,7 @@ void stakingWithdraw(uint64_t index, const Data& payload){
     return TWDataCreateWithHexString(&actionHex);
 }
 
-void stakingRestake(uint64_t index, uint32_t duration, bool autoStake,const Data& payload){
+TWData* _Nonnull stakingRestake(uint64_t index, uint32_t duration, bool autoStake,const Data& payload){
     auto action = IoTeX::Proto::StakeRestake();
     action.set_bucketindex(index);
     action.set_stakedduration(duration);
@@ -76,7 +76,7 @@ void stakingRestake(uint64_t index, uint32_t duration, bool autoStake,const Data
     return TWDataCreateWithHexString(&actionHex);
 }
 
-void stakingChangeCandidate(const Data& candidate, uint64_t index,const Data& payload){
+TWData* _Nonnull stakingChangeCandidate(const Data& candidate, uint64_t index,const Data& payload){
     auto action = IoTeX::Proto::StakeMove();
     action.set_name(charFromTWData(candidate));
     action.set_bucketindex(index);
@@ -86,7 +86,7 @@ void stakingChangeCandidate(const Data& candidate, uint64_t index,const Data& pa
     return TWDataCreateWithHexString(&actionHex);
 }
 
-void stakingTransfer(const Data& candidate, uint64_t index,const Data& payload){
+TWData* _Nonnull stakingTransfer(const Data& candidate, uint64_t index,const Data& payload){
     auto action = IoTeX::Proto::StakeMove();
     action.set_name(charFromTWData(candidate));
     action.set_bucketindex(index);
@@ -96,12 +96,12 @@ void stakingTransfer(const Data& candidate, uint64_t index,const Data& payload){
     return TWDataCreateWithHexString(&actionHex);
 }
 
-void candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration, bool autoStake, const Data& ownerAddress,const Data& payload){
-    
+TWData* _Nonnull candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration, bool autoStake, const Data& ownerAddress,const Data& payload){
+    return 0;
 }
 
-void candidateUpdate(const Data& name,const Data& operatorAddress,const Data& rewardAddress){
-    
+TWData* _Nonnull candidateUpdate(const Data& name,const Data& operatorAddress,const Data& rewardAddress){
+    return 0;
 }
 // void stakingStake(const Data& candidate, uint64_t stakeDuration, bool nonDecay, const Data& dataIn, Data& dataOut) {
 //     Function func("createPygg");
