@@ -10,7 +10,7 @@
 #include "Data.h"
 // #include "uint256.h"
 #include "HexCoding.h"
-
+#include "TWData.h"
 namespace TW::IoTeX {
 
 // using namespace TW::Ethereum::ABI;
