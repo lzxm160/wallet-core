@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Data.h"
+#include "proto/IoTeX.pb.h"
 
 namespace TW::IoTeX {
 
