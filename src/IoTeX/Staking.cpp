@@ -97,10 +97,13 @@ TWData* _Nonnull stakingTransfer(uint64_t index,const Data& voterAddress, const 
 }
 
 TWData* _Nonnull candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration, bool autoStake, const Data& ownerAddress,const Data& payload){
+    auto cbi = IoTeX::Proto::CandidateBasicInfo();
+    cbi.set_name(charFromTWData(name)); 
+    cbi.set_operatoraddress(charFromTWData(operatorAddress)); 
+    cbi.set_rewardaddress(charFromTWData(rewardAddress)); 
+
     auto action = IoTeX::Proto::CandidateRegister();
-    action.set_name(charFromTWData(name)); 
-    action.set_operatoraddress(charFromTWData(operatorAddress));
-    action.set_rewardaddress(charFromTWData(rewardAddress)); 
+    action.set_allocated_candidate(&cbi);
     action.set_stakedamount(charFromTWData(amount));
     action.set_stakedduration(duration); 
     action.set_autostake(autoStake);
