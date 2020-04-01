@@ -48,6 +48,6 @@ void stakingChangeCandidate(const Data& candidate, uint64_t index,const Data& pa
 void stakingTransfer(const Data& candidate, uint64_t index,const Data& payload);
 
 /// Function to generate candidate register message
-void candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration,, bool autoStake, const Data& ownerAddress,const Data& payload);
+void candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration, bool autoStake, const Data& ownerAddress,const Data& payload);
 
 } // namespace TW::IoTeX

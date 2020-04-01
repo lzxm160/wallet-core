@@ -9,7 +9,6 @@
 #include "Data.h"
 
 #include "proto/IoTeX.pb.h"
-#include "Protobuf/action.pb.h"
 
 namespace TW::IoTeX {
 

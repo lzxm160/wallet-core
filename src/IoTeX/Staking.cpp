@@ -6,13 +6,13 @@
 
 #include "Staking.h"
 
-#include "Ethereum/ABI/Function.h"
+// #include "Ethereum/ABI/Function.h"
 #include "Data.h"
 #include "uint256.h"
 
 namespace TW::IoTeX {
 
-using namespace TW::Ethereum::ABI;
+// using namespace TW::Ethereum::ABI;
 const char* charFromTWData(const Data& data) {
     return reinterpret_cast<const char *>(&data[0])
     // auto v = const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
@@ -94,7 +94,7 @@ void stakingTransfer(const Data& candidate, uint64_t index,const Data& payload){
     return TWDataCreateWithHexString(&actionHex);
 }
 
-void candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration,, bool autoStake, const Data& ownerAddress,const Data& payload){
+void candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration, bool autoStake, const Data& ownerAddress,const Data& payload){
     
 }
 
