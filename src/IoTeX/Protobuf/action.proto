@@ -22,6 +22,64 @@ message Execution {
   bytes data = 3;
 }
 
+// create stake
+message StakeCreate {
+  string candidateName = 1;
+  string stakedAmount = 2;
+  uint32 stakedDuration = 3;
+  bool autoStake = 4;
+  bytes payload = 5;
+}
+
+// unstake or withdraw
+message StakeReclaim {
+  uint64 bucketIndex = 1;
+  bytes payload = 2;
+}
+
+// add the amount of bucket 
+message StakeAddDeposit {
+  uint64 bucketIndex = 1;
+  string amount = 2;
+  bytes payload = 3;
+}
+
+// restake the duration and autoStake flag of bucket 
+message StakeRestake {
+  uint64 bucketIndex = 1;
+  uint32 stakedDuration = 2;
+  bool autoStake = 3;
+  bytes payload = 4;
+}
+
+// move the bucket to vote for another candidate or transfer the ownership of bucket to another voters
+message StakeChangeCandidate {
+  uint64 bucketIndex = 1;
+  string candidateName = 2;
+  bytes payload = 3;
+}
+
+message StakeTransferOwnership {
+  uint64 bucketIndex = 1;
+  string voterAddress = 2;
+  bytes payload = 3;
+}
+
+message CandidateBasicInfo {
+  string name = 1;
+  string operatorAddress = 2;
+  string rewardAddress = 3;
+}
+
+message CandidateRegister {
+  CandidateBasicInfo candidate = 1;
+  string stakedAmount = 2;
+  uint32 stakedDuration = 3;
+  bool autoStake = 4;
+  string ownerAddress = 5; // if ownerAddress is absent, owner of candidate is the sender
+  bytes payload = 6;
+}
+
 message ActionCore {
   uint32 version = 1;
   uint64 nonce = 2;
