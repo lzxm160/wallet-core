@@ -24,7 +24,7 @@ Data Signer::sign() const {
 }
 
 Proto::SigningOutput Signer::build() const {
-    auto signedAction = iotextypes::Action();
+    auto signedAction = Proto::Action();
     signedAction.mutable_core()->MergeFrom(action);
     auto key = PrivateKey(input.privatekey());
     auto pk = key.getPublicKey(TWPublicKeyTypeSECP256k1Extended).bytes;
@@ -32,7 +32,7 @@ Proto::SigningOutput Signer::build() const {
     auto sig = key.sign(hash(), TWCurveSECP256k1);
     signedAction.set_signature(sig.data(), sig.size());
 
-    auto output = IoTeX::Proto::SigningOutput();
+    auto output = Proto::SigningOutput();
     auto serialized = signedAction.SerializeAsString();
     output.set_encoded(serialized);
     auto h = Hash::keccak256(serialized);
