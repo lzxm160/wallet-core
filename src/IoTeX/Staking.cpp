@@ -98,6 +98,9 @@ void candidateRegister(const Data& name,const Data& operatorAddress,const Data& 
     
 }
 
+void candidateUpdate(const Data& name,const Data& operatorAddress,const Data& rewardAddress){
+    
+}
 // void stakingStake(const Data& candidate, uint64_t stakeDuration, bool nonDecay, const Data& dataIn, Data& dataOut) {
 //     Function func("createPygg");
 //     func.addInParam(std::make_shared<ParamByteArrayFix>(12, candidate));

@@ -19,7 +19,7 @@ class Signer {
     static Proto::SigningOutput sign(const Proto::SigningInput& input) noexcept;
   public:
     Proto::SigningInput input;
-    iotextypes::ActionCore action;
+    Proto::ActionCore action;
 
     /// Initializes a transaction signer
     Signer(const Proto::SigningInput& input) : input(input) { toActionCore(); }
