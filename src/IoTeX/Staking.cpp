@@ -94,14 +94,8 @@ void stakingTransfer(const Data& candidate, uint64_t index,const Data& payload){
     return TWDataCreateWithHexString(&actionHex);
 }
 
-void candidateRegister(const CandidateBasicInfo& candidate,const Data& amount,uint32_t duration,, bool autoStake, const Data& ownerAddress,const Data& payload){
-    auto action = IoTeX::Proto::StakeMove();
-    action.set_name(charFromTWData(candidate));
-    action.set_bucketindex(index);
-    action.set_payload(charFromTWData(payload));
-    auto s = action.SerializeAsString();
-    auto actionHex = hex(s.begin(), s.end());
-    return TWDataCreateWithHexString(&actionHex);
+void candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration,, bool autoStake, const Data& ownerAddress,const Data& payload){
+    
 }
 
 // void stakingStake(const Data& candidate, uint64_t stakeDuration, bool nonDecay, const Data& dataIn, Data& dataOut) {
