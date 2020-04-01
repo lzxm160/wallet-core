@@ -9,45 +9,36 @@ message Transfer {
     bytes payload  = 3;
 }
 
-message Staking {
-    message Stake {
-        string candidate = 1;
-        uint64 duration = 2;
-        bool nonDecay= 3;
-        bytes data = 4;
-    }
-    
-    message Unstake {
-        uint64 piggy_index = 1;
-        bytes data = 2;
-    }
+message StakeCreate {
+  string candidateName = 1;
+  string stakedAmount = 2;
+  uint32 stakedDuration = 3;
+  bool autoStake = 4;
+  bytes payload = 5;
+}
 
-    message Withdraw {
-        uint64 piggy_index = 1;
-        bytes data = 2;
-    }
+message StakeReclaim {
+  uint64 bucketIndex = 1;
+  bytes payload = 2;
+}
 
-    message AddStake {
-        uint64 piggy_index = 1;
-        bytes data = 2;
-    }
+message StakeAddDeposit {
+  uint64 bucketIndex = 1;
+  string amount = 2;
+  bytes payload = 3;
+}
 
-    message MoveStake {
-        uint64 piggy_index = 1;
-        string candidate = 2;
-        bytes data = 3;
-    }
+message StakeRestake {
+  uint64 bucketIndex = 1;
+  uint32 stakedDuration = 2;
+  bool autoStake = 3;
+  bytes payload = 4;
+}
 
-    string amount  = 1;
-    string contract = 2;
-
-    oneof message {
-        Stake stake = 3;
-        Unstake unstake = 4;
-        Withdraw withdraw = 5;
-        AddStake addStake = 6;
-        MoveStake moveStake = 7;
-  }
+message StakeMove {
+  uint64 bucketIndex = 1;
+  string name = 2;
+  bytes payload = 3;
 }
 
 message ContractCall {
@@ -65,8 +56,16 @@ message SigningInput {
     bytes privateKey = 5;
     oneof action {
         Transfer transfer = 10;
-        Staking staking = 11;
         ContractCall call = 12;
+        StakeCreate stakeCreate = 40;
+        StakeReclaim stakeUnstake = 41;
+        StakeReclaim stakeWithdraw = 42;
+        StakeAddDeposit stakeAddDeposit = 43;
+        StakeRestake stakeRestake = 44;
+        StakeChangeCandidate stakeChangeCandidate = 45;
+        StakeTransferOwnership stakeTransferOwnership = 46;
+        CandidateRegister candidateRegister = 47;
+        CandidateBasicInfo candidateUpdate = 48;
   }
 }
 
