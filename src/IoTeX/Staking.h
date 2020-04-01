@@ -8,7 +8,7 @@
 
 #include "Data.h"
 #include "proto/IoTeX.pb.h"
-
+#include <TrustWalletCore/TWData.h>
 namespace TW::IoTeX {
 
 // /// Function to generate Stake message
