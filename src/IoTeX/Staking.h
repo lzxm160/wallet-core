@@ -43,10 +43,10 @@ TWData* _Nonnull stakingWithdraw(uint64_t index, const Data& payload);
 TWData* _Nonnull stakingRestake(uint64_t index, uint32_t duration, bool autoStake,const Data& payload);
 
 /// Function to generate ChangeCandidate message
-TWData* _Nonnull stakingChangeCandidate(const Data& candidate, uint64_t index,const Data& payload);
+TWData* _Nonnull stakingChangeCandidate(uint64_t index,const Data& candidate, const Data& payload);
 
 /// Function to generate Transfer message
-TWData* _Nonnull stakingTransfer(const Data& candidate, uint64_t index,const Data& payload);
+TWData* _Nonnull stakingTransfer(uint64_t index,const Data& voterAddress, const Data& payload);
 
 /// Function to generate candidate register message
 TWData* _Nonnull candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration, bool autoStake, const Data& ownerAddress,const Data& payload);

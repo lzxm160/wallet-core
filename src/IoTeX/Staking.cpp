@@ -76,20 +76,20 @@ TWData* _Nonnull stakingRestake(uint64_t index, uint32_t duration, bool autoStak
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull stakingChangeCandidate(const Data& candidate, uint64_t index,const Data& payload){
-    auto action = IoTeX::Proto::StakeMove();
-    action.set_name(charFromTWData(candidate));
+TWData* _Nonnull stakingChangeCandidate(uint64_t index,const Data& candidate, const Data& payload){
+    auto action = IoTeX::Proto::StakeChangeCandidate();
     action.set_bucketindex(index);
+    action.set_candidatename(charFromTWData(candidate));
     action.set_payload(charFromTWData(payload));
     auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull stakingTransfer(const Data& candidate, uint64_t index,const Data& payload){
-    auto action = IoTeX::Proto::StakeMove();
-    action.set_name(charFromTWData(candidate));
+TWData* _Nonnull stakingTransfer(uint64_t index,const Data& voterAddress, const Data& payload){
+    auto action = IoTeX::Proto::StakeTransferOwnership();
     action.set_bucketindex(index);
+    action.set_voteraddress(charFromTWData(voterAddress));
     action.set_payload(charFromTWData(payload));
     auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
@@ -97,8 +97,14 @@ TWData* _Nonnull stakingTransfer(const Data& candidate, uint64_t index,const Dat
 }
 
 TWData* _Nonnull candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration, bool autoStake, const Data& ownerAddress,const Data& payload){
-    auto action = IoTeX::Proto::StakeMove();
-    action.set_name(charFromTWData(name));
+    auto action = IoTeX::Proto::CandidateRegister();
+    action.set_name(charFromTWData(name)); 
+    action.set_operatoraddress(charFromTWData(operatorAddress));
+    action.set_rewardaddress(charFromTWData(rewardAddress)); 
+    action.set_stakedamount(charFromTWData(amount));
+    action.set_stakedduration(duration); 
+    action.set_autostake(autoStake);
+    action.set_owneraddress(charFromTWData(ownerAddress));
     action.set_payload(charFromTWData(payload));
     auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
@@ -106,9 +112,10 @@ TWData* _Nonnull candidateRegister(const Data& name,const Data& operatorAddress,
 }
 
 TWData* _Nonnull candidateUpdate(const Data& name,const Data& operatorAddress,const Data& rewardAddress){
-    auto action = IoTeX::Proto::StakeMove();
-    action.set_name(charFromTWData(name));
-    action.set_payload(charFromTWData(operatorAddress));
+    auto action = IoTeX::Proto::CandidateBasicInfo();
+    action.set_name(charFromTWData(name)); 
+    action.set_operatoraddress(charFromTWData(operatorAddress)); 
+    action.set_rewardaddress(charFromTWData(rewardAddress)); 
     auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(&actionHex);
