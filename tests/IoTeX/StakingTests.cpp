@@ -8,9 +8,9 @@
 #include "HexCoding.h"
 #include "IoTeX/Signer.h"
 #include "IoTeX/Staking.h"
+#include "PrivateKey.h"
 #include "proto/IoTeX.pb.h"
 #include "../interface/TWTestUtilities.h"
-#include "PrivateKey.h
 #include <gtest/gtest.h>
 
 using namespace TW;
