@@ -111,9 +111,7 @@ TEST(TWIoTeXStaking, CandidateRegister) {
 
     auto stake = WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(),
                                          amount.get(), 10000, false, owner.get(), payload.get()));
-    std::cout << "want to know what happend2:" << std::endl;
     auto result = dataFromTWData(stake.get());
-    std::cout << "want to know what happend3:" << hex(*result) << std::endl;
     ASSERT_EQ(hex(*result),
               "0a5c0a04746573741229696f3130613239387a6d7a7672743467757137396139663478377165646a3539"
               "7937657279383468651a29696f3133736a396d7a7065776e3235796d6865756b74653476333968766a64"
@@ -379,55 +377,54 @@ TEST(TWIoTeXStaking, SignTransfer) {
               "74b2e1d6a09ba5d1298fa422d5850991ae516865077282196295a38f93c78b85");
 }
 
-// TEST(TWIoTeXStaking, SignCandidateRegister) {
-//     auto input = Proto::SigningInput();
-//     input.set_version(1);
-//     input.set_nonce(0);
-//     input.set_gaslimit(1000000);
-//     input.set_gasprice("1000");
-//     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
-//     input.set_privatekey(keyhex.data(), keyhex.size());
+TEST(TWIoTeXStaking, SignCandidateRegister) {
+    auto input = Proto::SigningInput();
+    input.set_version(1);
+    input.set_nonce(0);
+    input.set_gaslimit(1000000);
+    input.set_gasprice("1000");
+    auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+    input.set_privatekey(keyhex.data(), keyhex.size());
 
-//     const char* IOTEX_STAKING_NAME = "test";
-//     const char* IOTEX_STAKING_OPERATOR = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he";
-//     const char* IOTEX_STAKING_REWARD = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv";
-//     const char* IOTEX_STAKING_OWNER = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
-//     const char* IOTEX_STAKING_AMOUNT = "100";
-//     const char* IOTEX_STAKING_PAYLOAD = "payload";
+    const char* IOTEX_STAKING_NAME = "test";
+    const char* IOTEX_STAKING_OPERATOR = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he";
+    const char* IOTEX_STAKING_REWARD = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv";
+    const char* IOTEX_STAKING_OWNER = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
+    const char* IOTEX_STAKING_AMOUNT = "100";
+    const char* IOTEX_STAKING_PAYLOAD = "payload";
 
-//     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-//     auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
-//     auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
-//     auto owner = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OWNER, 41));
-//     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-//     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
+    auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
+    auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
+    auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
+    auto owner = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OWNER, 41));
+    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
+    auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
 
-//     auto stake = WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(),
-//                                          amount.get(), 10000, false, owner.get(),
-//                                          payload.get()));
-//     auto staking = input.mutable_candidateregister();
-//     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
-//     auto signer = IoTeX::Signer(std::move(input));
-//     // raw action's hash
-//     ASSERT_EQ(hex(signer.hash()),
-//               "769725930ed38023058bb4f01c220feef2e3e40febb36856dfb780c4f7b1ea9b");
-//     // build() signs the tx
-//     auto output = signer.build();
-//     // signed action's serialized bytes
-//     auto encoded = output.encoded();
-//     ASSERT_EQ(
-//         hex(encoded.begin(), encoded.end()),
-//         "0aaa01080118c0843d220431303030fa029a010a5c0a04746573741229696f3130613239387a6d7a7672743467"
-//         "757137396139663478377165646a35397937657279383468651a29696f3133736a396d7a7065776e3235796d68"
-//         "65756b74653476333968766a647472667030306d6c7976120331303018904e2a29696f31396430703361683467"
-//         "3877773964376b63786671383779786537666e7238727074683573686a32077061796c6f6164124104755ce6d8"
-//         "903f6b3793bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b58"
-//         "3c0bc76ef30dd6a1038ed9da8daf331a417819b5bcb635e3577acc8ca757f2c3d6afa451c2b6ff8a9179b141ac"
-//         "68e2c50305679e5d09d288da6f0fb52876a86c74deab6a5247edc6d371de5c2f121e159400");
-//     // signed action's hash
-//     ASSERT_EQ(hex(output.hash()),
-//               "35f53a536e014b32b85df50483ef04849b80ad60635b3b1979c5ba1096b65237");
-// }
+    auto stake = WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(),
+                                         amount.get(), 10000, false, owner.get(), payload.get()));
+    auto staking = input.mutable_candidateregister();
+    staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
+    auto signer = IoTeX::Signer(std::move(input));
+    // raw action's hash
+    ASSERT_EQ(hex(signer.hash()),
+              "769725930ed38023058bb4f01c220feef2e3e40febb36856dfb780c4f7b1ea9b");
+    // build() signs the tx
+    auto output = signer.build();
+    // signed action's serialized bytes
+    auto encoded = output.encoded();
+    ASSERT_EQ(
+        hex(encoded.begin(), encoded.end()),
+        "0aaa01080118c0843d220431303030fa029a010a5c0a04746573741229696f3130613239387a6d7a7672743467"
+        "757137396139663478377165646a35397937657279383468651a29696f3133736a396d7a7065776e3235796d68"
+        "65756b74653476333968766a647472667030306d6c7976120331303018904e2a29696f31396430703361683467"
+        "3877773964376b63786671383779786537666e7238727074683573686a32077061796c6f6164124104755ce6d8"
+        "903f6b3793bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b58"
+        "3c0bc76ef30dd6a1038ed9da8daf331a417819b5bcb635e3577acc8ca757f2c3d6afa451c2b6ff8a9179b141ac"
+        "68e2c50305679e5d09d288da6f0fb52876a86c74deab6a5247edc6d371de5c2f121e159400");
+    // signed action's hash
+    ASSERT_EQ(hex(output.hash()),
+              "35f53a536e014b32b85df50483ef04849b80ad60635b3b1979c5ba1096b65237");
+}
 
 TEST(TWIoTeXStaking, SignCandidateUpdate) {
     auto input = Proto::SigningInput();
