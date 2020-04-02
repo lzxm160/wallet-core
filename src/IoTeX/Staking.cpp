@@ -113,13 +113,16 @@ TWData* _Nullable candidateRegister(TWData* _Nonnull name, TWData* _Nonnull oper
 
     auto action = IoTeX::Proto::CandidateRegister();
     action.set_allocated_candidate(&cbi);
+    std::cout << "1166666666666666666666666666" << std::endl;
     action.set_stakedamount(charFromTWData(amount));
     action.set_stakedduration(duration);
     action.set_autostake(autoStake);
     action.set_owneraddress(charFromTWData(ownerAddress));
     action.set_payload(charFromTWData(payload));
     auto s = action.SerializeAsString();
+    std::cout << "action.SerializeAsString():" << s << std::endl;
     auto actionHex = hex(s.begin(), s.end());
+    std::cout << "want to know what happend" << std::endl;
     return TWDataCreateWithHexString(&actionHex);
 }
 
