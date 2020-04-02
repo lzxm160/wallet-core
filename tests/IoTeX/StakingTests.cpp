@@ -24,7 +24,7 @@ TEST(TWIoTeXStaking, Create) {
     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
-    auto stake = WRAPD(TWIoTeXStakingCreate(candidate.get(), amount.get(), 1000, true, payload.get()));
+    auto stake = WRAPD(stakingCreate(candidate.get(), amount.get(), 1000, true, payload.get()));
 
     auto result = dataFromTWData(stake.get());
 
@@ -34,7 +34,7 @@ TEST(TWIoTeXStaking, Create) {
 TEST(TWIoTeXStaking, AddDeposit) {
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
-    auto stake = WRAPD(TWIoTeXStakingAddDeposit(10, amount.get(), payload.get()));
+    auto stake = WRAPD(stakingAddDeposit(10, amount.get(), payload.get()));
 
     auto result = dataFromTWData(stake.get());
 
@@ -43,7 +43,7 @@ TEST(TWIoTeXStaking, AddDeposit) {
 
 TEST(TWIoTeXStaking, Unstake) {
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto stake = WRAPD(TWIoTeXStakingUnstake(10, payload.get()));
+    auto stake = WRAPD(stakingUnstake(10, payload.get()));
 
     auto result = dataFromTWData(stake.get());
 
@@ -52,7 +52,7 @@ TEST(TWIoTeXStaking, Unstake) {
 
 TEST(TWIoTeXStaking, Withdraw) {
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto stake = WRAPD(TWIoTeXStakingWithdraw(10, payload.get()));
+    auto stake = WRAPD(stakingWithdraw(10, payload.get()));
 
     auto result = dataFromTWData(stake.get());
 
@@ -61,7 +61,7 @@ TEST(TWIoTeXStaking, Withdraw) {
 
 TEST(TWIoTeXStaking, Restake) {
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto stake = WRAPD(TWIoTeXStakingRestake(10, 1000, true, payload.get()));
+    auto stake = WRAPD(stakingRestake(10, 1000, true, payload.get()));
 
     auto result = dataFromTWData(stake.get());
 
@@ -71,7 +71,7 @@ TEST(TWIoTeXStaking, Restake) {
 TEST(TWIoTeXStaking, ChangeCandidate) {
     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto stake = WRAPD(TWIoTeXStakingChangeCandidate(candidate.get(), 10, payload.get()));
+    auto stake = WRAPD(stakingChangeCandidate(candidate.get(), 10, payload.get()));
 
     auto result = dataFromTWData(stake.get());
 
@@ -81,7 +81,7 @@ TEST(TWIoTeXStaking, ChangeCandidate) {
 TEST(TWIoTeXStaking, Transfer) {
     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto stake = WRAPD(TWIoTeXStakingTransfer(candidate.get(), 10, payload.get()));
+    auto stake = WRAPD(stakingTransfer(candidate.get(), 10, payload.get()));
 
     auto result = dataFromTWData(stake.get());
 
@@ -102,7 +102,7 @@ TEST(TWIoTeXStaking, SignCreate) {
     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
-    auto stake = WRAPD(TWIoTeXStakingCreate(candidate.get(), amount.get(), 1000, true, payload.get()));
+    auto stake = WRAPD(stakingCreate(candidate.get(), amount.get(), 1000, true, payload.get()));
     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
@@ -128,7 +128,7 @@ TEST(TWIoTeXStaking, SignAddDeposit) {
     auto staking = input.mutable_stakeadddeposit();
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
-    auto stake = WRAPD(TWIoTeXStakingAddDeposit(10, amount.get(), payload.get()));
+    auto stake = WRAPD(stakingAddDeposit(10, amount.get(), payload.get()));
     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
@@ -156,7 +156,7 @@ TEST(TWIoTeXStaking, SignUnstake) {
 
     auto staking = input.mutable_stakeunstake();
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto stake = WRAPD(TWIoTeXStakingUnstake(10, payload.get()));
+    auto stake = WRAPD(stakingUnstake(10, payload.get()));
     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
@@ -183,7 +183,7 @@ TEST(TWIoTeXStaking, SignWithdraw) {
 
     auto staking = input.mutable_stakewithdraw();
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto stake = WRAPD(TWIoTeXStakingWithdraw(10, payload.get()));
+    auto stake = WRAPD(stakingWithdraw(10, payload.get()));
     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
@@ -210,7 +210,7 @@ TEST(TWIoTeXStaking, SignRestake) {
     // staking is implemented using the stakerestake message
     auto staking = input.mutable_stakerestake();
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto stake = WRAPD(TWIoTeXStakingRestake(10, 1000, true, payload.get()));
+    auto stake = WRAPD(stakingRestake(10, 1000, true, payload.get()));
     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
@@ -240,7 +240,7 @@ TEST(TWIoTeXStaking, SignChangeCandidate) {
     auto staking = input.mutable_stakechangecandidate();
     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto stake = WRAPD(TWIoTeXStakingChangeCandidate(candidate.get(), 10, payload.get()));
+    auto stake = WRAPD(stakingChangeCandidate(candidate.get(), 10, payload.get()));
     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
@@ -270,7 +270,7 @@ TEST(TWIoTeXStaking, SignTransfer) {
     auto staking = input.mutable_staketransferownership();
     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto stake = WRAPD(TWIoTeXStakingTransfer(candidate.get(), 10, payload.get()));
+    auto stake = WRAPD(stakingTransfer(candidate.get(), 10, payload.get()));
     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
