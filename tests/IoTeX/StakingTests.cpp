@@ -432,7 +432,7 @@ TEST(TWIoTeXStaking, SignTransfer) {
 TEST(TWIoTeXStaking, SignCandidateUpdate) {
     auto input = Proto::SigningInput();
     input.set_version(1);
-    input.set_nonce(20);
+    input.set_nonce(0);
     input.set_gaslimit(1000000);
     input.set_gasprice("10");
     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
@@ -441,7 +441,6 @@ TEST(TWIoTeXStaking, SignCandidateUpdate) {
     const char* IOTEX_STAKING_NAME = "test";
     const char* IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
     const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
-
     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
     auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
     auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
