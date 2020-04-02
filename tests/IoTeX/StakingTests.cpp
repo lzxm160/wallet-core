@@ -159,7 +159,7 @@ TEST(TWIoTeXStaking, SignCreate) {
     auto staking = input.mutable_stakecreate();
     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
+    auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
     auto stake = WRAPD(stakingCreate(candidate.get(), amount.get(), 10000, true, payload.get()));
     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto signer = IoTeX::Signer(std::move(input));
