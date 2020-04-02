@@ -12,10 +12,10 @@
 #include "HexCoding.h"
 #include <TrustWalletCore/TWData.h>
 #include <TrustWalletCore/TWString.h>
+using namespace TW;
+
 namespace TW::IoTeX {
 
-// using namespace TW::Ethereum::ABI;
-using namespace TW;
 const char* charFromTWData(TWData* _Nonnull data) {
     // return (char*)data;
     // auto v = const_cast<std::vector<uint8_t>*>(reinterpret_cast<const
@@ -27,6 +27,7 @@ const char* charFromTWData(TWData* _Nonnull data) {
     return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
     // return TWStringUTF8Bytes(TWStringCreateWithHexData(data));
 }
+
 TWData* _Nullable stakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,
                                 uint32_t duration, bool autoStake, TWData* payload) {
     auto action = IoTeX::Proto::StakeCreate();
