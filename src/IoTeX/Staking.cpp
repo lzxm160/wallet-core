@@ -11,6 +11,7 @@
 // #include "uint256.h"
 #include "HexCoding.h"
 #include <TrustWalletCore/TWData.h>
+#include <TrustWalletCore/TWString.h>
 namespace TW::IoTeX {
 
 // using namespace TW::Ethereum::ABI;
@@ -23,8 +24,8 @@ const char* charFromTWData(TWData* _Nonnull data) {
     // // append null terminator
     // s->append(size, '\0');
     // return s->data();
-    // return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
-    return TWStringUTF8Bytes(TWStringCreateWithHexData(data));
+    return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
+    // return TWStringUTF8Bytes(TWStringCreateWithHexData(data));
 }
 TWData* _Nonnull stakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,
                                uint32_t duration, bool autoStake, TWData* _Nonnull payload) {

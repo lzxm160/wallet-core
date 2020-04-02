@@ -16,10 +16,6 @@
 using namespace TW;
 using namespace TW::IoTeX;
 
-// static const char* IOTEX_STAKING_CANDIDATE = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
-// static const char* IOTEX_STAKING_PAYLOAD = "payload";
-// static const char* IOTEX_STAKING_AMOUNT = "10";
-
 TEST(TWIoTeXStaking, Create) {
     const char* IOTEX_STAKING_CANDIDATE = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
     const char* IOTEX_STAKING_PAYLOAD = "payload";
