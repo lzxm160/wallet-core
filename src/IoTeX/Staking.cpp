@@ -106,13 +106,13 @@ TWData* _Nullable candidateRegister(TWData* _Nonnull name, TWData* _Nonnull oper
                                     TWData* _Nonnull rewardAddress, TWData* _Nonnull amount,
                                     uint32_t duration, bool autoStake,
                                     TWData* _Nonnull ownerAddress, TWData* payload) {
-    auto cbi = IoTeX::Proto::CandidateBasicInfo();
-    cbi.set_name(charFromTWData(name));
-    cbi.set_operatoraddress(charFromTWData(operatorAddress));
-    cbi.set_rewardaddress(charFromTWData(rewardAddress));
+    // auto cbi = IoTeX::Proto::CandidateBasicInfo();
+    // cbi.set_name(charFromTWData(name));
+    // cbi.set_operatoraddress(charFromTWData(operatorAddress));
+    // cbi.set_rewardaddress(charFromTWData(rewardAddress));
 
     auto action = IoTeX::Proto::CandidateRegister();
-    action.set_allocated_candidate(&cbi);
+    // action.set_allocated_candidate(&cbi);
     std::cout << "1166666666666666666666666666" << std::endl;
     action.set_stakedamount(charFromTWData(amount));
     action.set_stakedduration(duration);
