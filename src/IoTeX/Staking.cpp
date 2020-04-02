@@ -24,6 +24,7 @@ const char* charFromTWData(TWData* _Nonnull data) {
     // s->append(size, '\0');
     // return s->data();
     // return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
+    // return TWStringUTF8Bytes(TWStringCreateWithHexData(data));
 }
 TWData* _Nonnull stakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,
                                uint32_t duration, bool autoStake, TWData* _Nonnull payload) {

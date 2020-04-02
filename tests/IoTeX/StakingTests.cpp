@@ -98,7 +98,7 @@ TEST(TWIoTeXStaking, Transfer) {
                             "6e6b7079636333677a611a077061796c6f6164");
 }
 
-TEST(TWIoTeXStaking, Candidate Register) {
+TEST(TWIoTeXStaking, CandidateRegister) {
     const char* IOTEX_STAKING_NAME = "test";
     const char* IOTEX_STAKING_OPERATOR = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he";
     const char* IOTEX_STAKING_REWARD = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv";
@@ -124,7 +124,7 @@ TEST(TWIoTeXStaking, Candidate Register) {
               "71383779786537666e7238727074683573686a32077061796c6f6164");
 }
 
-TEST(TWIoTeXStaking, Candidate Update) {
+TEST(TWIoTeXStaking, CandidateUpdate) {
     const char* IOTEX_STAKING_NAME = "test";
     const char* IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
     const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
