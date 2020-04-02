@@ -107,14 +107,14 @@ TEST(TWIoTeXStaking, CandidateRegister) {
     const char* IOTEX_STAKING_PAYLOAD = "payload";
 
     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-    auto operator= WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
+    auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
     auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
     auto owner = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OWNER, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
 
-    auto stake = WRAPD(candidateRegister(name.get(), operator.get(), reward.get(), amount.get(),
-                                         10000, false, owner.get(), payload.get()));
+    auto stake = WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(),
+                                         amount.get(), 10000, false, owner.get(), payload.get()));
     auto result = dataFromTWData(stake.get());
 
     ASSERT_EQ(hex(*result),
@@ -130,10 +130,10 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
     const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
 
     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-    auto operator= WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
+    auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
     auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
 
-    auto stake = WRAPD(candidateUpdate(name.get(), operator.get(), reward.get()));
+    auto stake = WRAPD(candidateUpdate(name.get(), operatorAddress.get(), reward.get()));
     auto result = dataFromTWData(stake.get());
 
     ASSERT_EQ(hex(*result), "0a04746573741229696f31636c36726c32657635646661393838716d677a6732783468"
@@ -399,14 +399,14 @@ TEST(TWIoTeXStaking, SignCandidateRegister) {
     const char* IOTEX_STAKING_PAYLOAD = "payload";
 
     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-    auto operator= WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
+    auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
     auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
     auto owner = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OWNER, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
 
-    auto stake = WRAPD(candidateRegister(name.get(), operator.get(), reward.get(), amount.get(),
-                                         10000, false, owner.get(), payload.get()));
+    auto stake = WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(),
+                                         amount.get(), 10000, false, owner.get(), payload.get()));
     auto staking = input.mutable_candidateregister();
     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto signer = IoTeX::Signer(std::move(input));
@@ -445,10 +445,10 @@ TEST(TWIoTeXStaking, SignCandidateUpdate) {
     const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
 
     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-    auto operator= WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
+    auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
     auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
 
-    auto stake = WRAPD(candidateUpdate(name.get(), operator.get(), reward.get()));
+    auto stake = WRAPD(candidateUpdate(name.get(), operatorAddress.get(), reward.get()));
     auto staking = input.mutable_candidateupdate();
     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto signer = IoTeX::Signer(std::move(input));
