@@ -80,10 +80,10 @@ TEST(TWIoTeXStaking, ChangeCandidate) {
     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto stake = WRAPD(stakingChangeCandidate(10, candidate.get(), payload.get()));
-    auto result = dataFromTWData(stake.get())
+    auto result = dataFromTWData(stake.get());
 
-        ASSERT_EQ(hex(*result), "080a1229696f3178707136326177383575717a72636367397935686e727976386c"
-                                "64326e6b7079636333677a611a077061796c6f6164");
+    ASSERT_EQ(hex(*result), "080a1229696f3178707136326177383575717a72636367397935686e727976386c"
+                            "64326e6b7079636333677a611a077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, Transfer) {
