@@ -108,14 +108,9 @@ TEST(TWIoTeXStaking, candidateRegister) {
     auto owner = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OWNER, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
-    // candidateRegister(TWData* _Nonnull name, TWData* _Nonnull operatorAddress,
-    //                                    TWData* _Nonnull rewardAddress, TWData* _Nonnull
-    amount,
-        //                                    uint32_t duration, bool autoStake, TWData* _Nonnull
-        //                                    ownerAddress, TWData* _Nonnull payload)
-        auto stake =
-            WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(), amount.get(),
-                                    10000, false, owner.get(), payload.get()));
+
+    auto stake = WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(),
+                                         amount.get(), 10000, false, owner.get(), payload.get()));
     auto result = dataFromTWData(stake.get());
 
     ASSERT_EQ(hex(*result),
