@@ -431,7 +431,7 @@ TEST(TWIoTeXStaking, SignTransfer) {
 TEST(TWIoTeXStaking, SignCandidateUpdate) {
     auto input = Proto::SigningInput();
     input.set_version(1);
-    input.set_nonce(0);
+    input.set_nonce(20);
     input.set_gaslimit(200000);
     input.set_gasprice("2000");
     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
