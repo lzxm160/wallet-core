@@ -28,39 +28,34 @@ namespace TW::IoTeX {
 // dataOut); struct TWIoTeXStaking;
 
 /// Function to generate Create message
-TWData* _Nonnull stakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,
-                               uint32_t duration, bool autoStake, TWData* _Nonnull payload);
+const char* stakingCreate(const char* candidate, const char* amount, uint32_t duration,
+                          bool autoStake, const char* payload);
 
 /// Function to generate AddDeposit message
-TWData* _Nonnull stakingAddDeposit(uint64_t index, TWData* _Nonnull amount,
-                                   TWData* _Nonnull payload);
+const char* stakingAddDeposit(uint64_t index, const char* amount, const char* payload);
 
 /// Function to generate Unstake message
-TWData* _Nonnull stakingUnstake(uint64_t index, TWData* _Nonnull payload);
+const char* stakingUnstake(uint64_t index, const char* payload);
 
 /// Function to generate Withdraw message
-TWData* _Nonnull stakingWithdraw(uint64_t index, TWData* _Nonnull payload);
+const char* stakingWithdraw(uint64_t index, const char* payload);
 
 /// Function to generate Restake message
-TWData* _Nonnull stakingRestake(uint64_t index, uint32_t duration, bool autoStake,
-                                TWData* _Nonnull payload);
+const char* stakingRestake(uint64_t index, uint32_t duration, bool autoStake, const char* payload);
 
 /// Function to generate ChangeCandidate message
-TWData* _Nonnull stakingChangeCandidate(uint64_t index, TWData* _Nonnull candidate,
-                                        TWData* _Nonnull payload);
+const char* stakingChangeCandidate(uint64_t index, const char* candidate, const char* payload);
 
 /// Function to generate Transfer message
-TWData* _Nonnull stakingTransfer(uint64_t index, TWData* _Nonnull voterAddress,
-                                 TWData* _Nonnull payload);
+const char* stakingTransfer(uint64_t index, const char* voterAddress, const char* payload);
 
 /// Function to generate candidate register message
-TWData* _Nonnull candidateRegister(TWData* _Nonnull name, TWData* _Nonnull operatorAddress,
-                                   TWData* _Nonnull rewardAddress, TWData* _Nonnull amount,
-                                   uint32_t duration, bool autoStake, TWData* _Nonnull ownerAddress,
-                                   TWData* _Nonnull payload);
+const char* candidateRegister(const char* name, const char* operatorAddress,
+                              const char* rewardAddress, const char* amount, uint32_t duration,
+                              bool autoStake, const char* ownerAddress, const char* payload);
 
 /// Function to generate candidate update message
-TWData* _Nonnull candidateUpdate(TWData* _Nonnull name, TWData* _Nonnull operatorAddress,
-                                 TWData* _Nonnull rewardAddress);
+const char* candidateUpdate(const char* name, const char* operatorAddress,
+                            const char* rewardAddress);
 
 } // namespace TW::IoTeX
