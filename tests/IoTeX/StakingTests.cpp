@@ -429,42 +429,42 @@ TEST(TWIoTeXStaking, SignTransfer) {
 //               "35f53a536e014b32b85df50483ef04849b80ad60635b3b1979c5ba1096b65237");
 // }
 
-// TEST(TWIoTeXStaking, SignCandidateUpdate) {
-//     auto input = Proto::SigningInput();
-//     input.set_version(1);
-//     input.set_nonce(0);
-//     input.set_gaslimit(200000);
-//     input.set_gasprice("2000");
-//     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
-//     input.set_privatekey(keyhex.data(), keyhex.size());
+TEST(TWIoTeXStaking, SignCandidateUpdate) {
+    auto input = Proto::SigningInput();
+    input.set_version(1);
+    input.set_nonce(0);
+    input.set_gaslimit(200000);
+    input.set_gasprice("2000");
+    auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+    input.set_privatekey(keyhex.data(), keyhex.size());
 
-//     const char* IOTEX_STAKING_NAME = "test";
-//     const char* IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
-//     const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
+    const char* IOTEX_STAKING_NAME = "test";
+    const char* IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
+    const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
 
-//     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-//     auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
-//     auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
+    auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
+    auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
+    auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
 
-//     auto stake = WRAPD(candidateUpdate(name.get(), operatorAddress.get(), reward.get()));
-//     auto staking = input.mutable_candidateupdate();
-//     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
-//     auto signer = IoTeX::Signer(std::move(input));
-//     // raw action's hash
-//     ASSERT_EQ(hex(signer.hash()),
-//               "46209470b666b5fdb7fcc91444316c186e700006cb5a660abe8533f12e0db004");
-//     // build() signs the tx
-//     auto output = signer.build();
-//     // signed action's serialized bytes
-//     auto encoded = output.encoded();
-//     ASSERT_EQ(hex(encoded.begin(), encoded.end()),
-//               "0a69080118c0843d2202313082035c0a04746573741229696f31636c36726c3265763564666139383871"
-//               "6d677a673278346866617a6d7039766e326736366e671a29696f316a7576783567303633657534747338"
-//               "33326e756b7034766763776b32676e6335637539617964124104755ce6d8903f6b3793bddb4ea5d3589d"
-//               "637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30dd6a103"
-//               "8ed9da8daf331a4101885c9c6684a4a8f2f5bf11f8326f27be48658f292e8f55ec8a11a604bb0c563a11"
-//               "ebf12d995ca1c152e00f8e0f0edf288db711aa10dbdfd5b7d73b4a28e1f701");
-//     // signed action's hash
-//     ASSERT_EQ(hex(output.hash()),
-//               "ca1a28f0e9a58ffc67037cc75066dbdd8e024aa2b2e416e4d6ce16c3d86282e5");
-// }
+    auto stake = WRAPD(candidateUpdate(name.get(), operatorAddress.get(), reward.get()));
+    auto staking = input.mutable_candidateupdate();
+    staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
+    auto signer = IoTeX::Signer(std::move(input));
+    // raw action's hash
+    ASSERT_EQ(hex(signer.hash()),
+              "46209470b666b5fdb7fcc91444316c186e700006cb5a660abe8533f12e0db004");
+    // build() signs the tx
+    auto output = signer.build();
+    // signed action's serialized bytes
+    auto encoded = output.encoded();
+    ASSERT_EQ(hex(encoded.begin(), encoded.end()),
+              "0a69080118c0843d2202313082035c0a04746573741229696f31636c36726c3265763564666139383871"
+              "6d677a673278346866617a6d7039766e326736366e671a29696f316a7576783567303633657534747338"
+              "33326e756b7034766763776b32676e6335637539617964124104755ce6d8903f6b3793bddb4ea5d3589d"
+              "637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30dd6a103"
+              "8ed9da8daf331a4101885c9c6684a4a8f2f5bf11f8326f27be48658f292e8f55ec8a11a604bb0c563a11"
+              "ebf12d995ca1c152e00f8e0f0edf288db711aa10dbdfd5b7d73b4a28e1f701");
+    // signed action's hash
+    ASSERT_EQ(hex(output.hash()),
+              "ca1a28f0e9a58ffc67037cc75066dbdd8e024aa2b2e416e4d6ce16c3d86282e5");
+}

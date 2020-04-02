@@ -133,4 +133,4 @@ TWData* _Nullable candidateUpdate(TWData* _Nonnull name, TWData* _Nonnull operat
     auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(&actionHex);
 }
-}
+} // namespace TW::IoTeX
