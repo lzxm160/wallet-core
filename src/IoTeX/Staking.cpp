@@ -15,29 +15,30 @@ namespace TW::IoTeX {
 
 // using namespace TW::Ethereum::ABI;
 using namespace TW;
-const char* charFromTWData(const Data& data) {
-    return reinterpret_cast<const char *>(&data[0]);
-    // auto v = const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
-    // auto bytes=v->data();
-    // auto s = new std::string(bytes, bytes + v->size());
+const char* charFromTWData(TWData* _Nonnull data) {
+    // return reinterpret_cast<const char*>(&data[0]);
+    // auto v = const_cast<std::vector<uint8_t>*>(reinterpret_cast<const
+    // std::vector<uint8_t>*>(data)); auto bytes=v->data(); auto s = new std::string(bytes, bytes +
+    // v->size());
     // // append null terminator
     // s->append(size, '\0');
     // return s->data();
-    // return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
+    return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
 }
-TWData* _Nonnull stakingCreate(const Data& candidate, const Data& amount,uint32_t duration, bool autoStake, const Data& payload){
+TWData* _Nonnull stakingCreate(const Data& candidate, const Data& amount, uint32_t duration,
+                               bool autoStake, const Data& payload) {
     auto action = IoTeX::Proto::StakeCreate();
-    action.set_candidatename(charFromTWData(candidate)); 
+    action.set_candidatename(charFromTWData(candidate));
     action.set_stakedamount(charFromTWData(amount));
-    action.set_stakedduration(duration); 
+    action.set_stakedduration(duration);
     action.set_autostake(autoStake);
     action.set_payload(charFromTWData(payload));
     auto s = action.SerializeAsString();
-    auto actionHex = hex(s.begin(), s.end()); 
+    auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull stakingAddDeposit(uint64_t index, const Data& amount,const Data& payload){
+TWData* _Nonnull stakingAddDeposit(uint64_t index, const Data& amount, const Data& payload) {
     auto action = IoTeX::Proto::StakeAddDeposit();
     action.set_bucketindex(index);
     action.set_amount(charFromTWData(amount));
@@ -47,7 +48,7 @@ TWData* _Nonnull stakingAddDeposit(uint64_t index, const Data& amount,const Data
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull stakingUnstake(uint64_t index, const Data& payload){
+TWData* _Nonnull stakingUnstake(uint64_t index, const Data& payload) {
     auto action = IoTeX::Proto::StakeReclaim();
     action.set_bucketindex(index);
     action.set_payload(charFromTWData(payload));
@@ -56,7 +57,7 @@ TWData* _Nonnull stakingUnstake(uint64_t index, const Data& payload){
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull stakingWithdraw(uint64_t index, const Data& payload){
+TWData* _Nonnull stakingWithdraw(uint64_t index, TWData* _Nonnull payload) {
     auto action = IoTeX::Proto::StakeReclaim();
     action.set_bucketindex(index);
     action.set_payload(charFromTWData(payload));
@@ -65,7 +66,8 @@ TWData* _Nonnull stakingWithdraw(uint64_t index, const Data& payload){
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull stakingRestake(uint64_t index, uint32_t duration, bool autoStake,const Data& payload){
+TWData* _Nonnull stakingRestake(uint64_t index, uint32_t duration, bool autoStake,
+                                TWData* _Nonnull payload) {
     auto action = IoTeX::Proto::StakeRestake();
     action.set_bucketindex(index);
     action.set_stakedduration(duration);
@@ -76,7 +78,8 @@ TWData* _Nonnull stakingRestake(uint64_t index, uint32_t duration, bool autoStak
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull stakingChangeCandidate(uint64_t index,const Data& candidate, const Data& payload){
+TWData* _Nonnull stakingChangeCandidate(uint64_t index, TWData* _Nonnull candidate,
+                                        TWData* _Nonnull payload) {
     auto action = IoTeX::Proto::StakeChangeCandidate();
     action.set_bucketindex(index);
     action.set_candidatename(charFromTWData(candidate));
@@ -86,7 +89,8 @@ TWData* _Nonnull stakingChangeCandidate(uint64_t index,const Data& candidate, co
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull stakingTransfer(uint64_t index,const Data& voterAddress, const Data& payload){
+TWData* _Nonnull stakingTransfer(uint64_t index, TWData* _Nonnull voterAddress,
+                                 TWData* _Nonnull payload) {
     auto action = IoTeX::Proto::StakeTransferOwnership();
     action.set_bucketindex(index);
     action.set_voteraddress(charFromTWData(voterAddress));
@@ -96,16 +100,19 @@ TWData* _Nonnull stakingTransfer(uint64_t index,const Data& voterAddress, const 
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull candidateRegister(const Data& name,const Data& operatorAddress,const Data& rewardAddress,const Data& amount,uint32_t duration, bool autoStake, const Data& ownerAddress,const Data& payload){
+TWData* _Nonnull candidateRegister(TWData* _Nonnull name, TWData* _Nonnull operatorAddress,
+                                   TWData* _Nonnull rewardAddress, TWData* _Nonnull amount,
+                                   uint32_t duration, bool autoStake, TWData* _Nonnull ownerAddress,
+                                   TWData* _Nonnull payload) {
     auto cbi = IoTeX::Proto::CandidateBasicInfo();
-    cbi.set_name(charFromTWData(name)); 
-    cbi.set_operatoraddress(charFromTWData(operatorAddress)); 
-    cbi.set_rewardaddress(charFromTWData(rewardAddress)); 
+    cbi.set_name(charFromTWData(name));
+    cbi.set_operatoraddress(charFromTWData(operatorAddress));
+    cbi.set_rewardaddress(charFromTWData(rewardAddress));
 
     auto action = IoTeX::Proto::CandidateRegister();
     action.set_allocated_candidate(&cbi);
     action.set_stakedamount(charFromTWData(amount));
-    action.set_stakedduration(duration); 
+    action.set_stakedduration(duration);
     action.set_autostake(autoStake);
     action.set_owneraddress(charFromTWData(ownerAddress));
     action.set_payload(charFromTWData(payload));
@@ -114,16 +121,18 @@ TWData* _Nonnull candidateRegister(const Data& name,const Data& operatorAddress,
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull candidateUpdate(const Data& name,const Data& operatorAddress,const Data& rewardAddress){
+TWData* _Nonnull candidateUpdate(TWData* _Nonnull name, TWData* _Nonnull operatorAddress,
+                                 TWData* _Nonnull rewardAddress) {
     auto action = IoTeX::Proto::CandidateBasicInfo();
-    action.set_name(charFromTWData(name)); 
-    action.set_operatoraddress(charFromTWData(operatorAddress)); 
-    action.set_rewardaddress(charFromTWData(rewardAddress)); 
+    action.set_name(charFromTWData(name));
+    action.set_operatoraddress(charFromTWData(operatorAddress));
+    action.set_rewardaddress(charFromTWData(rewardAddress));
     auto s = action.SerializeAsString();
     auto actionHex = hex(s.begin(), s.end());
     return TWDataCreateWithHexString(&actionHex);
 }
-// void stakingStake(const Data& candidate, uint64_t stakeDuration, bool nonDecay, const Data& dataIn, Data& dataOut) {
+// void stakingStake(const Data& candidate, uint64_t stakeDuration, bool nonDecay, const Data&
+// dataIn, Data& dataOut) {
 //     Function func("createPygg");
 //     func.addInParam(std::make_shared<ParamByteArrayFix>(12, candidate));
 //     func.addInParam(std::make_shared<ParamUInt256>(uint256_t(stakeDuration)));
@@ -157,7 +166,8 @@ TWData* _Nonnull candidateUpdate(const Data& name,const Data& operatorAddress,co
 //     func.encode(dataOut);
 // }
 
-// void stakingMoveStake(uint64_t pyggIndex, const Data& candidate, const Data& dataIn, Data& dataOut) {
+// void stakingMoveStake(uint64_t pyggIndex, const Data& candidate, const Data& dataIn, Data&
+// dataOut) {
 //     Function func("revote");
 //     func.addInParam(std::make_shared<ParamUInt256>(uint256_t(pyggIndex)));
 //     func.addInParam(std::make_shared<ParamByteArrayFix>(12, candidate));
