@@ -16,17 +16,17 @@ namespace TW::IoTeX {
 // using namespace TW::Ethereum::ABI;
 using namespace TW;
 const char* charFromTWData(TWData* _Nonnull data) {
-    // return reinterpret_cast<const char*>(&data[0]);
+    return reinterpret_cast<const char*>(&data[0]);
     // auto v = const_cast<std::vector<uint8_t>*>(reinterpret_cast<const
     // std::vector<uint8_t>*>(data)); auto bytes=v->data(); auto s = new std::string(bytes, bytes +
     // v->size());
     // // append null terminator
     // s->append(size, '\0');
     // return s->data();
-    return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
+    // return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
 }
-TWData* _Nonnull stakingCreate(const Data& candidate, const Data& amount, uint32_t duration,
-                               bool autoStake, const Data& payload) {
+TWData* _Nonnull stakingCreate(TWData* _Nonnull candidate, TWData* _Nonnull amount,
+                               uint32_t duration, bool autoStake, TWData* _Nonnull payload) {
     auto action = IoTeX::Proto::StakeCreate();
     action.set_candidatename(charFromTWData(candidate));
     action.set_stakedamount(charFromTWData(amount));
@@ -38,7 +38,8 @@ TWData* _Nonnull stakingCreate(const Data& candidate, const Data& amount, uint32
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull stakingAddDeposit(uint64_t index, const Data& amount, const Data& payload) {
+TWData* _Nonnull stakingAddDeposit(uint64_t index, TWData* _Nonnull amount,
+                                   TWData* _Nonnull payload) {
     auto action = IoTeX::Proto::StakeAddDeposit();
     action.set_bucketindex(index);
     action.set_amount(charFromTWData(amount));
@@ -48,7 +49,7 @@ TWData* _Nonnull stakingAddDeposit(uint64_t index, const Data& amount, const Dat
     return TWDataCreateWithHexString(&actionHex);
 }
 
-TWData* _Nonnull stakingUnstake(uint64_t index, const Data& payload) {
+TWData* _Nonnull stakingUnstake(uint64_t index, TWData* _Nonnull payload) {
     auto action = IoTeX::Proto::StakeReclaim();
     action.set_bucketindex(index);
     action.set_payload(charFromTWData(payload));
