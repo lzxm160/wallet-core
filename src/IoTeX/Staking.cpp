@@ -107,9 +107,9 @@ TWData* _Nullable candidateRegister(TWData* _Nonnull name, TWData* _Nonnull oper
                                     uint32_t duration, bool autoStake,
                                     TWData* _Nonnull ownerAddress, TWData* payload) {
     auto cbi = new IoTeX::Proto::CandidateBasicInfo();
-    cbi.set_name(charFromTWData(name));
-    cbi.set_operatoraddress(charFromTWData(operatorAddress));
-    cbi.set_rewardaddress(charFromTWData(rewardAddress));
+    cbi->set_name(charFromTWData(name));
+    cbi->set_operatoraddress(charFromTWData(operatorAddress));
+    cbi->set_rewardaddress(charFromTWData(rewardAddress));
 
     auto action = IoTeX::Proto::CandidateRegister();
     action.set_allocated_candidate(cbi);
