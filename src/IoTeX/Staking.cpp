@@ -38,8 +38,9 @@ const char* stakingCreate(const char* candidate, const char* amount, uint32_t du
     action.set_autostake(autoStake);
     action.set_payload(charFromTWData(payload));
     auto s = action.SerializeAsString();
-    auto actionHex = hex(s.begin(), s.end());
-    return TWDataCreateWithHexString(&actionHex);
+    // auto actionHex = hex(s.begin(), s.end());
+    // return TWDataCreateWithHexString(&actionHex);
+    return s.get();
 }
 
 const char* stakingAddDeposit(uint64_t index, const char* amount, const char* payload) {
