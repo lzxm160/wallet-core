@@ -94,54 +94,53 @@ TEST(TWIoTeXStaking, Transfer) {
                             "6e6b7079636333677a611a077061796c6f6164");
 }
 
-// TEST(TWIoTeXStaking, candidateRegister) {
-//     const char* IOTEX_STAKING_NAME = "test";
-//     const char* IOTEX_STAKING_OPERATOR = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he";
-//     const char* IOTEX_STAKING_REWARD = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv";
-//     const char* IOTEX_STAKING_OWNER = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
-//     const char* IOTEX_STAKING_AMOUNT = "100";
-//     const char* IOTEX_STAKING_PAYLOAD = "payload";
+TEST(TWIoTeXStaking, candidateRegister) {
+    const char* IOTEX_STAKING_NAME = "test";
+    const char* IOTEX_STAKING_OPERATOR = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he";
+    const char* IOTEX_STAKING_REWARD = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv";
+    const char* IOTEX_STAKING_OWNER = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
+    const char* IOTEX_STAKING_AMOUNT = "100";
+    const char* IOTEX_STAKING_PAYLOAD = "payload";
 
-//     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-//     auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
-//     auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
-//     auto owner = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OWNER, 41));
-//     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-//     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
-//     // candidateRegister(TWData* _Nonnull name, TWData* _Nonnull operatorAddress,
-//     //                                    TWData* _Nonnull rewardAddress, TWData* _Nonnull
-//     amount,
-//     //                                    uint32_t duration, bool autoStake, TWData* _Nonnull
-//     //                                    ownerAddress, TWData* _Nonnull payload)
-//     auto stake = WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(),
-//                                          amount.get(), 10000, false, owner.get(),
-//                                          payload.get()));
-//     auto result = dataFromTWData(stake.get());
+    auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
+    auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
+    auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
+    auto owner = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OWNER, 41));
+    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
+    auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
+    // candidateRegister(TWData* _Nonnull name, TWData* _Nonnull operatorAddress,
+    //                                    TWData* _Nonnull rewardAddress, TWData* _Nonnull
+    amount,
+        //                                    uint32_t duration, bool autoStake, TWData* _Nonnull
+        //                                    ownerAddress, TWData* _Nonnull payload)
+        auto stake =
+            WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(), amount.get(),
+                                    10000, false, owner.get(), payload.get()));
+    auto result = dataFromTWData(stake.get());
 
-//     ASSERT_EQ(hex(*result),
-//               "0a5c0a04746573741229696f3130613239387a6d7a7672743467757137396139663478377165646a3539"
-//               "7937657279383468651a29696f3133736a396d7a7065776e3235796d6865756b74653476333968766a64"
-//               "7472667030306d6c7976120331303018904e2a29696f313964307033616834673877773964376b637866"
-//               "71383779786537666e7238727074683573686a32077061796c6f6164");
-// }
+    ASSERT_EQ(hex(*result),
+              "0a5c0a04746573741229696f3130613239387a6d7a7672743467757137396139663478377165646a3539"
+              "7937657279383468651a29696f3133736a396d7a7065776e3235796d6865756b74653476333968766a64"
+              "7472667030306d6c7976120331303018904e2a29696f313964307033616834673877773964376b637866"
+              "71383779786537666e7238727074683573686a32077061796c6f6164");
+}
 
-// TEST(TWIoTeXStaking, CandidateUpdate) {
-//     const char* IOTEX_STAKING_NAME = "test";
-//     const char* IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
-//     const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
+TEST(TWIoTeXStaking, CandidateUpdate) {
+    const char* IOTEX_STAKING_NAME = "test";
+    const char* IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
+    const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
 
-//     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-//     auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
-//     auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
+    auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
+    auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
+    auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
 
-//     auto stake = WRAPD(candidateUpdate(name.get(), operatorAddress.get(), reward.get()));
-//     auto result = dataFromTWData(stake.get());
+    auto stake = WRAPD(candidateUpdate(name.get(), operatorAddress.get(), reward.get()));
+    auto result = dataFromTWData(stake.get());
 
-//     ASSERT_EQ(hex(*result),
-//     "0a04746573741229696f31636c36726c32657635646661393838716d677a6732783468"
-//                             "66617a6d7039766e326736366e671a29696f316a757678356730363365753474733833"
-//                             "326e756b7034766763776b32676e6335637539617964");
-// }
+    ASSERT_EQ(hex(*result), "0a04746573741229696f31636c36726c32657635646661393838716d677a6732783468"
+                            "66617a6d7039766e326736366e671a29696f316a757678356730363365753474733833"
+                            "326e756b7034766763776b32676e6335637539617964");
+}
 
 TEST(TWIoTeXStaking, SignCreate) {
     const char* IOTEX_STAKING_CANDIDATE = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
