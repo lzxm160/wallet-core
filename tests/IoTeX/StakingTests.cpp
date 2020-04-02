@@ -94,7 +94,7 @@ TEST(TWIoTeXStaking, Transfer) {
                             "6e6b7079636333677a611a077061796c6f6164");
 }
 
-TEST(TWIoTeXStaking, CandidateRegister) {
+TEST(TWIoTeXStaking, candidateRegister) {
     const char* IOTEX_STAKING_NAME = "test";
     const char* IOTEX_STAKING_OPERATOR = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he";
     const char* IOTEX_STAKING_REWARD = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv";
@@ -108,7 +108,10 @@ TEST(TWIoTeXStaking, CandidateRegister) {
     auto owner = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OWNER, 41));
     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
-
+    // candidateRegister(TWData* _Nonnull name, TWData* _Nonnull operatorAddress,
+    //                                    TWData* _Nonnull rewardAddress, TWData* _Nonnull amount,
+    //                                    uint32_t duration, bool autoStake, TWData* _Nonnull
+    //                                    ownerAddress, TWData* _Nonnull payload)
     auto stake = WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(),
                                          amount.get(), 10000, false, owner.get(), payload.get()));
     auto result = dataFromTWData(stake.get());
