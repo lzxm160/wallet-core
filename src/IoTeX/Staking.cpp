@@ -122,7 +122,7 @@ TWData* _Nullable candidateRegister(TWData* _Nonnull name, TWData* _Nonnull oper
     auto s = action.SerializeAsString();
     std::cout << "action.SerializeAsString():" << s << std::endl;
     auto actionHex = hex(s.begin(), s.end());
-    std::cout << "want to know what happend" << std::endl;
+    std::cout << "want to know what happend1" << std::endl;
     return TWDataCreateWithHexString(&actionHex);
 }
 

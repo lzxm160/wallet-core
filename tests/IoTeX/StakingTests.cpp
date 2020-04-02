@@ -111,8 +111,9 @@ TEST(TWIoTeXStaking, CandidateRegister) {
 
     auto stake = WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(),
                                          amount.get(), 10000, false, owner.get(), payload.get()));
+    std::cout << "want to know what happend2:" << std::endl;
     auto result = dataFromTWData(stake.get());
-    std::cout << "want to know what happend:" << hex(*result) << std::endl;
+    std::cout << "want to know what happend3:" << hex(*result) << std::endl;
     ASSERT_EQ(hex(*result),
               "0a5c0a04746573741229696f3130613239387a6d7a7672743467757137396139663478377165646a3539"
               "7937657279383468651a29696f3133736a396d7a7065776e3235796d6865756b74653476333968766a64"
