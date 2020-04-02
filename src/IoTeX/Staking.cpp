@@ -16,7 +16,7 @@ namespace TW::IoTeX {
 // using namespace TW::Ethereum::ABI;
 using namespace TW;
 const char* charFromTWData(TWData* _Nonnull data) {
-    return reinterpret_cast<const char*>(&data[0]);
+    return reinterpret_cast<const char*>(data[0]);
     // auto v = const_cast<std::vector<uint8_t>*>(reinterpret_cast<const
     // std::vector<uint8_t>*>(data)); auto bytes=v->data(); auto s = new std::string(bytes, bytes +
     // v->size());
