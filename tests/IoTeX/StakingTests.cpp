@@ -147,14 +147,15 @@ TEST(TWIoTeXStaking, SignCreate) {
     Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
 
     auto stake = stakingCreate(candidate, amount, 10000, true, payload);
-    auto action = IoTeX::Proto::Staking_StakeCreate();
+    auto action = new IoTeX::Proto::Staking_StakeCreate();
     std::string prot = std::string(stake.begin(), stake.end());
-    action.ParseFromString(prot);
+    std::cout << prot << std::endl;
+    action->ParseFromString(prot);
     // action.set_encoded Data to string action.ParseFromArray(TWDataBytes(stake.get()),
     //                                                         TWDataSize(stake.get()));
     // staking->set_allocated_stakecreate(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto staking = input.mutable_staking();
-    staking->set_allocated_stakecreate(&action);
+    staking->set_allocated_stakecreate(action);
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
     ASSERT_EQ(hex(signer.hash()),
