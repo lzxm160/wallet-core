@@ -130,7 +130,6 @@ void Signer::toActionCore() {
         auto& unstake = staking.stakeunstake();
         return;
     }
-
     if (has_stakewithdraw) {
         auto& withdraw = staking.stakewithdraw();
         return;
