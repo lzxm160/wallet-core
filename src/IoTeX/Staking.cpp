@@ -15,8 +15,8 @@ namespace TW::IoTeX {
 const char* charFromTWData(const Data& data) {
     // return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
     std::stringstream oss;
-    for (unsigned int i = 0; i < Data.size(); i++) {
-        oss << Data[i];
+    for (unsigned int i = 0; i < data.size(); i++) {
+        oss << data[i];
     }
     string temp = oss.str();
     return temp.c_str();
@@ -24,7 +24,7 @@ const char* charFromTWData(const Data& data) {
 
 const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t duration,
                           bool autoStake, const Data& payload) {
-    auto action = IoTeX::Proto::StakeCreate();
+    auto action = IoTeX::Proto::Staking_StakeCreate();
     action.set_candidatename(charFromTWData(candidate));
     action.set_stakedamount(charFromTWData(amount));
     action.set_stakedduration(duration);
@@ -35,7 +35,7 @@ const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t du
 }
 
 const Data& stakingAddDeposit(uint64_t index, const Data& amount, const Data& payload) {
-    auto action = IoTeX::Proto::StakeAddDeposit();
+    auto action = IoTeX::Proto::Staking_StakeAddDeposit();
     action.set_bucketindex(index);
     action.set_amount(charFromTWData(amount));
     action.set_payload(charFromTWData(payload));
@@ -44,7 +44,7 @@ const Data& stakingAddDeposit(uint64_t index, const Data& amount, const Data& pa
 }
 
 const Data& stakingUnstake(uint64_t index, const Data& payload) {
-    auto action = IoTeX::Proto::StakeReclaim();
+    auto action = IoTeX::Proto::Staking_StakeReclaim();
     action.set_bucketindex(index);
     action.set_payload(charFromTWData(payload));
     auto s = action.SerializeAsString();
@@ -52,7 +52,7 @@ const Data& stakingUnstake(uint64_t index, const Data& payload) {
 }
 
 const Data& stakingWithdraw(uint64_t index, const Data& payload) {
-    auto action = IoTeX::Proto::StakeReclaim();
+    auto action = IoTeX::Proto::Staking_StakeReclaim();
     action.set_bucketindex(index);
     action.set_payload(charFromTWData(payload));
     auto s = action.SerializeAsString();
@@ -60,7 +60,7 @@ const Data& stakingWithdraw(uint64_t index, const Data& payload) {
 }
 
 const Data& stakingRestake(uint64_t index, uint32_t duration, bool autoStake, const Data& payload) {
-    auto action = IoTeX::Proto::StakeRestake();
+    auto action = IoTeX::Proto::Staking_StakeRestake();
     action.set_bucketindex(index);
     action.set_stakedduration(duration);
     action.set_autostake(autoStake);
@@ -70,7 +70,7 @@ const Data& stakingRestake(uint64_t index, uint32_t duration, bool autoStake, co
 }
 
 const Data& stakingChangeCandidate(uint64_t index, const Data& candidate, const Data& payload) {
-    auto action = IoTeX::Proto::StakeChangeCandidate();
+    auto action = IoTeX::Proto::Staking_StakeChangeCandidate();
     action.set_bucketindex(index);
     action.set_candidatename(charFromTWData(candidate));
     action.set_payload(charFromTWData(payload));
@@ -79,7 +79,7 @@ const Data& stakingChangeCandidate(uint64_t index, const Data& candidate, const 
 }
 
 const Data& stakingTransfer(uint64_t index, const Data& voterAddress, const Data& payload) {
-    auto action = IoTeX::Proto::StakeTransferOwnership();
+    auto action = IoTeX::Proto::Staking_StakeTransferOwnership();
     action.set_bucketindex(index);
     action.set_voteraddress(charFromTWData(voterAddress));
     action.set_payload(charFromTWData(payload));
@@ -90,12 +90,12 @@ const Data& stakingTransfer(uint64_t index, const Data& voterAddress, const Data
 const Data& candidateRegister(const Data& name, const Data& operatorAddress,
                               const Data& rewardAddress, const Data& amount, uint32_t duration,
                               bool autoStake, const Data& ownerAddress, const Data& payload) {
-    auto cbi = new IoTeX::Proto::CandidateBasicInfo();
+    auto cbi = new IoTeX::Proto::Staking_CandidateBasicInfo();
     cbi->set_name(charFromTWData(name));
     cbi->set_operatoraddress(charFromTWData(operatorAddress));
     cbi->set_rewardaddress(charFromTWData(rewardAddress));
 
-    auto action = IoTeX::Proto::CandidateRegister();
+    auto action = IoTeX::Proto::Staking_CandidateRegister();
     action.set_allocated_candidate(cbi);
     action.set_stakedamount(charFromTWData(amount));
     action.set_stakedduration(duration);
@@ -108,7 +108,7 @@ const Data& candidateRegister(const Data& name, const Data& operatorAddress,
 
 const Data& candidateUpdate(const Data& name, const Data& operatorAddress,
                             const Data& rewardAddress) {
-    auto action = IoTeX::Proto::CandidateBasicInfo();
+    auto action = IoTeX::Proto::Staking_CandidateBasicInfo();
     action.set_name(charFromTWData(name));
     action.set_operatoraddress(charFromTWData(operatorAddress));
     action.set_rewardaddress(charFromTWData(rewardAddress));
