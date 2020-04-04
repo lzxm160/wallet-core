@@ -159,6 +159,8 @@ void Signer::toActionCore() {
         auto& candidateupdate = staking.candidateupdate();
         return;
     }
+    action.ParseFromString(input.SerializeAsString());
+    action.DiscardUnknownFields();
 }
 // auto encoded = encodeStaking(staking);
 // auto& execution = *action.mutable_execution();
