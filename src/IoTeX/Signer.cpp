@@ -105,7 +105,7 @@ void Signer::toActionCore() {
     action.set_nonce(input.nonce());
     action.set_gaslimit(input.gaslimit());
     action.set_gasprice(input.gasprice());
-    Proto::Staking& staking = input.staking();
+    const Proto::Staking& staking = input.staking();
     bool has_stakecreate = staking.has_stakecreate();
     bool has_stakeunstake = staking.has_stakeunstake();
     bool has_stakewithdraw = staking.has_stakewithdraw();
