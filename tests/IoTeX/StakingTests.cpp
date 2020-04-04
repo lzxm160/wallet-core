@@ -42,7 +42,7 @@ TEST(TWIoTeXStaking, AddDeposit) {
 }
 
 TEST(TWIoTeXStaking, Unstake) {
-    const char* IOTEX_STAKING_PAYLOAD = "payload";
+    std::string IOTEX_STAKING_PAYLOAD = "payload";
     Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
     auto stake = stakingUnstake(10, payload);
@@ -51,7 +51,7 @@ TEST(TWIoTeXStaking, Unstake) {
 }
 
 TEST(TWIoTeXStaking, Withdraw) {
-    const char* IOTEX_STAKING_PAYLOAD = "payload";
+    std::string IOTEX_STAKING_PAYLOAD = "payload";
     Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
     auto stake = stakingWithdraw(10, payload);
@@ -60,7 +60,7 @@ TEST(TWIoTeXStaking, Withdraw) {
 }
 
 TEST(TWIoTeXStaking, Restake) {
-    const char* IOTEX_STAKING_PAYLOAD = "payload";
+    std::string IOTEX_STAKING_PAYLOAD = "payload";
     Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
     auto stake = stakingRestake(10, 1000, true, payload);
@@ -69,8 +69,8 @@ TEST(TWIoTeXStaking, Restake) {
 }
 
 TEST(TWIoTeXStaking, ChangeCandidate) {
-    const char* IOTEX_STAKING_CANDIDATE = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
-    const char* IOTEX_STAKING_PAYLOAD = "payload";
+    std::string IOTEX_STAKING_CANDIDATE = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
+    std::string IOTEX_STAKING_PAYLOAD = "payload";
     Data candidate(IOTEX_STAKING_CANDIDATE.begin(), IOTEX_STAKING_CANDIDATE.end());
     Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
@@ -81,8 +81,8 @@ TEST(TWIoTeXStaking, ChangeCandidate) {
 }
 
 TEST(TWIoTeXStaking, Transfer) {
-    const char* IOTEX_STAKING_CANDIDATE = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
-    const char* IOTEX_STAKING_PAYLOAD = "payload";
+    std::string IOTEX_STAKING_CANDIDATE = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
+    std::string IOTEX_STAKING_PAYLOAD = "payload";
     Data candidate(IOTEX_STAKING_CANDIDATE.begin(), IOTEX_STAKING_CANDIDATE.end());
     Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
@@ -93,12 +93,12 @@ TEST(TWIoTeXStaking, Transfer) {
 }
 
 TEST(TWIoTeXStaking, CandidateRegister) {
-    const char* IOTEX_STAKING_NAME = "test";
-    const char* IOTEX_STAKING_OPERATOR = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he";
-    const char* IOTEX_STAKING_REWARD = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv";
-    const char* IOTEX_STAKING_OWNER = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
-    const char* IOTEX_STAKING_AMOUNT = "100";
-    const char* IOTEX_STAKING_PAYLOAD = "payload";
+    std::string IOTEX_STAKING_NAME = "test";
+    std::string IOTEX_STAKING_OPERATOR = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he";
+    std::string IOTEX_STAKING_REWARD = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv";
+    std::string IOTEX_STAKING_OWNER = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
+    std::string IOTEX_STAKING_AMOUNT = "100";
+    std::string IOTEX_STAKING_PAYLOAD = "payload";
     Data name(IOTEX_STAKING_NAME.begin(), IOTEX_STAKING_NAME.end());
     Data operatorAddress(IOTEX_STAKING_OPERATOR.begin(), IOTEX_STAKING_OPERATOR.end());
     Data reward(IOTEX_STAKING_REWARD.begin(), IOTEX_STAKING_REWARD.end());
@@ -116,9 +116,9 @@ TEST(TWIoTeXStaking, CandidateRegister) {
 }
 
 TEST(TWIoTeXStaking, CandidateUpdate) {
-    const char* IOTEX_STAKING_NAME = "test";
-    const char* IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
-    const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
+    std::string IOTEX_STAKING_NAME = "test";
+    std::string IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
+    std::string IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
     Data name(IOTEX_STAKING_NAME.begin(), IOTEX_STAKING_NAME.end());
     Data operatorAddress(IOTEX_STAKING_OPERATOR.begin(), IOTEX_STAKING_OPERATOR.end());
     Data reward(IOTEX_STAKING_REWARD.begin(), IOTEX_STAKING_REWARD.end());
