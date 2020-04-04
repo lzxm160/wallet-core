@@ -105,9 +105,18 @@ void Signer::toActionCore() {
     action.set_nonce(input.nonce());
     action.set_gaslimit(input.gaslimit());
     action.set_gasprice(input.gasprice());
-    static const Proto::Staking& staking = input.staking();
+    Proto::Staking& staking = input.staking();
+    bool has_stakecreate = staking.has_stakecreate();
+    bool has_stakeunstake = staking.has_stakeunstake();
+    bool has_stakewithdraw = staking.has_stakewithdraw();
+    bool has_stakeadddeposit = staking.has_stakeadddeposit();
+    bool has_stakerestake = staking.has_stakerestake();
+    bool has_stakechangecandidate = staking.has_stakechangecandidate();
+    bool has_staketransferownership = staking.has_staketransferownership();
+    bool has_candidateregister = staking.has_candidateregister();
+    bool has_candidateupdate = staking.has_candidateupdate();
     switch (1) {
-    case staking.has_stakecreate():
+    case has_stakecreate:
         auto& stake = staking.stakecreate();
         auto sc = iotextypes::StakeCreate();
         sc.set_candidatename(stake.candidatename());
@@ -117,35 +126,35 @@ void Signer::toActionCore() {
         sc.set_payload(stake.payload());
         action.set_allocated_stakecreate(&sc);
         break;
-    case staking.has_stakeunstake():
+    case has_stakeunstake:
         auto& unstake = staking.stakeunstake();
 
         break;
-    case staking.has_stakewithdraw():
+    case has_stakewithdraw:
         auto& withdraw = staking.stakewithdraw();
 
         break;
-    case staking.has_stakeadddeposit():
+    case has_stakeadddeposit:
         auto& adddeposit = staking.stakeadddeposit();
 
         break;
-    case staking.has_stakerestake():
+    case has_stakerestake:
         auto& restake = staking.stakerestake();
 
         break;
-    case staking.has_stakechangecandidate():
+    case has_stakechangecandidate:
         auto& changecandidate = staking.stakerestake();
 
         break;
-    case staking.has_staketransferownership():
+    case has_staketransferownership:
         auto& transfer = staking.staketransferownership();
 
         break;
-    case staking.has_candidateregister():
+    case has_candidateregister:
         auto& candidateregister = staking.candidateregister();
 
         break;
-    case staking.has_candidateupdate():
+    case has_candidateupdate:
         auto& candidateupdate = staking.candidateupdate();
 
         break;
