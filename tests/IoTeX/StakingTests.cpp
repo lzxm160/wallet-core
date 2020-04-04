@@ -43,58 +43,53 @@ TEST(TWIoTeXStaking, AddDeposit) {
 
 TEST(TWIoTeXStaking, Unstake) {
     const char* IOTEX_STAKING_PAYLOAD = "payload";
-    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
+    Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
-    auto stake = WRAPD(stakingUnstake(10, payload.get()));
-    auto result = dataFromTWData(stake.get());
+    auto stake = stakingUnstake(10, payload);
 
-    ASSERT_EQ(hex(*result), "080a12077061796c6f6164");
+    ASSERT_EQ(hex(auto stake = stakingUnstake(10, payload);), "080a12077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, Withdraw) {
     const char* IOTEX_STAKING_PAYLOAD = "payload";
-    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
+    Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
-    auto stake = WRAPD(stakingWithdraw(10, payload.get()));
-    auto result = dataFromTWData(stake.get());
+    auto stake = stakingWithdraw(10, payload);
 
-    ASSERT_EQ(hex(*result), "080a12077061796c6f6164");
+    ASSERT_EQ(hex(stake), "080a12077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, Restake) {
     const char* IOTEX_STAKING_PAYLOAD = "payload";
-    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
+    Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
-    auto stake = WRAPD(stakingRestake(10, 1000, true, payload.get()));
-    auto result = dataFromTWData(stake.get());
+    auto stake = stakingRestake(10, 1000, true, payload);
 
-    ASSERT_EQ(hex(*result), "080a10e807180122077061796c6f6164");
+    ASSERT_EQ(hex(stake), "080a10e807180122077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, ChangeCandidate) {
     const char* IOTEX_STAKING_CANDIDATE = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
     const char* IOTEX_STAKING_PAYLOAD = "payload";
-    auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
-    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
+    Data candidate(IOTEX_STAKING_CANDIDATE.begin(), IOTEX_STAKING_CANDIDATE.end());
+    Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
-    auto stake = WRAPD(stakingChangeCandidate(10, candidate.get(), payload.get()));
-    auto result = dataFromTWData(stake.get());
+    auto stake = stakingChangeCandidate(10, candidate, payload);
 
-    ASSERT_EQ(hex(*result), "080a1229696f3178707136326177383575717a72636367397935686e727976386c"
-                            "64326e6b7079636333677a611a077061796c6f6164");
+    ASSERT_EQ(hex(stake), "080a1229696f3178707136326177383575717a72636367397935686e727976386c"
+                          "64326e6b7079636333677a611a077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, Transfer) {
     const char* IOTEX_STAKING_CANDIDATE = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
     const char* IOTEX_STAKING_PAYLOAD = "payload";
-    auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
-    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
+    Data candidate(IOTEX_STAKING_CANDIDATE.begin(), IOTEX_STAKING_CANDIDATE.end());
+    Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
-    auto stake = WRAPD(stakingTransfer(10, candidate.get(), payload.get()));
-    auto result = dataFromTWData(stake.get());
+    auto stake = stakingTransfer(10, candidate, payload);
 
-    ASSERT_EQ(hex(*result), "080a1229696f3178707136326177383575717a72636367397935686e727976386c6432"
-                            "6e6b7079636333677a611a077061796c6f6164");
+    ASSERT_EQ(hex(stake), "080a1229696f3178707136326177383575717a72636367397935686e727976386c6432"
+                          "6e6b7079636333677a611a077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, CandidateRegister) {
@@ -104,18 +99,16 @@ TEST(TWIoTeXStaking, CandidateRegister) {
     const char* IOTEX_STAKING_OWNER = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
     const char* IOTEX_STAKING_AMOUNT = "100";
     const char* IOTEX_STAKING_PAYLOAD = "payload";
-    auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-    auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
-    auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
-    auto owner = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OWNER, 41));
-    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
+    Data name(IOTEX_STAKING_NAME.begin(), IOTEX_STAKING_NAME.end());
+    Data operatorAddress(IOTEX_STAKING_OPERATOR.begin(), IOTEX_STAKING_OPERATOR.end());
+    Data reward(IOTEX_STAKING_REWARD.begin(), IOTEX_STAKING_REWARD.end());
+    Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
+    Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
-    auto stake = WRAPD(candidateRegister(name.get(), operatorAddress.get(), reward.get(),
-                                         amount.get(), 10000, false, owner.get(), payload.get()));
-    auto result = dataFromTWData(stake.get());
+    auto stake =
+        candidateRegister(name, operatorAddress, reward, amount, 10000, false, owner, payload);
 
-    ASSERT_EQ(hex(*result),
+    ASSERT_EQ(hex(stake),
               "0a5c0a04746573741229696f3130613239387a6d7a7672743467757137396139663478377165646a3539"
               "7937657279383468651a29696f3133736a396d7a7065776e3235796d6865756b74653476333968766a64"
               "7472667030306d6c7976120331303018904e2a29696f313964307033616834673877773964376b637866"
@@ -126,16 +119,15 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
     const char* IOTEX_STAKING_NAME = "test";
     const char* IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
     const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
-    auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-    auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
-    auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
+    Data name(IOTEX_STAKING_NAME.begin(), IOTEX_STAKING_NAME.end());
+    Data operatorAddress(IOTEX_STAKING_OPERATOR.begin(), IOTEX_STAKING_OPERATOR.end());
+    Data reward(IOTEX_STAKING_REWARD.begin(), IOTEX_STAKING_REWARD.end());
 
-    auto stake = WRAPD(candidateUpdate(name.get(), operatorAddress.get(), reward.get()));
-    auto result = dataFromTWData(stake.get());
+    auto stake = candidateUpdate(name, operatorAddress, reward);
 
-    ASSERT_EQ(hex(*result), "0a04746573741229696f31636c36726c32657635646661393838716d677a6732783468"
-                            "66617a6d7039766e326736366e671a29696f316a757678356730363365753474733833"
-                            "326e756b7034766763776b32676e6335637539617964");
+    ASSERT_EQ(hex(stake), "0a04746573741229696f31636c36726c32657635646661393838716d677a6732783468"
+                          "66617a6d7039766e326736366e671a29696f316a757678356730363365753474733833"
+                          "326e756b7034766763776b32676e6335637539617964");
 }
 
 TEST(TWIoTeXStaking, SignCreate) {
@@ -153,11 +145,11 @@ TEST(TWIoTeXStaking, SignCreate) {
     const char* IOTEX_STAKING_CANDIDATE = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
     const char* IOTEX_STAKING_PAYLOAD = "payload";
     const char* IOTEX_STAKING_AMOUNT = "100";
-    auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
-    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
+    Data candidate(IOTEX_STAKING_CANDIDATE.begin(), IOTEX_STAKING_CANDIDATE.end());
+    Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
+    Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
 
-    auto stake = WRAPD(stakingCreate(candidate.get(), amount.get(), 10000, true, payload.get()));
+    auto stake = stakingCreate(candidate, amount, 10000, true, payload);
     staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
     auto signer = IoTeX::Signer(std::move(input));
     // raw action's hash
