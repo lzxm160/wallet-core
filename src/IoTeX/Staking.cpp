@@ -26,7 +26,7 @@ const char* charFromData(const Data& data) {
     // return str.c_str();
     char* ret = new char[data.size() + 1]; // init this with the correct size
     std::copy(data.begin(), data.end(), ret);
-    ret[data.size()] = "\0";
+    ret[data.size()] = '\0';
     return ret;
 }
 
