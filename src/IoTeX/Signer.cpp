@@ -50,48 +50,49 @@ static Data encodeStaking(const Proto::Staking& staking) {
     case staking.has_stakecreate():
         auto& stake = staking.stakecreate();
         encoded =
-            stakingCreate(TW::data(stake.candidatename()), TW::data(stake.amount()),
+            stakingCreate(TW::data(stake.candidatename()), TW::data(stake.stakedamount()),
                           stake.stakedduration(), stake.autoStake(), TW::data(stake.payload()));
         break;
     case staking.has_stakeunstake():
-        auto& stake = staking.stakeunstake();
-        encoded = stakingUnstake(stake.index(), TW::data(stake.payload()));
+        auto& unstake = staking.stakeunstake();
+        encoded = stakingUnstake(unstake.bucketindex(), TW::data(unstake.payload()));
         break;
     case staking.has_stakewithdraw():
-        auto& stake = staking.stakewithdraw();
-        encoded = stakingWithdraw(stake.index(), TW::data(wistakethdraw.payload()));
+        auto& withdraw = staking.stakewithdraw();
+        encoded = stakingWithdraw(withdraw.bucketindex(), TW::data(withdraw.payload()));
         break;
     case staking.has_stakeadddeposit():
-        auto& stake = staking.stakeadddeposit();
-        encoded = stakingAddDeposit(stake.index(), TW::data(stake.payload()));
+        auto& adddeposit = staking.stakeadddeposit();
+        encoded = stakingAddDeposit(adddeposit.bucketindex(), TW::data(adddeposit.payload()));
         break;
     case staking.has_stakerestake():
-        auto& stake = staking.stakerestake();
-        encoded = stakingRestake(stake.index(), stake.stakedduration(), stake.autoStake(),
-                                 TW::data(stake.payload()));
+        auto& restake = staking.stakerestake();
+        encoded = stakingRestake(restake.bucketindex(), restake.stakedduration(),
+                                 restake.autostake(), TW::data(restake.payload()));
         break;
     case staking.has_stakechangecandidate():
-        auto& stake = staking.stakerestake();
-        encoded = stakingRestake(stake.index(), stake.stakedduration(), stake.autoStake(),
-                                 TW::data(stake.payload()));
+        auto& changecandidate = staking.stakerestake();
+        encoded = stakingRestake(changecandidate.bucketindex(), changecandidate.stakedduration(),
+                                 changecandidate.autostake(), TW::data(changecandidate.payload()));
         break;
     case staking.has_staketransferownership():
-        auto& stake = staking.staketransferownership();
-        encoded = stakingTransfer(stake.index(), TW::data(stake.voterAddress()),
-                                  TW::data(stake.payload()));
+        auto& transfer = staking.staketransferownership();
+        encoded = stakingTransfer(transfer.bucketindex(), TW::data(transfer.voteraddress()),
+                                  TW::data(transfer.payload()));
         break;
     case staking.has_candidateregister():
-        auto& stake = staking.candidateregister();
-        encoded = candidateRegister(TW::data(stake.name()), TW::data(stake.operatorAddress()),
-                                    TW::data(stake.rewardAddress()),
-                                    TW::data(stake.amount())),stake.stakedduration(),
-                                   stake.autoStake(), TW::data(stake.ownerAddress()),
-                                   TW::data(stake.payload()));
+        auto& candidateregister = staking.candidateregister();
+        encoded = candidateRegister(TW::data(candidateregister.name()), TW::data(candidateregister.operatoraddress()),
+                                    TW::data(candidateregister.rewardaddress()),
+                                    TW::data(candidateregister.stakedamount())),candidateregister.stakedduration(),
+                                   candidateregister.autostake(), TW::data(candidateregister.owneraddress()),
+                                   TW::data(candidateregister.payload()));
         break;
     case staking.has_candidateupdate():
-        auto& stake = staking.candidateupdate();
-        encoded = candidateUpdate(TW::data(stake.name()), TW::data(stake.operatorAddress()),
-                                  TW::data(stake.rewardAddress()));
+        auto& candidateupdate = staking.candidateupdate();
+        encoded = candidateUpdate(TW::data(candidateupdate.name()),
+                                  TW::data(candidateupdate.operatoraddress()),
+                                  TW::data(candidateupdate.rewardaddress()));
         break;
     }
     return encoded;
