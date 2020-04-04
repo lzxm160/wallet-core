@@ -115,8 +115,7 @@ void Signer::toActionCore() {
     bool has_staketransferownership = staking.has_staketransferownership();
     bool has_candidateregister = staking.has_candidateregister();
     bool has_candidateupdate = staking.has_candidateupdate();
-    switch (1) {
-    case has_stakecreate:
+    if (has_stakecreate) {
         auto& stake = staking.stakecreate();
         auto sc = iotextypes::StakeCreate();
         sc.set_candidatename(stake.candidatename());
@@ -125,61 +124,63 @@ void Signer::toActionCore() {
         sc.set_autostake(stake.autoStake());
         sc.set_payload(stake.payload());
         action.set_allocated_stakecreate(&sc);
-        break;
-    case has_stakeunstake:
-        auto& unstake = staking.stakeunstake();
-
-        break;
-    case has_stakewithdraw:
-        auto& withdraw = staking.stakewithdraw();
-
-        break;
-    case has_stakeadddeposit:
-        auto& adddeposit = staking.stakeadddeposit();
-
-        break;
-    case has_stakerestake:
-        auto& restake = staking.stakerestake();
-
-        break;
-    case has_stakechangecandidate:
-        auto& changecandidate = staking.stakerestake();
-
-        break;
-    case has_staketransferownership:
-        auto& transfer = staking.staketransferownership();
-
-        break;
-    case has_candidateregister:
-        auto& candidateregister = staking.candidateregister();
-
-        break;
-    case has_candidateupdate:
-        auto& candidateupdate = staking.candidateupdate();
-
-        break;
+        return;
     }
-    // auto encoded = encodeStaking(staking);
-    // auto& execution = *action.mutable_execution();
-    // execution.set_amount(staking.amount());
-    // execution.set_contract(staking.contract());
-    // execution.set_data(encoded.data(), encoded.size());
-    action.DiscardUnknownFields();
+    if (has_stakeunstake) {
+        auto& unstake = staking.stakeunstake();
+        return;
+    }
 
-    // if (input.has_staking()) {
-    //     action.set_version(input.version());
-    //     action.set_nonce(input.nonce());
-    //     action.set_gaslimit(input.gaslimit());
-    //     action.set_gasprice(input.gasprice());
-    //     auto& staking = input.staking();
-    //     auto encoded = encodeStaking(staking);
-    //     auto& execution = *action.mutable_execution();
-    //     execution.set_amount(staking.amount());
-    //     execution.set_contract(staking.contract());
-    //     execution.set_data(encoded.data(), encoded.size());
-    // } else {
-    //     // ActionCore is almost same as SigningInput, missing field privateKey = 5;
-    //     action.ParseFromString(input.SerializeAsString());
-    //     action.DiscardUnknownFields();
-    // }
+    if (has_stakewithdraw) {
+        auto& withdraw = staking.stakewithdraw();
+        return;
+    }
+    if (has_stakeadddeposit) {
+        auto& adddeposit = staking.stakeadddeposit();
+        return;
+    }
+    if (has_stakerestake) {
+        auto& restake = staking.stakerestake();
+        return;
+    }
+    if (has_stakechangecandidate) {
+        auto& changecandidate = staking.stakerestake();
+        return;
+    }
+    if (has_staketransferownership) {
+        auto& transfer = staking.staketransferownership();
+        return;
+    }
+    if (has_candidateregister) {
+        auto& candidateregister = staking.candidateregister();
+        return;
+    }
+    if (has_candidateupdate) {
+        auto& candidateupdate = staking.candidateupdate();
+        return;
+    }
+}
+// auto encoded = encodeStaking(staking);
+// auto& execution = *action.mutable_execution();
+// execution.set_amount(staking.amount());
+// execution.set_contract(staking.contract());
+// execution.set_data(encoded.data(), encoded.size());
+action.DiscardUnknownFields();
+
+// if (input.has_staking()) {
+//     action.set_version(input.version());
+//     action.set_nonce(input.nonce());
+//     action.set_gaslimit(input.gaslimit());
+//     action.set_gasprice(input.gasprice());
+//     auto& staking = input.staking();
+//     auto encoded = encodeStaking(staking);
+//     auto& execution = *action.mutable_execution();
+//     execution.set_amount(staking.amount());
+//     execution.set_contract(staking.contract());
+//     execution.set_data(encoded.data(), encoded.size());
+// } else {
+//     // ActionCore is almost same as SigningInput, missing field privateKey = 5;
+//     action.ParseFromString(input.SerializeAsString());
+//     action.DiscardUnknownFields();
+// }
 }
