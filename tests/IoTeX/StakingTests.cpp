@@ -151,6 +151,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 
 //     auto stake = stakingCreate(candidate, amount, 10000, true, payload);
 //     auto action = IoTeX::Proto::StakeCreate();
+// action.set_encoded(string(stake.begin(), stake.end()));
+// action.set_encoded Data to string
 //     action.ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
 //     staking->set_allocated_stakecreate(TWDataBytes(stake.get()), TWDataSize(stake.get()));
 //     auto signer = IoTeX::Signer(std::move(input));
@@ -179,7 +181,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     input.set_nonce(0);
 //     input.set_gaslimit(1000000);
 //     input.set_gasprice("10");
-//     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+//     auto keyhex =
+//     parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
 //     auto staking = input.mutable_stakeadddeposit();
@@ -214,7 +217,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     input.set_nonce(0);
 //     input.set_gaslimit(1000000);
 //     input.set_gasprice("10");
-//     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+//     auto keyhex =
+//     parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
 //     auto staking = input.mutable_stakeunstake();
@@ -247,7 +251,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     input.set_nonce(0);
 //     input.set_gaslimit(1000000);
 //     input.set_gasprice("10");
-//     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+//     auto keyhex =
+//     parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
 //     auto staking = input.mutable_stakewithdraw();
@@ -280,7 +285,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     input.set_nonce(0);
 //     input.set_gaslimit(1000000);
 //     input.set_gasprice("10");
-//     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+//     auto keyhex =
+//     parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
 //     // staking is implemented using the stakerestake message
@@ -314,7 +320,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     input.set_nonce(0);
 //     input.set_gaslimit(1000000);
 //     input.set_gasprice("10");
-//     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+//     auto keyhex =
+//     parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
 //     // staking is implemented using the stakecreate message
@@ -351,7 +358,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     input.set_nonce(0);
 //     input.set_gaslimit(1000000);
 //     input.set_gasprice("10");
-//     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+//     auto keyhex =
+//     parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
 //     // staking is implemented using the stakecreate message
@@ -388,7 +396,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     input.set_nonce(0);
 //     input.set_gaslimit(1000000);
 //     input.set_gasprice("1000");
-//     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+//     auto keyhex =
+//     parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
 //     const char* IOTEX_STAKING_NAME = "test";
@@ -398,8 +407,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     const char* IOTEX_STAKING_AMOUNT = "100";
 //     const char* IOTEX_STAKING_PAYLOAD = "payload";
 //     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-//     auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
-//     auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
+//     auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR,
+//     41)); auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
 //     auto owner = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OWNER, 41));
 //     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
 //     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
@@ -437,15 +446,16 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     input.set_nonce(0);
 //     input.set_gaslimit(1000000);
 //     input.set_gasprice("10");
-//     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+//     auto keyhex =
+//     parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
 //     const char* IOTEX_STAKING_NAME = "test";
 //     const char* IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
 //     const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
 //     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
-//     auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR, 41));
-//     auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
+//     auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR,
+//     41)); auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
 
 //     auto stake = WRAPD(candidateUpdate(name.get(), operatorAddress.get(), reward.get()));
 //     auto staking = input.mutable_candidateupdate();
