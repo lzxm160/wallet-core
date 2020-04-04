@@ -39,6 +39,9 @@ std::string stringFromData(const Data& data) {
     return std::string(data.begin(), data.end());
 }
 
+const Data& dataFromString(const string& data) {
+    return Data(data.begin(), data.end());
+}
 const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t duration,
                           bool autoStake, const Data& payload) {
     auto action = IoTeX::Proto::Staking_StakeCreate();
@@ -49,9 +52,9 @@ const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t du
     action.set_payload(stringFromData(payload));
     std::cout << action.SerializeAsString() << std::endl;
     // Data* d = new Data;
-    Data* d = new Data(action.SerializeAsString().begin(), action.SerializeAsString().end());
+
     // return data(action.SerializeAsString());
-    return *d;
+    return dataFromString(action.SerializeAsString());
 }
 
 const Data& stakingAddDeposit(uint64_t index, const Data& amount, const Data& payload) {
