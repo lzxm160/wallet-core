@@ -39,10 +39,10 @@ std::string stringFromData(const Data& data) {
     return std::string(data.begin(), data.end());
 }
 
-const Data& dataFromString(const std::string& data) {
-    Data* data = new Data;
-    std::copy(data.c_str(), data.c_str() + data.length(), *data);
-    return *data;
+const Data& dataFromString(const std::string& d) {
+    Data data;
+    std::copy(d.c_str(), d.c_str() + d.length(), data);
+    return data;
 }
 const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t duration,
                           bool autoStake, const Data& payload) {
