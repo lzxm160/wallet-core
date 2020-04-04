@@ -115,7 +115,7 @@ void Signer::toActionCore() {
         sc.set_stakedduration(stake.stakedduration());
         sc.set_autostake(stake.autoStake());
         sc.set_payload(stake.payload());
-        sc.set_allocated_stakecreate(&sc);
+        action.set_allocated_stakecreate(&sc);
         break;
     case staking.has_stakeunstake():
         auto& unstake = staking.stakeunstake();
