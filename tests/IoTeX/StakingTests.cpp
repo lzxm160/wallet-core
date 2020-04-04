@@ -151,10 +151,10 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 
 //     auto stake = stakingCreate(candidate, amount, 10000, true, payload);
 //     auto action = IoTeX::Proto::StakeCreate();
-// action.set_encoded(string(stake.begin(), stake.end()));
-// action.set_encoded Data to string
-//     action.ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
-//     staking->set_allocated_stakecreate(TWDataBytes(stake.get()), TWDataSize(stake.get()));
+//     action.set_encoded(string(stake.begin(), stake.end()));
+//     // action.set_encoded Data to string action.ParseFromArray(TWDataBytes(stake.get()),
+//     //                                                         TWDataSize(stake.get()));
+//     // staking->set_allocated_stakecreate(TWDataBytes(stake.get()), TWDataSize(stake.get()));
 //     auto signer = IoTeX::Signer(std::move(input));
 //     // raw action's hash
 //     ASSERT_EQ(hex(signer.hash()),
