@@ -17,9 +17,9 @@ using namespace TW;
 using namespace TW::IoTeX;
 
 TEST(TWIoTeXStaking, Create) {
-    const char* IOTEX_STAKING_CANDIDATE = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
-    const char* IOTEX_STAKING_PAYLOAD = "payload";
-    const char* IOTEX_STAKING_AMOUNT = "100";
+    std::string IOTEX_STAKING_CANDIDATE = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
+    std::string IOTEX_STAKING_PAYLOAD = "payload";
+    std::string IOTEX_STAKING_AMOUNT = "100";
     Data candidate(IOTEX_STAKING_CANDIDATE.begin(), IOTEX_STAKING_CANDIDATE.end());
     Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
     Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
@@ -31,8 +31,8 @@ TEST(TWIoTeXStaking, Create) {
 }
 
 TEST(TWIoTeXStaking, AddDeposit) {
-    const char* IOTEX_STAKING_PAYLOAD = "payload";
-    const char* IOTEX_STAKING_AMOUNT = "10";
+    std::string IOTEX_STAKING_PAYLOAD = "payload";
+    std::string IOTEX_STAKING_AMOUNT = "10";
     Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
     Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
 
