@@ -142,9 +142,9 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     // staking is implemented using the stakecreate message
 //     auto staking = input.mutable_staking();
 
-//     const char* IOTEX_STAKING_CANDIDATE = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
-//     const char* IOTEX_STAKING_PAYLOAD = "payload";
-//     const char* IOTEX_STAKING_AMOUNT = "100";
+//     std::string IOTEX_STAKING_CANDIDATE = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
+//     std::string IOTEX_STAKING_PAYLOAD = "payload";
+//     std::string IOTEX_STAKING_AMOUNT = "100";
 //     Data candidate(IOTEX_STAKING_CANDIDATE.begin(), IOTEX_STAKING_CANDIDATE.end());
 //     Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 //     Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
@@ -186,8 +186,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
 //     auto staking = input.mutable_stakeadddeposit();
-//     const char* IOTEX_STAKING_PAYLOAD = "payload";
-//     const char* IOTEX_STAKING_AMOUNT = "10";
+//     std::string IOTEX_STAKING_PAYLOAD = "payload";
+//     std::string IOTEX_STAKING_AMOUNT = "10";
 //     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
 //     auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
 
@@ -222,7 +222,7 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
 //     auto staking = input.mutable_stakeunstake();
-//     const char* IOTEX_STAKING_PAYLOAD = "payload";
+//     std::string IOTEX_STAKING_PAYLOAD = "payload";
 //     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
 
 //     auto stake = WRAPD(stakingUnstake(10, payload.get()));
@@ -256,7 +256,7 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
 //     auto staking = input.mutable_stakewithdraw();
-//     const char* IOTEX_STAKING_PAYLOAD = "payload";
+//     std::string IOTEX_STAKING_PAYLOAD = "payload";
 //     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
 
 //     auto stake = WRAPD(stakingWithdraw(10, payload.get()));
@@ -291,7 +291,7 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 
 //     // staking is implemented using the stakerestake message
 //     auto staking = input.mutable_stakerestake();
-//     const char* IOTEX_STAKING_PAYLOAD = "payload";
+//     std::string IOTEX_STAKING_PAYLOAD = "payload";
 //     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
 
 //     auto stake = WRAPD(stakingRestake(10, 1000, true, payload.get()));
@@ -326,8 +326,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 
 //     // staking is implemented using the stakecreate message
 //     auto staking = input.mutable_stakechangecandidate();
-//     const char* IOTEX_STAKING_CANDIDATE = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
-//     const char* IOTEX_STAKING_PAYLOAD = "payload";
+//     std::string IOTEX_STAKING_CANDIDATE = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
+//     std::string IOTEX_STAKING_PAYLOAD = "payload";
 //     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
 //     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
 
@@ -364,8 +364,8 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 
 //     // staking is implemented using the stakecreate message
 //     auto staking = input.mutable_staketransferownership();
-//     const char* IOTEX_STAKING_CANDIDATE = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
-//     const char* IOTEX_STAKING_PAYLOAD = "payload";
+//     std::string IOTEX_STAKING_CANDIDATE = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza";
+//     std::string IOTEX_STAKING_PAYLOAD = "payload";
 //     auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
 //     auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
 
@@ -400,12 +400,12 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
-//     const char* IOTEX_STAKING_NAME = "test";
-//     const char* IOTEX_STAKING_OPERATOR = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he";
-//     const char* IOTEX_STAKING_REWARD = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv";
-//     const char* IOTEX_STAKING_OWNER = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
-//     const char* IOTEX_STAKING_AMOUNT = "100";
-//     const char* IOTEX_STAKING_PAYLOAD = "payload";
+//     std::string IOTEX_STAKING_NAME = "test";
+//     std::string IOTEX_STAKING_OPERATOR = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he";
+//     std::string IOTEX_STAKING_REWARD = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv";
+//     std::string IOTEX_STAKING_OWNER = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
+//     std::string IOTEX_STAKING_AMOUNT = "100";
+//     std::string IOTEX_STAKING_PAYLOAD = "payload";
 //     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
 //     auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR,
 //     41)); auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
@@ -450,9 +450,9 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
 //     parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
 //     input.set_privatekey(keyhex.data(), keyhex.size());
 
-//     const char* IOTEX_STAKING_NAME = "test";
-//     const char* IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
-//     const char* IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
+//     std::string IOTEX_STAKING_NAME = "test";
+//     std::string IOTEX_STAKING_OPERATOR = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng";
+//     std::string IOTEX_STAKING_REWARD = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd";
 //     auto name = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_NAME, 4));
 //     auto operatorAddress = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_OPERATOR,
 //     41)); auto reward = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_REWARD, 41));
