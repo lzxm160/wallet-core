@@ -47,6 +47,7 @@ const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t du
     action.set_stakedduration(duration);
     action.set_autostake(autoStake);
     action.set_payload(stringFromData(payload));
+    std::cout << action.SerializeAsString() << std::endl;
     return data(action.SerializeAsString());
 }
 

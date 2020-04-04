@@ -25,7 +25,7 @@ TEST(TWIoTeXStaking, Create) {
     Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
 
     auto stake = stakingCreate(candidate, amount, 10000, true, payload);
-
+    std::cout << "::::::" << std::string(stake.begin(), stake.end()) << std::endl;
     ASSERT_EQ(hex(stake), "0a29696f313964307033616834673877773964376b63786671383779786537666e723872"
                           "7074683573686a120331303018904e20012a077061796c6f6164");
 }
