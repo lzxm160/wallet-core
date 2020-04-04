@@ -43,9 +43,6 @@ const Data& dataFromString(const std::string& d) {
     Data* data = new Data;
     std::copy(d.c_str(), d.c_str() + d.length(), back_inserter(*data));
     return *data;
-
-    // Data data(d.begin(), d.end());
-    // return data;
 }
 const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t duration,
                           bool autoStake, const Data& payload) {
@@ -55,7 +52,6 @@ const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t du
     action.set_stakedduration(duration);
     action.set_autostake(autoStake);
     action.set_payload(stringFromData(payload));
-    std::cout << action.SerializeAsString() << std::endl;
     return dataFromString(action.SerializeAsString());
 }
 
