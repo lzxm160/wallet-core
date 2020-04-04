@@ -20,27 +20,25 @@ TEST(TWIoTeXStaking, Create) {
     const char* IOTEX_STAKING_CANDIDATE = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
     const char* IOTEX_STAKING_PAYLOAD = "payload";
     const char* IOTEX_STAKING_AMOUNT = "100";
-    auto candidate = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_CANDIDATE, 41));
-    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 3));
+    Data candidate(IOTEX_STAKING_CANDIDATE.begin(), IOTEX_STAKING_CANDIDATE.end());
+    Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
+    Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
 
-    auto stake = WRAPD(stakingCreate(candidate.get(), amount.get(), 10000, true, payload.get()));
-    auto result = dataFromTWData(stake.get());
+    auto stake = stakingCreate(candidate, amount, 10000, true, payload);
 
-    ASSERT_EQ(hex(*result), "0a29696f313964307033616834673877773964376b63786671383779786537666e7238"
-                            "727074683573686a120331303018904e20012a077061796c6f6164");
+    ASSERT_EQ(hex(stake), "0a29696f313964307033616834673877773964376b63786671383779786537666e7238"
+                          "727074683573686a120331303018904e20012a077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, AddDeposit) {
     const char* IOTEX_STAKING_PAYLOAD = "payload";
     const char* IOTEX_STAKING_AMOUNT = "10";
-    auto payload = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_PAYLOAD, 7));
-    auto amount = WRAPD(TWDataCreateWithBytes((uint8_t*)IOTEX_STAKING_AMOUNT, 2));
+    Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
+    Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
 
-    auto stake = WRAPD(stakingAddDeposit(10, amount.get(), payload.get()));
-    auto result = dataFromTWData(stake.get());
+    auto stake = stakingAddDeposit(10, amount, payload));
 
-    ASSERT_EQ(hex(*result), "080a120231301a077061796c6f6164");
+    ASSERT_EQ(hex(stake), "080a120231301a077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, Unstake) {
