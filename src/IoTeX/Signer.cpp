@@ -44,8 +44,41 @@ Data Signer::hash() const {
     return Hash::keccak256(action.SerializeAsString());
 }
 
+static Data encodeStaking(const Proto::Staking& staking) {
+    Data encoded;
+    if (staking.has_stakeCreate()) {
+        auto& stake = staking.stakeCreate();
+        stakingStake(TW::data(stake.candidate()), stake.duration(), stake.nondecay(),
+                     TW::data(stake.data()), encoded);
+    } else if (staking.has_stakeUnstake()) {
+        auto& unstake = staking.stakeUnstake();
+    } else if (staking.has_stakeWithdraw()) {
+        auto& withdraw = staking.stakeWithdraw();
+    } else if (staking.has_stakeAddDeposit()) {
+
+    } else if (staking.has_stakeRestake()) {
+    } else if (staking.has_stakeChangeCandidate()) {
+    } else if (staking.has_stakeTransferOwnership()) {
+    } else if (staking.has_candidateRegister()) {
+    } else if (staking.has_candidateUpdate()) {
+    }
+    return encoded;
+}
 void Signer::toActionCore() {
-    // ActionCore is almost same as SigningInput, missing field privateKey = 5;
-    action.ParseFromString(input.SerializeAsString());
-    action.DiscardUnknownFields();
+    if (input.has_staking()) {
+        action.set_version(input.version());
+        action.set_nonce(input.nonce());
+        action.set_gaslimit(input.gaslimit());
+        action.set_gasprice(input.gasprice());
+        auto& staking = input.staking();
+        auto encoded = encodeStaking(staking);
+        auto& execution = *action.mutable_execution();
+        execution.set_amount(staking.amount());
+        execution.set_contract(staking.contract());
+        execution.set_data(encoded.data(), encoded.size());
+    } else {
+        // ActionCore is almost same as SigningInput, missing field privateKey = 5;
+        action.ParseFromString(input.SerializeAsString());
+        action.DiscardUnknownFields();
+    }
 }

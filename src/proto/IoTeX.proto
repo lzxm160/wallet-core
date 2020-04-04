@@ -86,6 +86,12 @@ message ContractCall {
     bytes data = 3;
 }
 
+message Execution {
+  string amount  = 1;
+  string contract = 2;
+  bytes data = 3;
+}
+
 // transaction signing input
 message SigningInput {
     uint32 version = 1;
@@ -117,7 +123,7 @@ message ActionCore {
   oneof action {
     Transfer transfer = 10;
     Staking staking = 11;
-    ContractCall call = 12;
+    Execution execution = 12;
   }
 }
 
