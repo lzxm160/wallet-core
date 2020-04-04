@@ -48,7 +48,10 @@ const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t du
     action.set_autostake(autoStake);
     action.set_payload(stringFromData(payload));
     std::cout << action.SerializeAsString() << std::endl;
-    return data(action.SerializeAsString());
+    // Data* d = new Data;
+    Data* d = new Data(action.SerializeAsString().begin(), action.SerializeAsString().end());
+    // return data(action.SerializeAsString());
+    return *d;
 }
 
 const Data& stakingAddDeposit(uint64_t index, const Data& amount, const Data& payload) {
