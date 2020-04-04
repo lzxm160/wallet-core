@@ -36,7 +36,7 @@ TEST(TWIoTeXStaking, AddDeposit) {
     Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
     Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
 
-    auto stake = stakingAddDeposit(10, amount, payload));
+    auto stake = stakingAddDeposit(10, amount, payload);
 
     ASSERT_EQ(hex(stake), "080a120231301a077061796c6f6164");
 }
@@ -47,7 +47,7 @@ TEST(TWIoTeXStaking, Unstake) {
 
     auto stake = stakingUnstake(10, payload);
 
-    ASSERT_EQ(hex(auto stake = stakingUnstake(10, payload);), "080a12077061796c6f6164");
+    ASSERT_EQ(hex(stake), "080a12077061796c6f6164");
 }
 
 TEST(TWIoTeXStaking, Withdraw) {
@@ -103,6 +103,7 @@ TEST(TWIoTeXStaking, CandidateRegister) {
     Data operatorAddress(IOTEX_STAKING_OPERATOR.begin(), IOTEX_STAKING_OPERATOR.end());
     Data reward(IOTEX_STAKING_REWARD.begin(), IOTEX_STAKING_REWARD.end());
     Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
+    Data owner(IOTEX_STAKING_OWNER.begin(), IOTEX_STAKING_OWNER.end());
     Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
 
     auto stake =
