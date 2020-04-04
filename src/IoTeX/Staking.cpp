@@ -39,8 +39,10 @@ std::string stringFromData(const Data& data) {
     return std::string(data.begin(), data.end());
 }
 
-const Data& dataFromString(const string& data) {
-    return Data(data.begin(), data.end());
+const Data& dataFromString(const std::string& data) {
+    Data* data = new Data;
+    std::copy(data.c_str(), data.c_str() + data.length(), *data);
+    return *data;
 }
 const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t duration,
                           bool autoStake, const Data& payload) {
@@ -51,9 +53,6 @@ const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t du
     action.set_autostake(autoStake);
     action.set_payload(stringFromData(payload));
     std::cout << action.SerializeAsString() << std::endl;
-    // Data* d = new Data;
-
-    // return data(action.SerializeAsString());
     return dataFromString(action.SerializeAsString());
 }
 
@@ -62,21 +61,21 @@ const Data& stakingAddDeposit(uint64_t index, const Data& amount, const Data& pa
     action.set_bucketindex(index);
     action.set_amount(stringFromData(amount));
     action.set_payload(stringFromData(payload));
-    return data(action.SerializeAsString());
+    return dataFromString(action.SerializeAsString());
 }
 
 const Data& stakingUnstake(uint64_t index, const Data& payload) {
     auto action = IoTeX::Proto::Staking_StakeReclaim();
     action.set_bucketindex(index);
     action.set_payload(stringFromData(payload));
-    return data(action.SerializeAsString());
+    return dataFromString(action.SerializeAsString());
 }
 
 const Data& stakingWithdraw(uint64_t index, const Data& payload) {
     auto action = IoTeX::Proto::Staking_StakeReclaim();
     action.set_bucketindex(index);
     action.set_payload(stringFromData(payload));
-    return data(action.SerializeAsString());
+    return dataFromString(action.SerializeAsString());
 }
 
 const Data& stakingRestake(uint64_t index, uint32_t duration, bool autoStake, const Data& payload) {
@@ -85,7 +84,7 @@ const Data& stakingRestake(uint64_t index, uint32_t duration, bool autoStake, co
     action.set_stakedduration(duration);
     action.set_autostake(autoStake);
     action.set_payload(stringFromData(payload));
-    return data(action.SerializeAsString());
+    return dataFromString(action.SerializeAsString());
 }
 
 const Data& stakingChangeCandidate(uint64_t index, const Data& candidate, const Data& payload) {
@@ -93,7 +92,7 @@ const Data& stakingChangeCandidate(uint64_t index, const Data& candidate, const 
     action.set_bucketindex(index);
     action.set_candidatename(stringFromData(candidate));
     action.set_payload(stringFromData(payload));
-    return data(action.SerializeAsString());
+    return dataFromString(action.SerializeAsString());
 }
 
 const Data& stakingTransfer(uint64_t index, const Data& voterAddress, const Data& payload) {
@@ -101,7 +100,7 @@ const Data& stakingTransfer(uint64_t index, const Data& voterAddress, const Data
     action.set_bucketindex(index);
     action.set_voteraddress(stringFromData(voterAddress));
     action.set_payload(stringFromData(payload));
-    return data(action.SerializeAsString());
+    return dataFromString(action.SerializeAsString());
 }
 
 const Data& candidateRegister(const Data& name, const Data& operatorAddress,
@@ -119,7 +118,7 @@ const Data& candidateRegister(const Data& name, const Data& operatorAddress,
     action.set_autostake(autoStake);
     action.set_owneraddress(stringFromData(ownerAddress));
     action.set_payload(stringFromData(payload));
-    return data(action.SerializeAsString());
+    return dataFromString(action.SerializeAsString());
 }
 
 const Data& candidateUpdate(const Data& name, const Data& operatorAddress,
@@ -128,6 +127,6 @@ const Data& candidateUpdate(const Data& name, const Data& operatorAddress,
     action.set_name(stringFromData(name));
     action.set_operatoraddress(stringFromData(operatorAddress));
     action.set_rewardaddress(stringFromData(rewardAddress));
-    return data(action.SerializeAsString());
+    return dataFromString(action.SerializeAsString());
 }
 } // namespace TW::IoTeX
