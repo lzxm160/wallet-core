@@ -121,7 +121,7 @@ void Signer::toActionCore() {
         sc.set_candidatename(stake.candidatename());
         sc.set_stakedamount(stake.stakedamount());
         sc.set_stakedduration(stake.stakedduration());
-        sc.set_autostake(stake.autoStake());
+        sc.set_autostake(stake.autostake());
         sc.set_payload(stake.payload());
         action.set_allocated_stakecreate(&sc);
         return;
@@ -165,7 +165,7 @@ void Signer::toActionCore() {
 // execution.set_amount(staking.amount());
 // execution.set_contract(staking.contract());
 // execution.set_data(encoded.data(), encoded.size());
-action.DiscardUnknownFields();
+// action.DiscardUnknownFields();
 
 // if (input.has_staking()) {
 //     action.set_version(input.version());
@@ -183,4 +183,4 @@ action.DiscardUnknownFields();
 //     action.ParseFromString(input.SerializeAsString());
 //     action.DiscardUnknownFields();
 // }
-}
+// }
