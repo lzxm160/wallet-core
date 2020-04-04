@@ -14,12 +14,13 @@ namespace TW::IoTeX {
 
 const char* charFromTWData(const Data& data) {
     // return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
-    std::stringstream oss;
-    for (unsigned int i = 0; i < data.size(); i++) {
-        oss << data[i];
-    }
-    string temp = oss.str();
-    return temp.c_str();
+    // std::stringstream oss;
+    // for (unsigned int i = 0; i < data.size(); i++) {
+    //     oss << data[i];
+    // }
+    // std::string temp = oss.str();
+    // return temp.c_str();
+    return (const char*)data.data();
 }
 
 const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t duration,
