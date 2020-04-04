@@ -46,21 +46,21 @@ Data Signer::hash() const {
 
 static Data encodeStaking(const Proto::Staking& staking) {
     Data encoded;
-    if (staking.has_stake()) {
-        auto& stake = staking.stake();
-        stakingStake(TW::data(stake.candidate()), stake.duration(), stake.nondecay(), TW::data(stake.data()), encoded);
-    } else if (staking.has_unstake()) {
-        auto& unstake = staking.unstake();
-        stakingUnstake(unstake.piggy_index(), TW::data(unstake.data()), encoded);
-    } else if (staking.has_withdraw()) {
-        auto& withdraw = staking.withdraw();
-        stakingWithdraw(withdraw.piggy_index(), TW::data(withdraw.data()), encoded);
-    } else if (staking.has_movestake()) {
-        auto& move = staking.movestake();
-        stakingMoveStake(move.piggy_index(), TW::data(move.candidate()), TW::data(move.data()), encoded);
-    } else if (staking.has_addstake()) {
-        auto& add = staking.addstake();
-        stakingAddStake(add.piggy_index(), TW::data(add.data()), encoded);
+    if (staking.has_stakecreate()) {
+        auto& stake = staking.stakecreate();
+        stakingStake(TW::data(stake.candidate()), stake.duration(), stake.nondecay(),
+                     TW::data(stake.data()), encoded);
+    } else if (staking.has_stakeunstake()) {
+        auto& unstake = staking.stakeunstake();
+    } else if (staking.has_stakewithdraw()) {
+        auto& withdraw = staking.stakewithdraw();
+    } else if (staking.has_stakeadddeposit()) {
+
+    } else if (staking.has_stakerestake()) {
+    } else if (staking.has_stakechangecandidate()) {
+    } else if (staking.has_staketransferownership()) {
+    } else if (staking.has_candidateregister()) {
+    } else if (staking.has_candidateupdate()) {
     }
     return encoded;
 }
