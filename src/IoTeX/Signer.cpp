@@ -105,10 +105,17 @@ void Signer::toActionCore() {
     action.set_nonce(input.nonce());
     action.set_gaslimit(input.gaslimit());
     action.set_gasprice(input.gasprice());
-    auto& staking = input.staking();
+    const Proto::Staking& staking = input.staking();
     switch (1) {
     case staking.has_stakecreate():
         auto& stake = staking.stakecreate();
+        auto sc = iotextypes::StakeCreate();
+        sc.set_candidatename(stake.candidatename());
+        sc.set_stakedamount(stake.stakedamount());
+        sc.set_stakedduration(stake.stakedduration());
+        sc.set_autostake(stake.autoStake());
+        sc.set_payload(stake.payload());
+        sc.set_allocated_stakecreate(&sc);
         break;
     case staking.has_stakeunstake():
         auto& unstake = staking.stakeunstake();
