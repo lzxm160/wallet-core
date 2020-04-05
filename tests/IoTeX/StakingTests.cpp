@@ -164,12 +164,17 @@ TEST(TWIoTeXStaking, SignCreate) {
     // action.set_encoded Data to string action.ParseFromArray(TWDataBytes(stake.get()),
     //                                                         TWDataSize(stake.get()));
     // staking->set_allocated_stakecreate(TWDataBytes(stake.get()), TWDataSize(stake.get()));
+    // auto stake = stakingCreate(candidate, amount, 10000, true, payload);
+    // std::string prot = std::string(stake.begin(), stake.end());
+    // std::cout << prot << std::endl;
+    // const Data parsed = parse_hex(prot);
+    // // action->ParseFromArray(DataBytes(stake.get()), DataSize(stake.get()));
+    // action->ParseFromArray(parsed.data(), (int)parsed.size());
     auto stake = stakingCreate(candidate, amount, 10000, true, payload);
-    std::string prot = std::string(stake.begin(), stake.end());
-    std::cout << prot << std::endl;
-    const Data parsed = parse_hex(prot);
-    // action->ParseFromArray(DataBytes(stake.get()), DataSize(stake.get()));
-    action->ParseFromArray(parsed.data(), (int)parsed.size());
+    const Data parsed = parse_hex(hex(stake));
+    std::cout << "hex(stake):" << hex(stake) << std::endl;
+
+    action->ParseFromArray(DataBytes(parsed.get()), DataSize(parsed.get()));
 
     auto staking = input.mutable_staking();
     staking->set_allocated_stakecreate(action);
