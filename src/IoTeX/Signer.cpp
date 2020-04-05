@@ -117,7 +117,7 @@ void Signer::toActionCore() {
     bool has_candidateupdate = staking.has_candidateupdate();
     if (has_stakecreate) {
         auto& stake = staking.stakecreate();
-        auto sc = iotextypes::StakeCreate();
+        auto sc = Proto::Staking_StakeCreate();
         sc.set_candidatename(stake.candidatename());
         sc.set_stakedamount(stake.stakedamount());
         sc.set_stakedduration(stake.stakedduration());
