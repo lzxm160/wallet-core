@@ -74,7 +74,7 @@ void Signer::toActionCore() {
         auto& unstake = staking.stakeunstake();
         auto ss = new IoTeX::Proto::Staking_StakeReclaim();
         ss->set_bucketindex(unstake.bucketindex());
-        ss->set_payload(stake.payload());
+        ss->set_payload(unstake.payload());
         action.set_allocated_stakeunstake(ss);
         return;
     }
