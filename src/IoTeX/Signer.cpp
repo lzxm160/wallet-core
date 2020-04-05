@@ -44,62 +44,6 @@ Data Signer::hash() const {
     return Hash::keccak256(action.SerializeAsString());
 }
 
-// static Data encodeStaking(const Proto::Staking& staking) {
-//     Data encoded;
-//     switch (1) {
-//     case staking.has_stakecreate():
-//         auto& stake = staking.stakecreate();
-//         encoded =
-//             stakingCreate(TW::data(stake.candidatename()), TW::data(stake.stakedamount()),
-//                           stake.stakedduration(), stake.autoStake(), TW::data(stake.payload()));
-//         break;
-//     case staking.has_stakeunstake():
-//         auto& unstake = staking.stakeunstake();
-//         encoded = stakingUnstake(unstake.bucketindex(), TW::data(unstake.payload()));
-//         break;
-//     case staking.has_stakewithdraw():
-//         auto& withdraw = staking.stakewithdraw();
-//         encoded = stakingWithdraw(withdraw.bucketindex(), TW::data(withdraw.payload()));
-//         break;
-//     case staking.has_stakeadddeposit():
-//         auto& adddeposit = staking.stakeadddeposit();
-//         encoded = stakingAddDeposit(adddeposit.bucketindex(), TW::data(adddeposit.payload()));
-//         break;
-//     case staking.has_stakerestake():
-//         auto& restake = staking.stakerestake();
-//         encoded = stakingRestake(restake.bucketindex(), restake.stakedduration(),
-//                                  restake.autostake(), TW::data(restake.payload()));
-//         break;
-//     case staking.has_stakechangecandidate():
-//         auto& changecandidate = staking.stakerestake();
-//         encoded = stakingRestake(changecandidate.bucketindex(), changecandidate.stakedduration(),
-//                                  changecandidate.autostake(),
-//                                  TW::data(changecandidate.payload()));
-//         break;
-//     case staking.has_staketransferownership():
-//         auto& transfer = staking.staketransferownership();
-//         encoded = stakingTransfer(transfer.bucketindex(), TW::data(transfer.voteraddress()),
-//                                   TW::data(transfer.payload()));
-//         break;
-//     case staking.has_candidateregister():
-//         auto& candidateregister = staking.candidateregister();
-//         encoded = candidateRegister(TW::data(candidateregister.name()),
-//         TW::data(candidateregister.operatoraddress()),
-//                                     TW::data(candidateregister.rewardaddress()),
-//                                     TW::data(candidateregister.stakedamount())),candidateregister.stakedduration(),
-//                                    candidateregister.autostake(),
-//                                    TW::data(candidateregister.owneraddress()),
-//                                    TW::data(candidateregister.payload()));
-//         break;
-//     case staking.has_candidateupdate():
-//         auto& candidateupdate = staking.candidateupdate();
-//         encoded = candidateUpdate(TW::data(candidateupdate.name()),
-//                                   TW::data(candidateupdate.operatoraddress()),
-//                                   TW::data(candidateupdate.rewardaddress()));
-//         break;
-//     }
-//     return encoded;
-// }
 void Signer::toActionCore() {
     action.set_version(input.version());
     action.set_nonce(input.nonce());
@@ -117,17 +61,21 @@ void Signer::toActionCore() {
     bool has_candidateupdate = staking.has_candidateupdate();
     if (has_stakecreate) {
         auto& stake = staking.stakecreate();
-        auto sc = new IoTeX::Proto::Staking_StakeCreate();
-        sc->set_candidatename(stake.candidatename());
-        sc->set_stakedamount(stake.stakedamount());
-        sc->set_stakedduration(stake.stakedduration());
-        sc->set_autostake(stake.autostake());
-        sc->set_payload(stake.payload());
-        action.set_allocated_stakecreate(sc);
+        auto ss = new IoTeX::Proto::Staking_StakeCreate();
+        ss->set_candidatename(stake.candidatename());
+        ss->set_stakedamount(stake.stakedamount());
+        ss->set_stakedduration(stake.stakedduration());
+        ss->set_autostake(stake.autostake());
+        ss->set_payload(stake.payload());
+        action.set_allocated_stakecreate(ss);
         return;
     }
     if (has_stakeunstake) {
         auto& unstake = staking.stakeunstake();
+        auto ss = new IoTeX::Proto::Staking_StakeReclaim();
+        ss->set_bucketindex(unstake.bucketindex());
+        ss->set_payload(stake.payload());
+        action.set_allocated_stakeunstake(ss);
         return;
     }
     if (has_stakewithdraw) {
@@ -161,27 +109,3 @@ void Signer::toActionCore() {
     action.ParseFromString(input.SerializeAsString());
     action.DiscardUnknownFields();
 }
-// auto encoded = encodeStaking(staking);
-// auto& execution = *action.mutable_execution();
-// execution.set_amount(staking.amount());
-// execution.set_contract(staking.contract());
-// execution.set_data(encoded.data(), encoded.size());
-// action.DiscardUnknownFields();
-
-// if (input.has_staking()) {
-//     action.set_version(input.version());
-//     action.set_nonce(input.nonce());
-//     action.set_gaslimit(input.gaslimit());
-//     action.set_gasprice(input.gasprice());
-//     auto& staking = input.staking();
-//     auto encoded = encodeStaking(staking);
-//     auto& execution = *action.mutable_execution();
-//     execution.set_amount(staking.amount());
-//     execution.set_contract(staking.contract());
-//     execution.set_data(encoded.data(), encoded.size());
-// } else {
-//     // ActionCore is almost same as SigningInput, missing field privateKey = 5;
-//     action.ParseFromString(input.SerializeAsString());
-//     action.DiscardUnknownFields();
-// }
-// }
