@@ -52,7 +52,7 @@ func testSignStakingCreate() {
         $0.gasPrice = "10"
         $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
     }
-    input.staking.stakeCreate = IoTeXStaking.StakingCreate.with {
+    input.staking.stakeCreate = IoTeXStaking.stakingCreate.with {
         $0.candidate = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj"
         $0.amount="100"
         $0.duration = 10000
@@ -92,7 +92,7 @@ func testSignStakingUnstake() {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.stakeUnstake = IoTeXStaking.stakingUnstake {
+        input.staking.stakeUnstake = IoTeXStaking.stakingUnstake.with {
             $0.index=10
             $0.payload = "payload"
         }
@@ -110,7 +110,7 @@ func testSignStakingWithdraw() {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.stakeWithdraw = IoTeXStaking.stakingWithdraw {
+        input.staking.stakeWithdraw = IoTeXStaking.stakingWithdraw.with {
             $0.index=10
             $0.payload = "payload"
         }
@@ -192,7 +192,7 @@ func testSignStakingRestake() {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.stakeRestake = IoTeXStaking.stakingRestake {
+        input.staking.stakeRestake = IoTeXStaking.stakingRestake.with {
             $0.index = 10
             $0.duration = 1000
             $0.autoStake = true
@@ -213,7 +213,7 @@ func testSignStakingChangeCandidate() {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.stakeChangeCandidate = IoTeXStaking.stakingChangeCandidate {
+        input.staking.stakeChangeCandidate = IoTeXStaking.stakingChangeCandidate.with {
             $0.index =10    
             $0.candidate = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza"
             $0.payload = "payload"
@@ -232,7 +232,7 @@ func testSignStakingTransfer() {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.stakeTransferOwnership = IoTeXStaking.stakingTransfer {
+        input.staking.stakeTransferOwnership = IoTeXStaking.stakingTransfer.with {
             $0.index =10    
             $0.voterAddress = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza"
             $0.payload = "payload"
@@ -251,7 +251,7 @@ func testSignStakingTransfer() {
             $0.gasPrice = "1000"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.candidateRegister = IoTeXStaking.candidateRegister {
+        input.staking.candidateRegister = IoTeXStaking.candidateRegister.with {
             $0.name ="test"
             $0.operatorAddress ="io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he"   
             $0.rewardAddress ="io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv"
@@ -275,7 +275,7 @@ func testSignStakingTransfer() {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.candidateUpdate = IoTeXStaking.candidateUpdate {
+        input.staking.candidateUpdate = IoTeXStaking.candidateUpdate.with {
             $0.name ="test"
             $0.operatorAddress ="io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng"   
             $0.rewardAddress ="io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd"
