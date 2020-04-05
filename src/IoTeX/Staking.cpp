@@ -39,7 +39,7 @@ const char* FromData(const Data& data) {
     // return std::string(data.begin(), data.end());
     auto s = new std::string(data.begin(), data.end());
     // append null terminator
-    s->append(size, '\0');
+    s->append(data.size(), '\0');
     // return s;
     auto ss = reinterpret_cast<const std::string*>(s);
     return ss->data();
