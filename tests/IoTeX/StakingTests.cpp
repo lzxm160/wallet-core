@@ -164,8 +164,9 @@ TEST(TWIoTeXStaking, SignCreate) {
     // action.set_encoded Data to string action.ParseFromArray(TWDataBytes(stake.get()),
     //                                                         TWDataSize(stake.get()));
     // staking->set_allocated_stakecreate(TWDataBytes(stake.get()), TWDataSize(stake.get()));
-    auto stake = DATA(stakingCreate(candidate, amount, 10000, true, payload));
-    action->ParseFromArray(DataBytes(stake.get()), DataSize(stake.get()));
+    auto stake = stakingCreate(candidate, amount, 10000, true, payload);
+    // action->ParseFromArray(DataBytes(stake.get()), DataSize(stake.get()));
+    action->ParseFromArray(stake.data(), (int)stake.size());
 
     auto staking = input.mutable_staking();
     staking->set_allocated_stakecreate(action);
