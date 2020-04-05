@@ -216,7 +216,6 @@ TEST(TWIoTeXStaking, SignUnstake) {
     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
     input.set_privatekey(keyhex.data(), keyhex.size());
 
-    auto staking = input.mutable_stakeunstake();
     std::string payload = "payload";
 
     auto action = new IoTeX::Proto::Staking_StakeReclaim();
