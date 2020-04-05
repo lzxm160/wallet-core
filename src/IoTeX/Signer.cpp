@@ -90,7 +90,7 @@ void Signer::toActionCore() {
         auto& adddeposit = staking.stakeadddeposit();
         auto ss = new IoTeX::Proto::Staking_StakeAddDeposit();
         ss->set_bucketindex(adddeposit.bucketindex());
-        ss->set_amount(adddeposit.stakedamount());
+        ss->set_amount(adddeposit.amount());
         ss->set_payload(adddeposit.payload());
         action.set_allocated_stakeadddeposit(ss);
         return;
@@ -136,9 +136,9 @@ void Signer::toActionCore() {
         ss->set_stakedamount(candidateregister.stakedamount());
         ss->set_stakedduration(candidateregister.stakedduration());
         ss->set_autostake(candidateregister.autostake());
-        ss->set_owneraddress(candidateregister.owneraddress()));
+        ss->set_owneraddress(candidateregister.owneraddress());
         ss->set_payload(candidateregister.payload());
-        action.set_allocated_staketransferownership(ss);
+        action.set_allocated_stakecandidateregister(ss);
         return;
     }
     if (has_candidateupdate) {
@@ -147,7 +147,7 @@ void Signer::toActionCore() {
         cbi->set_name(candidateupdate.name());
         cbi->set_operatoraddress(candidateupdate.operatoraddress());
         cbi->set_rewardaddress(candidateupdate.rewardaddress());
-        action.set_allocated_staketransferownership(cbi);
+        action.set_allocated_stakecandidateupdate(cbi);
         return;
     }
     action.ParseFromString(input.SerializeAsString());
