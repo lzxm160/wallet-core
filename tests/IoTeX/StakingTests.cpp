@@ -129,15 +129,7 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
                           "66617a6d7039766e326736366e671a29696f316a757678356730363365753474733833"
                           "326e756b7034766763776b32676e6335637539617964");
 }
-size_t DataSize(Data* _Nonnull data) {
-    auto v = reinterpret_cast<const std::vector<uint8_t>*>(data);
-    return v->size();
-}
 
-uint8_t* _Nonnull DataBytes(Data* _Nonnull data) {
-    auto v = const_cast<std::vector<uint8_t>*>(reinterpret_cast<const std::vector<uint8_t>*>(data));
-    return v->data();
-}
 TEST(TWIoTeXStaking, SignCreate) {
     auto input = Proto::SigningInput();
     input.set_version(1);
@@ -147,35 +139,16 @@ TEST(TWIoTeXStaking, SignCreate) {
     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
     input.set_privatekey(keyhex.data(), keyhex.size());
 
-    std::string IOTEX_STAKING_CANDIDATE = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
-    std::string IOTEX_STAKING_PAYLOAD = "payload";
-    std::string IOTEX_STAKING_AMOUNT = "100";
-    Data candidate(IOTEX_STAKING_CANDIDATE.begin(), IOTEX_STAKING_CANDIDATE.end());
-    Data payload(IOTEX_STAKING_PAYLOAD.begin(), IOTEX_STAKING_PAYLOAD.end());
-    Data amount(IOTEX_STAKING_AMOUNT.begin(), IOTEX_STAKING_AMOUNT.end());
+    std::string candidate = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
+    std::string payload = "payload";
+    std::string amount = "100";
 
-    // auto stake = stakingCreate(candidate, amount, 10000, true, payload);
     auto action = new IoTeX::Proto::Staking_StakeCreate();
-    // std::string* prot = new std::string(stake.begin(), stake.end());
-    // std::cout << *prot << std::endl;
-    // auto stake = WRAPD(stakingRestake(10, 1000, true, payload.get()));
-    // staking->ParseFromArray(TWDataBytes(stake.get()), TWDataSize(stake.get()));
-    // action->ParseFromString(*prot);
-    // action.set_encoded Data to string action.ParseFromArray(TWDataBytes(stake.get()),
-    //                                                         TWDataSize(stake.get()));
-    // staking->set_allocated_stakecreate(TWDataBytes(stake.get()), TWDataSize(stake.get()));
-    // auto stake = stakingCreate(candidate, amount, 10000, true, payload);
-    // std::string prot = std::string(stake.begin(), stake.end());
-    // std::cout << prot << std::endl;
-    // const Data parsed = parse_hex(prot);
-    // // action->ParseFromArray(DataBytes(stake.get()), DataSize(stake.get()));
-    // action->ParseFromArray(parsed.data(), (int)parsed.size());
-    auto stake = stakingCreate(candidate, amount, 10000, true, payload);
-    const Data parsed = parse_hex(hex(stake));
-    std::cout << "hex(stake):" << hex(stake) << std::endl;
-
-    action->ParseFromArray(DataBytes(parsed.get()), DataSize(parsed.get()));
-
+    action.set_candidatename(candidate);
+    action.set_stakedamount(amount);
+    action.set_stakedduration(10000);
+    action.set_autostake(true);
+    action.set_payload(payload);
     auto staking = input.mutable_staking();
     staking->set_allocated_stakecreate(action);
     auto signer = IoTeX::Signer(std::move(input));
