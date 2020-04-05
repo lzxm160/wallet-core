@@ -80,6 +80,10 @@ void Signer::toActionCore() {
     }
     if (has_stakewithdraw) {
         auto& withdraw = staking.stakewithdraw();
+        auto ss = new IoTeX::Proto::Staking_StakeReclaim();
+        ss->set_bucketindex(withdraw.bucketindex());
+        ss->set_payload(withdraw.payload());
+        action.set_allocated_stakeunstake(ss);
         return;
     }
     if (has_stakeadddeposit) {
