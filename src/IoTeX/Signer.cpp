@@ -117,13 +117,13 @@ void Signer::toActionCore() {
     bool has_candidateupdate = staking.has_candidateupdate();
     if (has_stakecreate) {
         auto& stake = staking.stakecreate();
-        auto sc = new IoTeX::Proto::Staking_StakeCreate();
-        sc->set_candidatename(stake.candidatename());
-        sc->set_stakedamount(stake.stakedamount());
-        sc->set_stakedduration(stake.stakedduration());
-        sc->set_autostake(stake.autostake());
-        sc->set_payload(stake.payload());
-        action.set_allocated_stakecreate(sc);
+        auto sc = Proto::Staking_StakeCreate();
+        sc.set_candidatename(stake.candidatename());
+        sc.set_stakedamount(stake.stakedamount());
+        sc.set_stakedduration(stake.stakedduration());
+        sc.set_autostake(stake.autostake());
+        sc.set_payload(stake.payload());
+        action.set_allocated_stakecreate(&sc);
         return;
     }
     if (has_stakeunstake) {
