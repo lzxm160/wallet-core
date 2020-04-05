@@ -83,31 +83,71 @@ void Signer::toActionCore() {
         auto ss = new IoTeX::Proto::Staking_StakeReclaim();
         ss->set_bucketindex(withdraw.bucketindex());
         ss->set_payload(withdraw.payload());
-        action.set_allocated_stakeunstake(ss);
+        action.set_allocated_stakewithdraw(ss);
         return;
     }
     if (has_stakeadddeposit) {
         auto& adddeposit = staking.stakeadddeposit();
+        auto ss = new IoTeX::Proto::Staking_StakeAddDeposit();
+        ss->set_bucketindex(adddeposit.bucketindex());
+        ss->set_amount(adddeposit.stakedamount());
+        ss->set_payload(adddeposit.payload());
+        action.set_allocated_stakeadddeposit(ss);
         return;
     }
     if (has_stakerestake) {
         auto& restake = staking.stakerestake();
+        auto ss = new IoTeX::Proto::Staking_StakeRestake();
+        ss->set_bucketindex(restake.bucketindex());
+        ss->set_stakedduration(restake.stakedduration());
+        ss->set_autostake(restake.autostake());
+        ss->set_payload(restake.payload());
+        action.set_allocated_stakerestake(ss);
         return;
     }
     if (has_stakechangecandidate) {
-        auto& changecandidate = staking.stakerestake();
+        auto& changecandidate = staking.stakechangecandidate();
+        auto ss = new IoTeX::Proto::Staking_StakeChangeCandidate();
+        ss->set_bucketindex(changecandidate.bucketindex());
+        ss->set_candidatename(changecandidate.candidatename());
+        ss->set_payload(changecandidate.payload());
+        action.set_allocated_stakechangecandidate(ss);
         return;
     }
     if (has_staketransferownership) {
         auto& transfer = staking.staketransferownership();
+        auto ss = new IoTeX::Proto::Staking_StakeTransferOwnership();
+        ss->set_bucketindex(transfer.bucketindex());
+        ss->set_voteraddress(transfer.voteraddress());
+        ss->set_payload(transfer.payload());
+        action.set_allocated_staketransferownership(ss);
         return;
     }
     if (has_candidateregister) {
         auto& candidateregister = staking.candidateregister();
+
+        auto cbi = new IoTeX::Proto::Staking_CandidateBasicInfo();
+        cbi->set_name(candidateregister.candidate().name());
+        cbi->set_operatoraddress(candidateregister.candidate().operatoraddress());
+        cbi->set_rewardaddress(candidateregister.candidate().rewardaddress());
+
+        auto ss = new IoTeX::Proto::Staking_CandidateRegister();
+        ss->set_allocated_candidate(cbi);
+        ss->set_stakedamount(candidateregister.stakedamount());
+        ss->set_stakedduration(candidateregister.stakedduration());
+        ss->set_autostake(candidateregister.autostake());
+        ss->set_owneraddress(candidateregister.owneraddress()));
+        ss->set_payload(candidateregister.payload());
+        action.set_allocated_staketransferownership(ss);
         return;
     }
     if (has_candidateupdate) {
         auto& candidateupdate = staking.candidateupdate();
+        auto cbi = new IoTeX::Proto::Staking_CandidateBasicInfo();
+        cbi->set_name(candidateupdate.name());
+        cbi->set_operatoraddress(candidateupdate.operatoraddress());
+        cbi->set_rewardaddress(candidateupdate.rewardaddress());
+        action.set_allocated_staketransferownership(cbi);
         return;
     }
     action.ParseFromString(input.SerializeAsString());
