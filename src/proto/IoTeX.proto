@@ -108,3 +108,30 @@ message SigningOutput {
     // Signed Action hash
     bytes hash = 2;
 }
+
+message ActionCore {
+  uint32 version = 1;
+  uint64 nonce = 2;
+  uint64 gasLimit = 3;
+  string gasPrice = 4;
+  oneof action {
+    Transfer transfer = 10;
+    ContractCall execution = 12;
+    // Native staking
+    Staking.StakeCreate stakeCreate = 40;
+    Staking.StakeReclaim stakeUnstake = 41;
+    Staking.StakeReclaim stakeWithdraw = 42;
+    Staking.StakeAddDeposit stakeAddDeposit = 43;
+    Staking.StakeRestake stakeRestake = 44;
+    Staking.StakeChangeCandidate stakeChangeCandidate = 45;
+    Staking.StakeTransferOwnership stakeTransferOwnership = 46;
+    Staking.CandidateRegister candidateRegister = 47;
+    Staking.CandidateBasicInfo candidateUpdate = 48;
+  }
+}
+
+message Action {
+  ActionCore core = 1;
+  bytes senderPubKey = 2;
+  bytes signature = 3;
+}
