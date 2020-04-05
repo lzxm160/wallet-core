@@ -144,11 +144,11 @@ TEST(TWIoTeXStaking, SignCreate) {
     std::string amount = "100";
 
     auto action = new IoTeX::Proto::Staking_StakeCreate();
-    action->set_candidatename(candidate);
-    action->set_stakedamount(amount);
+    action->set_candidatename(candidate.c_str());
+    action->set_stakedamount(amount.c_str());
     action->set_stakedduration(10000);
     action->set_autostake(true);
-    action->set_payload(payload);
+    action->set_payload(payload.c_str());
     auto staking = input.mutable_staking();
     staking->set_allocated_stakecreate(action);
     auto signer = IoTeX::Signer(std::move(input));
