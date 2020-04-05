@@ -13,43 +13,17 @@ using namespace TW;
 namespace TW::IoTeX {
 
 const char* FromData(const Data& data) {
-    // return TWStringUTF8Bytes(TWStringCreateWithRawBytes(TWDataBytes(data), TWDataSize(data)));
-    // std::stringstream oss;
-    // for (unsigned int i = 0; i < data.size(); i++) {
-    //     oss << data[i];
-    // }
-    // std::string temp = oss.str();
-    // return temp.c_str();
-    // return (const char*)data.data();
-    // std::string str = new std::string;
-    // str.assign(data.begin(), data.end());
-    // return str.c_str();
-    // char* ret = new char[data.size() + 1]; // init this with the correct size
-    // std::copy(data.begin(), data.end(), ret);
-    // ret[data.size()] = '\0';
-    // return ret;
-
-    // auto s = new std::string(data.begin(), data.end());
-    // // append null terminator
-    // s->append(data.size(), '\0');
-    // // return s;
-
-    // // auto s = reinterpret_cast<const std::string*>(s);
-    // return s->data();
-    // return std::string(data.begin(), data.end());
     auto s = new std::string(data.begin(), data.end());
-    // append null terminator
     s->append(data.size(), '\0');
-    // return s;
     auto ss = reinterpret_cast<const std::string*>(s);
     return ss->data();
 }
 
 const Data& dataFromString(const std::string& d) {
     Data* data = new Data;
-    auto h = TW::hex(d.begin(), d.end());
+    // auto h = TW::hex(d.begin(), d.end());
     std::copy(d.c_str(), d.c_str() + d.length(), back_inserter(*data));
-    std::cout << "dataFromString:" << d << std::endl;
+    // std::cout << "dataFromString:" << d << std::endl;
     return *data;
     //
     // // return TWDataCreateWithHexString(&h);
