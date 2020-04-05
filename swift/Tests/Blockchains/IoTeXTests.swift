@@ -44,26 +44,26 @@ class IoTeXTests: XCTestCase {
         return input
     }
 
-    func testSignStakingCreate() {
-        var input = IoTeXSigningInput.with {
-            $0.version = 1
-            $0.nonce = 0
-            $0.gasLimit = 1000000
-            $0.gasPrice = "10"
-            $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
-        }
-        input.stakeCreate = IoTeXStaking.stakingCreate {
-            $0.candidate = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj"
-            $0.amount="100"
-            $0.duration = 1001
-            $0.autoStake = true
-            $0.payload = "payload"
-        }
-        let output: IoTeXSigningOutput = AnySigner.sign(input: input, coin: .ioTeX)
-
-        XCTAssertEqual(output.encoded.hexString, "0a4b080118c0843d22023130c2023e0a29696f313964307033616834673877773964376b63786671383779786537666e7238727074683573686a120331303018904e20012a077061796c6f6164124104755ce6d8903f6b3793bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30dd6a1038ed9da8daf331a412e8bac421bab88dcd99c26ac8ffbf27f11ee57a41e7d2537891bfed5aed8e2e026d46e55d1b856787bc1cd7c1216a6e2534c5b5d1097c3afe8e657aa27cbbb0801")
-        XCTAssertEqual(output.hash.hexString, "f1785e47b4200c752bb6518bd18097a41e075438b8c18c9cb00e1ae2f38ce767")
+func testSignStakingCreate() {
+    var input = IoTeXSigningInput.with {
+        $0.version = 1
+        $0.nonce = 0
+        $0.gasLimit = 1000000
+        $0.gasPrice = "10"
+        $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
     }
+    input.staking.stakeCreate = IoTeXStaking.StakingCreate.with {
+        $0.candidate = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj"
+        $0.amount="100"
+        $0.duration = 10000
+        $0.autoStake = true
+        $0.payload = "payload"
+    }
+    let output: IoTeXSigningOutput = AnySigner.sign(input: input, coin: .ioTeX)
+
+    XCTAssertEqual(output.encoded.hexString, "0a4b080118c0843d22023130c2023e0a29696f313964307033616834673877773964376b63786671383779786537666e7238727074683573686a120331303018904e20012a077061796c6f6164124104755ce6d8903f6b3793bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30dd6a1038ed9da8daf331a412e8bac421bab88dcd99c26ac8ffbf27f11ee57a41e7d2537891bfed5aed8e2e026d46e55d1b856787bc1cd7c1216a6e2534c5b5d1097c3afe8e657aa27cbbb0801")
+    XCTAssertEqual(output.hash.hexString, "f1785e47b4200c752bb6518bd18097a41e075438b8c18c9cb00e1ae2f38ce767")
+}
 
 func testSignStakingAddDeposit() {
         var input = IoTeXSigningInput.with {
@@ -73,7 +73,7 @@ func testSignStakingAddDeposit() {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.stakeAddDeposit = IoTeXStaking.stakingAddDeposit {
+        input.staking.stakeAddDeposit = IoTeXStaking.stakingAddDeposit.with {
             $0.index=10
             $0.amount="100"
             $0.payload = "payload"

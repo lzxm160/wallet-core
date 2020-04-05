@@ -21,14 +21,10 @@ const char* FromData(const Data& data) {
 
 const Data& dataFromString(const std::string& d) {
     Data* data = new Data;
-    // auto h = TW::hex(d.begin(), d.end());
     std::copy(d.c_str(), d.c_str() + d.length(), back_inserter(*data));
-    // std::cout << "dataFromString:" << d << std::endl;
     return *data;
-    //
-    // // return TWDataCreateWithHexString(&h);
-    // return h
 }
+
 const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t duration,
                           bool autoStake, const Data& payload) {
     auto action = IoTeX::Proto::Staking_StakeCreate();

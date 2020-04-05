@@ -330,7 +330,7 @@ TEST(TWIoTeXStaking, SignChangeCandidate) {
     auto action = new IoTeX::Proto::Staking_StakeChangeCandidate();
     action->set_bucketindex(10);
     action->set_candidatename(candidate);
-    action->set_payload(payload;
+    action->set_payload(payload);
     auto staking = input.mutable_staking();
     staking->set_allocated_stakechangecandidate(action);
 
@@ -367,7 +367,7 @@ TEST(TWIoTeXStaking, SignTransfer) {
 
     auto action = new IoTeX::Proto::Staking_StakeTransferOwnership();
     action->set_bucketindex(10);
-    action->set_voteraddress(voteraddress;
+    action->set_voteraddress(voteraddress);
     action->set_payload(payload);
     auto staking = input.mutable_staking();
     staking->set_allocated_staketransferownership(action);
@@ -417,9 +417,9 @@ TEST(TWIoTeXStaking, SignCandidateRegister) {
     action->set_stakedduration(10000);
     action->set_autostake(false);
     action->set_owneraddress(owner);
-    action->set_payload(payload;
+    action->set_payload(payload);
 
-    auto staking = input.mutable_candidateregister();
+    auto staking = input.mutable_staking();
     staking->set_allocated_candidateregister(action);
 
     auto signer = IoTeX::Signer(std::move(input));
@@ -461,7 +461,7 @@ TEST(TWIoTeXStaking, SignCandidateUpdate) {
     action->set_operatoraddress(operatoraddress);
     action->set_rewardaddress(reward);
 
-    auto staking = input.mutable_candidateupdate();
+    auto staking = input.mutable_staking();
     staking->set_allocated_candidateupdate(action);
 
     auto signer = IoTeX::Signer(std::move(input));
