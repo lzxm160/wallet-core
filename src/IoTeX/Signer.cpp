@@ -50,16 +50,7 @@ void Signer::toActionCore() {
     action.set_gaslimit(input.gaslimit());
     action.set_gasprice(input.gasprice());
     const Proto::Staking& staking = input.staking();
-    bool has_stakecreate = staking.has_stakecreate();
-    bool has_stakeunstake = staking.has_stakeunstake();
-    bool has_stakewithdraw = staking.has_stakewithdraw();
-    bool has_stakeadddeposit = staking.has_stakeadddeposit();
-    bool has_stakerestake = staking.has_stakerestake();
-    bool has_stakechangecandidate = staking.has_stakechangecandidate();
-    bool has_staketransferownership = staking.has_staketransferownership();
-    bool has_candidateregister = staking.has_candidateregister();
-    bool has_candidateupdate = staking.has_candidateupdate();
-    if (has_stakecreate) {
+    if (staking.has_stakecreate()) {
         auto& stake = staking.stakecreate();
         auto ss = new IoTeX::Proto::Staking_StakeCreate();
         ss->set_candidatename(stake.candidatename());
@@ -70,7 +61,7 @@ void Signer::toActionCore() {
         action.set_allocated_stakecreate(ss);
         return;
     }
-    if (has_stakeunstake) {
+    if (staking.has_stakeunstake()) {
         auto& unstake = staking.stakeunstake();
         auto ss = new IoTeX::Proto::Staking_StakeReclaim();
         ss->set_bucketindex(unstake.bucketindex());
@@ -78,7 +69,7 @@ void Signer::toActionCore() {
         action.set_allocated_stakeunstake(ss);
         return;
     }
-    if (has_stakewithdraw) {
+    if (staking.has_stakewithdraw()) {
         auto& withdraw = staking.stakewithdraw();
         auto ss = new IoTeX::Proto::Staking_StakeReclaim();
         ss->set_bucketindex(withdraw.bucketindex());
@@ -86,7 +77,7 @@ void Signer::toActionCore() {
         action.set_allocated_stakewithdraw(ss);
         return;
     }
-    if (has_stakeadddeposit) {
+    if (staking.has_stakeadddeposit()) {
         auto& adddeposit = staking.stakeadddeposit();
         auto ss = new IoTeX::Proto::Staking_StakeAddDeposit();
         ss->set_bucketindex(adddeposit.bucketindex());
@@ -95,7 +86,7 @@ void Signer::toActionCore() {
         action.set_allocated_stakeadddeposit(ss);
         return;
     }
-    if (has_stakerestake) {
+    if (staking.has_stakerestake()) {
         auto& restake = staking.stakerestake();
         auto ss = new IoTeX::Proto::Staking_StakeRestake();
         ss->set_bucketindex(restake.bucketindex());
@@ -105,7 +96,7 @@ void Signer::toActionCore() {
         action.set_allocated_stakerestake(ss);
         return;
     }
-    if (has_stakechangecandidate) {
+    if (staking.has_stakechangecandidate()) {
         auto& changecandidate = staking.stakechangecandidate();
         auto ss = new IoTeX::Proto::Staking_StakeChangeCandidate();
         ss->set_bucketindex(changecandidate.bucketindex());
@@ -114,7 +105,7 @@ void Signer::toActionCore() {
         action.set_allocated_stakechangecandidate(ss);
         return;
     }
-    if (has_staketransferownership) {
+    if (staking.has_staketransferownership()) {
         auto& transfer = staking.staketransferownership();
         auto ss = new IoTeX::Proto::Staking_StakeTransferOwnership();
         ss->set_bucketindex(transfer.bucketindex());
@@ -123,7 +114,7 @@ void Signer::toActionCore() {
         action.set_allocated_staketransferownership(ss);
         return;
     }
-    if (has_candidateregister) {
+    if (staking.has_candidateregister()) {
         auto& candidateregister = staking.candidateregister();
 
         auto cbi = new IoTeX::Proto::Staking_CandidateBasicInfo();
@@ -141,7 +132,7 @@ void Signer::toActionCore() {
         action.set_allocated_candidateregister(ss);
         return;
     }
-    if (has_candidateupdate) {
+    if (staking.has_candidateupdate()) {
         auto& candidateupdate = staking.candidateupdate();
         auto cbi = new IoTeX::Proto::Staking_CandidateBasicInfo();
         cbi->set_name(candidateupdate.name());
