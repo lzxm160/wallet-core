@@ -51,14 +51,14 @@ void Signer::toActionCore() {
     action.set_gasprice(input.gasprice());
     const Proto::Staking& staking = input.staking();
     if (staking.has_stakecreate()) {
-        auto& stake = staking.stakecreate();
+        auto stake = staking.release_stakerestake();
         // auto ss = new IoTeX::Proto::Staking_StakeCreate();
         // ss->set_candidatename(stake.candidatename());
         // ss->set_stakedamount(stake.stakedamount());
         // ss->set_stakedduration(stake.stakedduration());
         // ss->set_autostake(stake.autostake());
         // ss->set_payload(stake.payload());
-        action.set_allocated_stakecreate(&stake);
+        action.set_allocated_stakecreate(stake);
         return;
     }
     if (staking.has_stakeunstake()) {
