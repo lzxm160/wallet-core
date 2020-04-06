@@ -8,7 +8,6 @@ import XCTest
 import TrustWalletCore
 
 class IoTeXTests: XCTestCase {
-
     func testSign() {
         let privateKey = PrivateKey(data: Data(hexString: "0x68ffa8ec149ce50da647166036555f73d57f662eb420e154621e5f24f6cf9748")!)!
 
@@ -38,11 +37,11 @@ class IoTeXTests: XCTestCase {
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
         input.staking.stakeCreate = IoTeXStaking.StakeCreate.with {
-            $0.candidate = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj"
-            $0.amount = "100"
-            $0.duration = 10000
+            $0.candidateName = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj"
+            $0.stakedAmount = "100"
+            $0.stakedDuration = 10000
             $0.autoStake = true
-            $0.payload = "payload"
+            $0.payload = "payload".data(using: .utf8)!
         }
         let output: IoTeXSigningOutput = AnySigner.sign(input: input, coin: .ioTeX)
 
@@ -59,9 +58,9 @@ class IoTeXTests: XCTestCase {
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
         input.staking.stakeAddDeposit = IoTeXStaking.StakeAddDeposit.with {
-            $0.index = 10
-            $0.amount = "100"
-            $0.payload = "payload"
+            $0.bucketIndex = 10
+            $0.amount = "10"
+            $0.payload = "payload".data(using: .utf8)!
         }
         let output: IoTeXSigningOutput = AnySigner.sign(input: input, coin: .ioTeX)
 
@@ -77,9 +76,9 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.stakeUnstake = IoTeXStaking.StakeUnstake.with {
-            $0.index = 10
-            $0.payload = "payload"
+        input.staking.stakeUnstake = IoTeXStaking.StakeReclaim.with {
+            $0.bucketIndex = 10
+            $0.payload = "payload".data(using: .utf8)!
         }
         let output: IoTeXSigningOutput = AnySigner.sign(input: input, coin: .ioTeX)
 
@@ -95,9 +94,9 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.stakeWithdraw = IoTeXStaking.StakeWithdraw.with {
-            $0.index = 10
-            $0.payload = "payload"
+        input.staking.stakeWithdraw = IoTeXStaking.StakeReclaim.with {
+            $0.bucketIndex = 10
+            $0.payload = "payload".data(using: .utf8)!
         }
         let output: IoTeXSigningOutput = AnySigner.sign(input: input, coin: .ioTeX)
 
@@ -114,17 +113,16 @@ class IoTeXTests: XCTestCase {
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
         input.staking.stakeRestake = IoTeXStaking.StakeRestake.with {
-            $0.index = 10
-            $0.duration = 1000
+            $0.bucketIndex = 10
+            $0.stakedDuration = 1000
             $0.autoStake = true
-            $0.payload = "payload"
+            $0.payload = "payload".data(using: .utf8)!
         }
         let output: IoTeXSigningOutput = AnySigner.sign(input: input, coin: .ioTeX)
 
         XCTAssertEqual(output.encoded.hexString, "0a1d080118c0843d22023130e20210080a10e807180122077061796c6f6164124104755ce6d8903f6b3793bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30dd6a1038ed9da8daf331a41e2e763aed5b1fd1a8601de0f0ae34eb05162e34b0389ae3418eedbf762f64959634a968313a6516dba3a97b34efba4753bbed3a33d409ecbd45ac75007cd8e9101")
         XCTAssertEqual(output.hash.hexString, "8816e8f784a1fce40b54d1cd172bb6976fd9552f1570c73d1d9fcdc5635424a9")
     }
-
 
     func testSignStakingChangeCandidate() {
         var input = IoTeXSigningInput.with {
@@ -135,9 +133,9 @@ class IoTeXTests: XCTestCase {
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
         input.staking.stakeChangeCandidate = IoTeXStaking.StakeChangeCandidate.with {
-            $0.index = 10    
-            $0.candidate = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza"
-            $0.payload = "payload"
+            $0.bucketIndex = 10    
+            $0.candidateName = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza"
+            $0.payload = "payload".data(using: .utf8)!
         }
         let output: IoTeXSigningOutput = AnySigner.sign(input: input, coin: .ioTeX)
 
@@ -154,9 +152,9 @@ class IoTeXTests: XCTestCase {
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
         input.staking.stakeTransferOwnership = IoTeXStaking.StakeTransferOwnership.with {
-            $0.index = 10    
+            $0.bucketIndex = 10    
             $0.voterAddress = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza"
-            $0.payload = "payload"
+            $0.payload = "payload".data(using: .utf8)!
         }
         let output: IoTeXSigningOutput = AnySigner.sign(input: input, coin: .ioTeX)
 
@@ -173,14 +171,16 @@ class IoTeXTests: XCTestCase {
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
         input.staking.candidateRegister = IoTeXStaking.CandidateRegister.with {
-            $0.name = "test"
-            $0.operatorAddress = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he"   
-            $0.rewardAddress = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv"
-            $0.amount = "100"
-            $0.duration = 10000
+            $0.candidate = IoTeXStaking.CandidateBasicInfo.with {
+                $0.name = "test"
+                $0.operatorAddress = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he"
+                $0.rewardAddress = "io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv"
+            }
+            $0.stakedAmount = "100"
+            $0.stakedDuration = 10000
             $0.autoStake = false
             $0.ownerAddress = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj"
-            $0.payload = "payload"
+            $0.payload = "payload".data(using: .utf8)!
         }
         let output: IoTeXSigningOutput = AnySigner.sign(input: input, coin: .ioTeX)
 
@@ -196,9 +196,9 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.candidateUpdate = IoTeXStaking.CandidateUpdate.with {
+        input.staking.candidateUpdate = IoTeXStaking.CandidateBasicInfo.with {
             $0.name = "test"
-            $0.operatorAddress = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng"   
+            $0.operatorAddress = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng"
             $0.rewardAddress = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd"
         }
         let output: IoTeXSigningOutput = AnySigner.sign(input: input, coin: .ioTeX)

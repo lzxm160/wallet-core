@@ -95,8 +95,17 @@ message SigningInput {
     bytes privateKey = 5;
     oneof action {
         Transfer transfer = 10;
-        Staking staking = 11;
         ContractCall call = 12;
+        // Native staking
+        Staking.StakeCreate stakeCreate = 40;
+        Staking.StakeReclaim stakeUnstake = 41;
+        Staking.StakeReclaim stakeWithdraw = 42;
+        Staking.StakeAddDeposit stakeAddDeposit = 43;
+        Staking.StakeRestake stakeRestake = 44;
+        Staking.StakeChangeCandidate stakeChangeCandidate = 45;
+        Staking.StakeTransferOwnership stakeTransferOwnership = 46;
+        Staking.CandidateRegister candidateRegister = 47;
+        Staking.CandidateBasicInfo candidateUpdate = 48;
   }
 }
 
