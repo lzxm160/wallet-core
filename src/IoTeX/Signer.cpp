@@ -50,17 +50,69 @@ void Signer::toActionCore() {
     action.set_gaslimit(input.gaslimit());
     action.set_gasprice(input.gasprice());
     const Proto::Staking& staking = input.staking();
-    if (staking.has_stakecreate()) {
-        auto stake = staking.release_stakerestake();
-        // auto ss = new IoTeX::Proto::Staking_StakeCreate();
-        // ss->set_candidatename(stake.candidatename());
-        // ss->set_stakedamount(stake.stakedamount());
-        // ss->set_stakedduration(stake.stakedduration());
-        // ss->set_autostake(stake.autostake());
-        // ss->set_payload(stake.payload());
-        action.set_allocated_stakecreate(stake);
-        return;
+    switch (staking.message_case()) {
+    case kStakeCreate: {
+        action.set_allocated_stakecreate(
+            mutable_stakecreate()->::TW::IoTeX::Proto::Staking_StakeCreate::MergeFrom(
+                staking.stakecreate()));
+        break;
     }
+        // case kStakeUnstake: {
+        //     mutable_stakeunstake()->::TW::IoTeX::Proto::Staking_StakeReclaim::MergeFrom(
+        //         from.stakeunstake());
+        //     break;
+        // }
+        // case kStakeWithdraw: {
+        //     mutable_stakewithdraw()->::TW::IoTeX::Proto::Staking_StakeReclaim::MergeFrom(
+        //         from.stakewithdraw());
+        //     break;
+        // }
+        // case kStakeAddDeposit: {
+        //     mutable_stakeadddeposit()->::TW::IoTeX::Proto::Staking_StakeAddDeposit::MergeFrom(
+        //         from.stakeadddeposit());
+        //     break;
+        // }
+        // case kStakeRestake: {
+        //     mutable_stakerestake()->::TW::IoTeX::Proto::Staking_StakeRestake::MergeFrom(
+        //         from.stakerestake());
+        //     break;
+        // }
+        // case kStakeChangeCandidate: {
+        //     mutable_stakechangecandidate()->::TW::IoTeX::Proto::Staking_StakeChangeCandidate::MergeFrom(
+        //         from.stakechangecandidate());
+        //     break;
+        // }
+        // case kStakeTransferOwnership: {
+        //     mutable_staketransferownership()
+        //         ->::TW::IoTeX::Proto::Staking_StakeTransferOwnership::MergeFrom(
+        //             from.staketransferownership());
+        //     break;
+        // }
+        // case kCandidateRegister: {
+        //     mutable_candidateregister()->::TW::IoTeX::Proto::Staking_CandidateRegister::MergeFrom(
+        //         from.candidateregister());
+        //     break;
+        // }
+        // case kCandidateUpdate: {
+        //     mutable_candidateupdate()->::TW::IoTeX::Proto::Staking_CandidateBasicInfo::MergeFrom(
+        //         from.candidateupdate());
+        //     break;
+        // }
+        // case MESSAGE_NOT_SET: {
+        //     break;
+        // }
+    }
+    // if (staking.has_stakecreate()) {
+    //     auto stake = staking.release_stakerestake();
+    // auto ss = new IoTeX::Proto::Staking_StakeCreate();
+    // ss->set_candidatename(stake.candidatename());
+    // ss->set_stakedamount(stake.stakedamount());
+    // ss->set_stakedduration(stake.stakedduration());
+    // ss->set_autostake(stake.autostake());
+    // ss->set_payload(stake.payload());
+    //     action.set_allocated_stakecreate(stake);
+    //     return;
+    // }
     if (staking.has_stakeunstake()) {
         auto& unstake = staking.stakeunstake();
         auto ss = new IoTeX::Proto::Staking_StakeReclaim();
