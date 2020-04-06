@@ -50,7 +50,7 @@ void Signer::toActionCore() {
     action.set_gaslimit(input.gaslimit());
     action.set_gasprice(input.gasprice());
     auto staking = input.staking();
-    switch (staking2->message_case()) {
+    switch (staking->message_case()) {
     case Proto::Staking::kStakeCreate: {
         // action.set_allocated_stakecreate(
         //     mutable_stakecreate()->::TW::IoTeX::Proto::Staking_StakeCreate::MergeFrom(
