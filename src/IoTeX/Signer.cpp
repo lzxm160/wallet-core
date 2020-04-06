@@ -58,7 +58,7 @@ void Signer::toActionCore() {
         //         staking.stakecreate()));
         auto stake = staking2->release_stakecreate();
         action.set_allocated_stakecreate(stake);
-        break;
+        return;
     }
         // case kStakeUnstake: {
         //     mutable_stakeunstake()->::TW::IoTeX::Proto::Staking_StakeReclaim::MergeFrom(
