@@ -56,7 +56,7 @@ void Signer::toActionCore() {
         // action.set_allocated_stakecreate(
         //     mutable_stakecreate()->::TW::IoTeX::Proto::Staking_StakeCreate::MergeFrom(
         //         staking.stakecreate()));
-        auto stake = staking2->mutable_stakecreate();
+        auto stake = staking2->release_stakecreate();
         action.set_allocated_stakecreate(stake);
         break;
     }
