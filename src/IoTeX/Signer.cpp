@@ -49,7 +49,7 @@ void Signer::toActionCore() {
     action.set_nonce(input.nonce());
     action.set_gaslimit(input.gaslimit());
     action.set_gasprice(input.gasprice());
-    const Proto::Staking& staking = input.staking();
+    Proto::Staking& staking = input.staking();
     switch (staking.message_case()) {
     case Proto::Staking::kStakeCreate: {
         // action.set_allocated_stakecreate(
