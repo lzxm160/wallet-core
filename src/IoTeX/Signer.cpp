@@ -49,13 +49,14 @@ void Signer::toActionCore() {
     action.set_nonce(input.nonce());
     action.set_gaslimit(input.gaslimit());
     action.set_gasprice(input.gasprice());
-    Proto::Staking& staking = input.mutable_staking();
-    switch (staking.message_case()) {
+    auto staking2 = input.mutable_staking();
+    auto staking = input.staking();
+    switch (staking2->message_case()) {
     case Proto::Staking::kStakeCreate: {
         // action.set_allocated_stakecreate(
         //     mutable_stakecreate()->::TW::IoTeX::Proto::Staking_StakeCreate::MergeFrom(
         //         staking.stakecreate()));
-        auto stake = staking.mutable_stakecreate();
+        auto stake = staking2->mutable_stakecreate();
         action.set_allocated_stakecreate(stake);
         break;
     }
