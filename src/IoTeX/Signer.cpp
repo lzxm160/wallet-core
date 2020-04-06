@@ -52,151 +52,76 @@ void Signer::toActionCore() {
     auto staking = input.staking();
     switch (staking.message_case()) {
     case Proto::Staking::kStakeCreate: {
-        // action.set_allocated_stakecreate(
-        //     mutable_stakecreate()->::TW::IoTeX::Proto::Staking_StakeCreate::MergeFrom(
-        //         staking.stakecreate()));
         auto& stake = staking.stakecreate();
         auto ss = new IoTeX::Proto::Staking_StakeCreate();
         ss->CopyFrom(stake);
         action.set_allocated_stakecreate(ss);
         return;
     }
-        // case kStakeUnstake: {
-        //     mutable_stakeunstake()->::TW::IoTeX::Proto::Staking_StakeReclaim::MergeFrom(
-        //         from.stakeunstake());
-        //     break;
-        // }
-        // case kStakeWithdraw: {
-        //     mutable_stakewithdraw()->::TW::IoTeX::Proto::Staking_StakeReclaim::MergeFrom(
-        //         from.stakewithdraw());
-        //     break;
-        // }
-        // case kStakeAddDeposit: {
-        //     mutable_stakeadddeposit()->::TW::IoTeX::Proto::Staking_StakeAddDeposit::MergeFrom(
-        //         from.stakeadddeposit());
-        //     break;
-        // }
-        // case kStakeRestake: {
-        //     mutable_stakerestake()->::TW::IoTeX::Proto::Staking_StakeRestake::MergeFrom(
-        //         from.stakerestake());
-        //     break;
-        // }
-        // case kStakeChangeCandidate: {
-        //     mutable_stakechangecandidate()->::TW::IoTeX::Proto::Staking_StakeChangeCandidate::MergeFrom(
-        //         from.stakechangecandidate());
-        //     break;
-        // }
-        // case kStakeTransferOwnership: {
-        //     mutable_staketransferownership()
-        //         ->::TW::IoTeX::Proto::Staking_StakeTransferOwnership::MergeFrom(
-        //             from.staketransferownership());
-        //     break;
-        // }
-        // case kCandidateRegister: {
-        //     mutable_candidateregister()->::TW::IoTeX::Proto::Staking_CandidateRegister::MergeFrom(
-        //         from.candidateregister());
-        //     break;
-        // }
-        // case kCandidateUpdate: {
-        //     mutable_candidateupdate()->::TW::IoTeX::Proto::Staking_CandidateBasicInfo::MergeFrom(
-        //         from.candidateupdate());
-        //     break;
-        // }
-        // case MESSAGE_NOT_SET: {
-        //     break;
-        // }
-    }
-    // if (staking.has_stakecreate()) {
-    //     auto stake = staking.release_stakerestake();
-    // auto ss = new IoTeX::Proto::Staking_StakeCreate();
-    // ss->set_candidatename(stake.candidatename());
-    // ss->set_stakedamount(stake.stakedamount());
-    // ss->set_stakedduration(stake.stakedduration());
-    // ss->set_autostake(stake.autostake());
-    // ss->set_payload(stake.payload());
-    //     action.set_allocated_stakecreate(stake);
-    //     return;
-    // }
-    if (staking.has_stakeunstake()) {
+    case kStakeUnstake: {
         auto& unstake = staking.stakeunstake();
         auto ss = new IoTeX::Proto::Staking_StakeReclaim();
-        ss->set_bucketindex(unstake.bucketindex());
-        ss->set_payload(unstake.payload());
+        ss->CopyFrom(unstake);
         action.set_allocated_stakeunstake(ss);
         return;
     }
-    if (staking.has_stakewithdraw()) {
+    case kStakeWithdraw: {
         auto& withdraw = staking.stakewithdraw();
         auto ss = new IoTeX::Proto::Staking_StakeReclaim();
-        ss->set_bucketindex(withdraw.bucketindex());
-        ss->set_payload(withdraw.payload());
+        ss->CopyFrom(withdraw);
         action.set_allocated_stakewithdraw(ss);
         return;
     }
-    if (staking.has_stakeadddeposit()) {
+    case kStakeAddDeposit: {
         auto& adddeposit = staking.stakeadddeposit();
         auto ss = new IoTeX::Proto::Staking_StakeAddDeposit();
-        ss->set_bucketindex(adddeposit.bucketindex());
-        ss->set_amount(adddeposit.amount());
-        ss->set_payload(adddeposit.payload());
+        ss->CopyFrom(adddeposit);
         action.set_allocated_stakeadddeposit(ss);
         return;
     }
-    if (staking.has_stakerestake()) {
+    case kStakeRestake: {
         auto& restake = staking.stakerestake();
-
         auto ss = new IoTeX::Proto::Staking_StakeRestake();
-        ss->set_bucketindex(restake.bucketindex());
-        ss->set_stakedduration(restake.stakedduration());
-        ss->set_autostake(restake.autostake());
-        ss->set_payload(restake.payload());
+        ss->CopyFrom(restake);
         action.set_allocated_stakerestake(ss);
         return;
     }
-    if (staking.has_stakechangecandidate()) {
+    case kStakeChangeCandidate: {
         auto& changecandidate = staking.stakechangecandidate();
         auto ss = new IoTeX::Proto::Staking_StakeChangeCandidate();
-        ss->set_bucketindex(changecandidate.bucketindex());
-        ss->set_candidatename(changecandidate.candidatename());
-        ss->set_payload(changecandidate.payload());
+        ss->CopyFrom(changecandidate);
         action.set_allocated_stakechangecandidate(ss);
         return;
     }
-    if (staking.has_staketransferownership()) {
+    case kStakeTransferOwnership: {
         auto& transfer = staking.staketransferownership();
         auto ss = new IoTeX::Proto::Staking_StakeTransferOwnership();
-        ss->set_bucketindex(transfer.bucketindex());
-        ss->set_voteraddress(transfer.voteraddress());
-        ss->set_payload(transfer.payload());
+        ss->CopyFrom(transfer);
         action.set_allocated_staketransferownership(ss);
         return;
     }
-    if (staking.has_candidateregister()) {
+    case kCandidateRegister: {
         auto& candidateregister = staking.candidateregister();
 
         auto cbi = new IoTeX::Proto::Staking_CandidateBasicInfo();
-        cbi->set_name(candidateregister.candidate().name());
-        cbi->set_operatoraddress(candidateregister.candidate().operatoraddress());
-        cbi->set_rewardaddress(candidateregister.candidate().rewardaddress());
+        cbi->CopyFrom(candidateregister.candidate());
 
         auto ss = new IoTeX::Proto::Staking_CandidateRegister();
         ss->set_allocated_candidate(cbi);
-        ss->set_stakedamount(candidateregister.stakedamount());
-        ss->set_stakedduration(candidateregister.stakedduration());
-        ss->set_autostake(candidateregister.autostake());
-        ss->set_owneraddress(candidateregister.owneraddress());
-        ss->set_payload(candidateregister.payload());
+        ss->CopyFrom(candidateregister);
         action.set_allocated_candidateregister(ss);
         return;
     }
-    if (staking.has_candidateupdate()) {
+    case kCandidateUpdate: {
         auto& candidateupdate = staking.candidateupdate();
         auto cbi = new IoTeX::Proto::Staking_CandidateBasicInfo();
-        cbi->set_name(candidateupdate.name());
-        cbi->set_operatoraddress(candidateupdate.operatoraddress());
-        cbi->set_rewardaddress(candidateupdate.rewardaddress());
+        cbi->CopyFrom(candidateupdate);
         action.set_allocated_candidateupdate(cbi);
         return;
+    }
+    case MESSAGE_NOT_SET: {
+        break;
+    }
     }
     action.ParseFromString(input.SerializeAsString());
     action.DiscardUnknownFields();
