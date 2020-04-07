@@ -36,7 +36,7 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.stakeCreate = IoTeXStaking.StakeCreate.with {
+        input.stakeCreate = IoTeXStaking.StakeCreate.with {
             $0.candidateName = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj"
             $0.stakedAmount = "100"
             $0.stakedDuration = 10000
@@ -57,7 +57,7 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.stakeAddDeposit = IoTeXStaking.StakeAddDeposit.with {
+        input.stakeAddDeposit = IoTeXStaking.StakeAddDeposit.with {
             $0.bucketIndex = 10
             $0.amount = "10"
             $0.payload = "payload".data(using: .utf8)!
@@ -76,7 +76,7 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.stakeUnstake = IoTeXStaking.StakeReclaim.with {
+        input.stakeUnstake = IoTeXStaking.StakeReclaim.with {
             $0.bucketIndex = 10
             $0.payload = "payload".data(using: .utf8)!
         }
@@ -94,7 +94,7 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.stakeWithdraw = IoTeXStaking.StakeReclaim.with {
+        input.stakeWithdraw = IoTeXStaking.StakeReclaim.with {
             $0.bucketIndex = 10
             $0.payload = "payload".data(using: .utf8)!
         }
@@ -112,7 +112,7 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.stakeRestake = IoTeXStaking.StakeRestake.with {
+        input.stakeRestake = IoTeXStaking.StakeRestake.with {
             $0.bucketIndex = 10
             $0.stakedDuration = 1000
             $0.autoStake = true
@@ -132,7 +132,7 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.stakeChangeCandidate = IoTeXStaking.StakeChangeCandidate.with {
+        input.stakeChangeCandidate = IoTeXStaking.StakeChangeCandidate.with {
             $0.bucketIndex = 10    
             $0.candidateName = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza"
             $0.payload = "payload".data(using: .utf8)!
@@ -151,7 +151,7 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.stakeTransferOwnership = IoTeXStaking.StakeTransferOwnership.with {
+        input.stakeTransferOwnership = IoTeXStaking.StakeTransferOwnership.with {
             $0.bucketIndex = 10    
             $0.voterAddress = "io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza"
             $0.payload = "payload".data(using: .utf8)!
@@ -170,7 +170,7 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "1000"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.candidateRegister = IoTeXStaking.CandidateRegister.with {
+        input.candidateRegister = IoTeXStaking.CandidateRegister.with {
             $0.candidate = IoTeXStaking.CandidateBasicInfo.with {
                 $0.name = "test"
                 $0.operatorAddress = "io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he"
@@ -196,7 +196,7 @@ class IoTeXTests: XCTestCase {
             $0.gasPrice = "10"
             $0.privateKey = Data(hexString: "cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1")!
         }
-        input.staking.candidateUpdate = IoTeXStaking.CandidateBasicInfo.with {
+        input.candidateUpdate = IoTeXStaking.CandidateBasicInfo.with {
             $0.name = "test"
             $0.operatorAddress = "io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng"
             $0.rewardAddress = "io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd"
