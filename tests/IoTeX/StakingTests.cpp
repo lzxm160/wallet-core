@@ -130,46 +130,47 @@ TEST(TWIoTeXStaking, CandidateUpdate) {
                           "326e756b7034766763776b32676e6335637539617964");
 }
 
-// TEST(TWIoTeXStaking, SignCreate) {
-//     auto input = Proto::SigningInput();
-//     input.set_version(1);
-//     input.set_nonce(0);
-//     input.set_gaslimit(1000000);
-//     input.set_gasprice("10");
-//     auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
-//     input.set_privatekey(keyhex.data(), keyhex.size());
+TEST(TWIoTeXStaking, SignCreate) {
+    auto input = Proto::SigningInput();
+    input.set_version(1);
+    input.set_nonce(0);
+    input.set_gaslimit(1000000);
+    input.set_gasprice("10");
+    auto keyhex = parse_hex("cfa6ef757dee2e50351620dca002d32b9c090cfda55fb81f37f1d26b273743f1");
+    input.set_privatekey(keyhex.data(), keyhex.size());
 
-//     std::string candidate = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
-//     std::string payload = "payload";
-//     std::string amount = "100";
+    std::string candidate = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
+    std::string payload = "payload";
+    std::string amount = "100";
 
-//     auto action = new IoTeX::Proto::Staking_StakeCreate();
-//     action->set_candidatename(candidate.c_str());
-//     action->set_stakedamount(amount.c_str());
-//     action->set_stakedduration(10000);
-//     action->set_autostake(true);
-//     action->set_payload(payload.c_str());
-//     auto staking = input.mutable_staking();
-//     staking->set_allocated_stakecreate(action);
-//     auto signer = IoTeX::Signer(std::move(input));
-//     // raw action's hash
-//     ASSERT_EQ(hex(signer.hash()),
-//               "18d76ff9f3cfed0fe84f3fd4831f11379edc5b3d689d646187520b3fe74ab44c");
-//     // build() signs the tx
-//     auto output = signer.build();
-//     // signed action's serialized bytes
-//     auto encoded = output.encoded();
-//     ASSERT_EQ(
-//         hex(encoded.begin(), encoded.end()),
-//         "0a4b080118c0843d22023130c2023e0a29696f313964307033616834673877773964376b637866713837797865"
-//         "37666e7238727074683573686a120331303018904e20012a077061796c6f6164124104755ce6d8903f6b3793bd"
-//         "db4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30d"
-//         "d6a1038ed9da8daf331a412e8bac421bab88dcd99c26ac8ffbf27f11ee57a41e7d2537891bfed5aed8e2e026d4"
-//         "6e55d1b856787bc1cd7c1216a6e2534c5b5d1097c3afe8e657aa27cbbb0801");
-//     // signed action's hash
-//     ASSERT_EQ(hex(output.hash()),
-//               "f1785e47b4200c752bb6518bd18097a41e075438b8c18c9cb00e1ae2f38ce767");
-// }
+    auto action = input.mutable_stakecreate();
+    // auto action = new IoTeX::Proto::Staking_StakeCreate();
+    action->set_candidatename(candidate.c_str());
+    action->set_stakedamount(amount.c_str());
+    action->set_stakedduration(10000);
+    action->set_autostake(true);
+    action->set_payload(payload.c_str());
+
+    // staking->set_allocated_stakecreate(action);
+    auto signer = IoTeX::Signer(std::move(input));
+    // raw action's hash
+    ASSERT_EQ(hex(signer.hash()),
+              "18d76ff9f3cfed0fe84f3fd4831f11379edc5b3d689d646187520b3fe74ab44c");
+    // build() signs the tx
+    auto output = signer.build();
+    // signed action's serialized bytes
+    auto encoded = output.encoded();
+    ASSERT_EQ(
+        hex(encoded.begin(), encoded.end()),
+        "0a4b080118c0843d22023130c2023e0a29696f313964307033616834673877773964376b637866713837797865"
+        "37666e7238727074683573686a120331303018904e20012a077061796c6f6164124104755ce6d8903f6b3793bd"
+        "db4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30d"
+        "d6a1038ed9da8daf331a412e8bac421bab88dcd99c26ac8ffbf27f11ee57a41e7d2537891bfed5aed8e2e026d4"
+        "6e55d1b856787bc1cd7c1216a6e2534c5b5d1097c3afe8e657aa27cbbb0801");
+    // signed action's hash
+    ASSERT_EQ(hex(output.hash()),
+              "f1785e47b4200c752bb6518bd18097a41e075438b8c18c9cb00e1ae2f38ce767");
+}
 
 // TEST(TWIoTeXStaking, SignAddDeposit) {
 //     auto input = Proto::SigningInput();
