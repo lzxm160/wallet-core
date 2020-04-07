@@ -393,7 +393,7 @@ TEST(TWIoTeXStaking, SignCandidateRegister) {
     std::string owner = "io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj";
     std::string amount = "100";
     std::string payload = "payload";
-    auto cbi = input.mutable_candidateregister()->mutable_candidateupdate();
+    auto cbi = input.mutable_candidateregister()->mutable_candidate();
     cbi->set_name(name);
     cbi->set_operatoraddress(operatoraddress);
     cbi->set_rewardaddress(reward);
