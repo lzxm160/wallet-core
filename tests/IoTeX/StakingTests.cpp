@@ -168,7 +168,7 @@ TEST(TWIoTeXStaking, SignAll) {
         auto action = input.mutable_stakeadddeposit();
         action->set_bucketindex(10);
         action->set_amount("10");
-        action->set_payload(payload);
+        action->set_payload("payload");
         ANY_SIGN(input, TWCoinTypeIoTeX);
         ASSERT_EQ(
             hex(output.encoded()),
