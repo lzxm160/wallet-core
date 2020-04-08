@@ -7,7 +7,6 @@
 #include "Staking.h"
 #include "Data.h"
 #include "HexCoding.h"
-#include <TrustWalletCore/TWString.h>
 using namespace TW;
 
 namespace TW::IoTeX {
@@ -27,7 +26,7 @@ const Data& dataFromString(const std::string& d) {
 
 const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t duration,
                           bool autoStake, const Data& payload) {
-    auto action = IoTeX::Proto::Staking_StakeCreate();
+    auto action = IoTeX::Proto::Staking_Create();
     action.set_candidatename(FromData(candidate));
     action.set_stakedamount(FromData(amount));
     action.set_stakedduration(duration);
@@ -37,7 +36,7 @@ const Data& stakingCreate(const Data& candidate, const Data& amount, uint32_t du
 }
 
 const Data& stakingAddDeposit(uint64_t index, const Data& amount, const Data& payload) {
-    auto action = IoTeX::Proto::Staking_StakeAddDeposit();
+    auto action = IoTeX::Proto::Staking_AddDeposit();
     action.set_bucketindex(index);
     action.set_amount(FromData(amount));
     action.set_payload(FromData(payload));
@@ -45,21 +44,21 @@ const Data& stakingAddDeposit(uint64_t index, const Data& amount, const Data& pa
 }
 
 const Data& stakingUnstake(uint64_t index, const Data& payload) {
-    auto action = IoTeX::Proto::Staking_StakeReclaim();
+    auto action = IoTeX::Proto::Staking_Reclaim();
     action.set_bucketindex(index);
     action.set_payload(FromData(payload));
     return dataFromString(action.SerializeAsString());
 }
 
 const Data& stakingWithdraw(uint64_t index, const Data& payload) {
-    auto action = IoTeX::Proto::Staking_StakeReclaim();
+    auto action = IoTeX::Proto::Staking_Reclaim();
     action.set_bucketindex(index);
     action.set_payload(FromData(payload));
     return dataFromString(action.SerializeAsString());
 }
 
 const Data& stakingRestake(uint64_t index, uint32_t duration, bool autoStake, const Data& payload) {
-    auto action = IoTeX::Proto::Staking_StakeRestake();
+    auto action = IoTeX::Proto::Staking_Restake();
     action.set_bucketindex(index);
     action.set_stakedduration(duration);
     action.set_autostake(autoStake);
@@ -68,7 +67,7 @@ const Data& stakingRestake(uint64_t index, uint32_t duration, bool autoStake, co
 }
 
 const Data& stakingChangeCandidate(uint64_t index, const Data& candidate, const Data& payload) {
-    auto action = IoTeX::Proto::Staking_StakeChangeCandidate();
+    auto action = IoTeX::Proto::Staking_ChangeCandidate();
     action.set_bucketindex(index);
     action.set_candidatename(FromData(candidate));
     action.set_payload(FromData(payload));
@@ -76,7 +75,7 @@ const Data& stakingChangeCandidate(uint64_t index, const Data& candidate, const 
 }
 
 const Data& stakingTransfer(uint64_t index, const Data& voterAddress, const Data& payload) {
-    auto action = IoTeX::Proto::Staking_StakeTransferOwnership();
+    auto action = IoTeX::Proto::Staking_TransferOwnership();
     action.set_bucketindex(index);
     action.set_voteraddress(FromData(voterAddress));
     action.set_payload(FromData(payload));

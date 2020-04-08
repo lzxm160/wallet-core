@@ -45,10 +45,6 @@ Data Signer::hash() const {
 }
 
 void Signer::toActionCore() {
-    // action.set_version(input.version());
-    // action.set_nonce(input.nonce());
-    // action.set_gaslimit(input.gaslimit());
-    // action.set_gasprice(input.gasprice());
     action.ParseFromString(input.SerializeAsString());
     action.DiscardUnknownFields();
 }
