@@ -159,8 +159,10 @@ TEST(TWIoTeXStaking, SignAll) {
                   "d6a1038ed9da8daf331a412e8bac421bab88dcd99c26ac8ffbf27f11ee57a41e7d2537891bfed5ae"
                   "d8e2e026d4"
                   "6e55d1b856787bc1cd7c1216a6e2534c5b5d1097c3afe8e657aa27cbbb0801");
+        // signed action's hash
+        ASSERT_EQ(hex(output.hash()),
+                  "f1785e47b4200c752bb6518bd18097a41e075438b8c18c9cb00e1ae2f38ce767");
         input.release_stakecreate();
-        // output.release_encoded();
     }
     { // sign stakeadddeposit
         auto action = input.mutable_stakeadddeposit();
@@ -174,6 +176,9 @@ TEST(TWIoTeXStaking, SignAll) {
             "bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0b"
             "c76ef30dd6a1038ed9da8daf331a41a48ab1feba8181d760de946aefed7d815a89fd9b1ab503d2392bb5"
             "5e1bb75eec42dddc8bd642f89accc3a37b3cf15a103a95d66695fdf0647b202869fdd66bcb01");
+        // signed action's hash
+        ASSERT_EQ(hex(output.hash()),
+                  "ca8937d6f224a4e4bf93cb5605581de2d26fb0481e1dfc1eef384ee7ccf94b73");
         input.release_stakeadddeposit();
     }
     { // sign stakeunstake
@@ -187,6 +192,9 @@ TEST(TWIoTeXStaking, SignAll) {
             "d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30d"
             "d6a1038ed9da8daf331a4100adee39b48e1d3dbbd65298a57c7889709fc4df39987130da306f6997374a"
             "184b7e7c232a42f21e89b06e6e7ceab81303c6b7483152d08d19ac829b22eb81e601");
+        // signed action's hash
+        ASSERT_EQ(hex(output.hash()),
+                  "bed58b64a6c4e959eca60a86f0b2149ce0e1dd527ac5fd26aef725ebf7c22a7d");
         input.release_stakeunstake();
     }
     { // sign stakewithdraw
@@ -200,6 +208,9 @@ TEST(TWIoTeXStaking, SignAll) {
             "d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30d"
             "d6a1038ed9da8daf331a4152644d102186be6640d46b517331f3402e24424b0d85129595421d28503d75"
             "340b2922f5a0d4f667bbd6f576d9816770286b2ce032ba22eaec3952e24da4756b00");
+        // signed action's hash
+        ASSERT_EQ(hex(output.hash()),
+                  "28049348cf34f1aa927caa250e7a1b08778c44efaf73b565b6fa9abe843871b4");
         input.release_stakewithdraw();
     }
     { // sign stakerestake
@@ -215,6 +226,9 @@ TEST(TWIoTeXStaking, SignAll) {
             "93bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c"
             "0bc76ef30dd6a1038ed9da8daf331a41e2e763aed5b1fd1a8601de0f0ae34eb05162e34b0389ae3418ee"
             "dbf762f64959634a968313a6516dba3a97b34efba4753bbed3a33d409ecbd45ac75007cd8e9101");
+        // signed action's hash
+        ASSERT_EQ(hex(output.hash()),
+                  "8816e8f784a1fce40b54d1cd172bb6976fd9552f1570c73d1d9fcdc5635424a9");
         input.release_stakerestake();
     }
     { // sign stakechangecandidate
@@ -230,6 +244,9 @@ TEST(TWIoTeXStaking, SignAll) {
             "a5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef3"
             "0dd6a1038ed9da8daf331a41d519eb3747163b945b862989b7e82a7f8468001e9683757cb88d5ddd95f8"
             "1895047429e858bd48f7d59a88bfec92de231d216293aeba1e4fbe11461d9c9fc99801");
+        // signed action's hash
+        ASSERT_EQ(hex(output.hash()),
+                  "186526b5b9fe74e25beb52c83c41780a69108160bef2ddaf3bffb9f1f1e5e73a");
         input.release_stakechangecandidate();
     }
     { // sign staketransfer
@@ -245,6 +262,9 @@ TEST(TWIoTeXStaking, SignAll) {
             "a5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef3"
             "0dd6a1038ed9da8daf331a41d519eb3747163b945b862989b7e82a7f8468001e9683757cb88d5ddd95f8"
             "1895047429e858bd48f7d59a88bfec92de231d216293aeba1e4fbe11461d9c9fc99801");
+        // signed action's hash
+        ASSERT_EQ(hex(output.hash()),
+                  "74b2e1d6a09ba5d1298fa422d5850991ae516865077282196295a38f93c78b85");
         input.release_staketransferownership();
     }
     { // sign candidateupdate
@@ -261,6 +281,9 @@ TEST(TWIoTeXStaking, SignAll) {
             "637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30dd6a103"
             "8ed9da8daf331a4101885c9c6684a4a8f2f5bf11f8326f27be48658f292e8f55ec8a11a604bb0c563a11"
             "ebf12d995ca1c152e00f8e0f0edf288db711aa10dbdfd5b7d73b4a28e1f701");
+        // signed action's hash
+        ASSERT_EQ(hex(output.hash()),
+                  "ca1a28f0e9a58ffc67037cc75066dbdd8e024aa2b2e416e4d6ce16c3d86282e5");
         input.release_candidateupdate();
     }
     { // sign candidateregister
@@ -291,5 +314,8 @@ TEST(TWIoTeXStaking, SignAll) {
                   "3c0bc76ef30dd6a1038ed9da8daf331a417819b5bcb635e3577acc8ca757f2c3d6afa451c2b6ff8a"
                   "9179b141ac"
                   "68e2c50305679e5d09d288da6f0fb52876a86c74deab6a5247edc6d371de5c2f121e159400");
+        // signed action's hash
+        ASSERT_EQ(hex(output.hash()),
+                  "35f53a536e014b32b85df50483ef04849b80ad60635b3b1979c5ba1096b65237");
     }
 }
