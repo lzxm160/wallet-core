@@ -141,31 +141,54 @@ TEST(TWIoTeXStaking, SignAll) {
     input.set_privatekey(keyhex.data(), keyhex.size());
     Proto::SigningOutput output;
 
-    // sign stakecreate
-    auto action = input.mutable_stakecreate();
-    action->set_candidatename("io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj");
-    action->set_stakedamount("100");
-    action->set_stakedduration(10000);
-    action->set_autostake(true);
-    action->set_payload("payload");
-    ANY_SIGN(input, TWCoinTypeIoTeX);
-    ASSERT_EQ(
-        hex(output.encoded()),
-        "0a4b080118c0843d22023130c2023e0a29696f313964307033616834673877773964376b637866713837797865"
-        "37666e7238727074683573686a120331303018904e20012a077061796c6f6164124104755ce6d8903f6b3793bd"
-        "db4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30d"
-        "d6a1038ed9da8daf331a412e8bac421bab88dcd99c26ac8ffbf27f11ee57a41e7d2537891bfed5aed8e2e026d4"
-        "6e55d1b856787bc1cd7c1216a6e2534c5b5d1097c3afe8e657aa27cbbb0801");
+    {
+        // sign stakecreate
+        auto action = input.mutable_stakecreate();
+        action->set_candidatename("io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj");
+        action->set_stakedamount("100");
+        action->set_stakedduration(10000);
+        action->set_autostake(true);
+        action->set_payload("payload");
+        ANY_SIGN(input, TWCoinTypeIoTeX);
+        ASSERT_EQ(hex(output.encoded()),
+                  "0a4b080118c0843d22023130c2023e0a29696f313964307033616834673877773964376b63786671"
+                  "3837797865"
+                  "37666e7238727074683573686a120331303018904e20012a077061796c6f6164124104755ce6d890"
+                  "3f6b3793bd"
+                  "db4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c"
+                  "0bc76ef30d"
+                  "d6a1038ed9da8daf331a412e8bac421bab88dcd99c26ac8ffbf27f11ee57a41e7d2537891bfed5ae"
+                  "d8e2e026d4"
+                  "6e55d1b856787bc1cd7c1216a6e2534c5b5d1097c3afe8e657aa27cbbb0801");
+        input.release_stakecreate();
+        // output.release_encoded();
+    }
 
-    // sign stakeadddeposit
-    auto action = input.mutable_stakeadddeposit();
-    action->set_bucketindex(10);
-    action->set_amount("10");
-    action->set_payload(payload);
-    ANY_SIGN(input, TWCoinTypeIoTeX);
-    ASSERT_EQ(hex(output.encoded()),
-              "0a1c080118c0843d22023130da020f080a120231301a077061796c6f6164124104755ce6d8903f6b3793"
-              "bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0b"
-              "c76ef30dd6a1038ed9da8daf331a41a48ab1feba8181d760de946aefed7d815a89fd9b1ab503d2392bb5"
-              "5e1bb75eec42dddc8bd642f89accc3a37b3cf15a103a95d66695fdf0647b202869fdd66bcb01");
+    { // sign stakeadddeposit
+        auto action = input.mutable_stakeadddeposit();
+        action->set_bucketindex(10);
+        action->set_amount("10");
+        action->set_payload(payload);
+        ANY_SIGN(input, TWCoinTypeIoTeX);
+        ASSERT_EQ(
+            hex(output.encoded()),
+            "0a1c080118c0843d22023130da020f080a120231301a077061796c6f6164124104755ce6d8903f6b3793"
+            "bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0b"
+            "c76ef30dd6a1038ed9da8daf331a41a48ab1feba8181d760de946aefed7d815a89fd9b1ab503d2392bb5"
+            "5e1bb75eec42dddc8bd642f89accc3a37b3cf15a103a95d66695fdf0647b202869fdd66bcb01");
+        input.release_stakeadddeposit();
+    }
+
+    { // sign stakeunstake
+        auto action = input.mutable_stakeunstake();
+        action->set_bucketindex(10);
+        action->set_payload("payload");
+        ANY_SIGN(input, TWCoinTypeIoTeX);
+        ASSERT_EQ(
+            hex(output.encoded()),
+            "0a18080118c0843d22023130ca020b080a12077061796c6f6164124104755ce6d8903f6b3793bddb4ea5"
+            "d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30d"
+            "d6a1038ed9da8daf331a4100adee39b48e1d3dbbd65298a57c7889709fc4df39987130da306f6997374a"
+            "184b7e7c232a42f21e89b06e6e7ceab81303c6b7483152d08d19ac829b22eb81e601");
+    }
 }
