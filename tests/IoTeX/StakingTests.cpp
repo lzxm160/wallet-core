@@ -190,5 +190,19 @@ TEST(TWIoTeXStaking, SignAll) {
             "d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30d"
             "d6a1038ed9da8daf331a4100adee39b48e1d3dbbd65298a57c7889709fc4df39987130da306f6997374a"
             "184b7e7c232a42f21e89b06e6e7ceab81303c6b7483152d08d19ac829b22eb81e601");
+        input.release_stakeunstake();
+    }
+    {
+        auto action = input.mutable_stakewithdraw();
+        action->set_bucketindex(10);
+        action->set_payload("payload");
+        ANY_SIGN(input, TWCoinTypeIoTeX);
+        ASSERT_EQ(
+            hex(output.encoded()),
+            "0a18080118c0843d22023130d2020b080a12077061796c6f6164124104755ce6d8903f6b3793bddb4ea5"
+            "d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30d"
+            "d6a1038ed9da8daf331a4152644d102186be6640d46b517331f3402e24424b0d85129595421d28503d75"
+            "340b2922f5a0d4f667bbd6f576d9816770286b2ce032ba22eaec3952e24da4756b00");
+        input.release_stakewithdraw();
     }
 }
