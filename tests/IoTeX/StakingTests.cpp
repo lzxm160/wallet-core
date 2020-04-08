@@ -141,8 +141,7 @@ TEST(TWIoTeXStaking, SignAll) {
     input.set_privatekey(keyhex.data(), keyhex.size());
     Proto::SigningOutput output;
 
-    {
-        // sign stakecreate
+    { // sign stakecreate
         auto action = input.mutable_stakecreate();
         action->set_candidatename("io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj");
         action->set_stakedamount("100");
@@ -163,7 +162,6 @@ TEST(TWIoTeXStaking, SignAll) {
         input.release_stakecreate();
         // output.release_encoded();
     }
-
     { // sign stakeadddeposit
         auto action = input.mutable_stakeadddeposit();
         action->set_bucketindex(10);
@@ -178,7 +176,6 @@ TEST(TWIoTeXStaking, SignAll) {
             "5e1bb75eec42dddc8bd642f89accc3a37b3cf15a103a95d66695fdf0647b202869fdd66bcb01");
         input.release_stakeadddeposit();
     }
-
     { // sign stakeunstake
         auto action = input.mutable_stakeunstake();
         action->set_bucketindex(10);
@@ -192,7 +189,7 @@ TEST(TWIoTeXStaking, SignAll) {
             "184b7e7c232a42f21e89b06e6e7ceab81303c6b7483152d08d19ac829b22eb81e601");
         input.release_stakeunstake();
     }
-    {
+    { // sign stakewithdraw
         auto action = input.mutable_stakewithdraw();
         action->set_bucketindex(10);
         action->set_payload("payload");
@@ -204,5 +201,95 @@ TEST(TWIoTeXStaking, SignAll) {
             "d6a1038ed9da8daf331a4152644d102186be6640d46b517331f3402e24424b0d85129595421d28503d75"
             "340b2922f5a0d4f667bbd6f576d9816770286b2ce032ba22eaec3952e24da4756b00");
         input.release_stakewithdraw();
+    }
+    { // sign stakerestake
+        auto action = input.mutable_stakerestake();
+        action->set_bucketindex(10);
+        action->set_stakedduration(1000);
+        action->set_autostake(true);
+        action->set_payload("payload");
+        ANY_SIGN(input, TWCoinTypeIoTeX);
+        ASSERT_EQ(
+            hex(output.encoded()),
+            "0a1d080118c0843d22023130e20210080a10e807180122077061796c6f6164124104755ce6d8903f6b37"
+            "93bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c"
+            "0bc76ef30dd6a1038ed9da8daf331a41e2e763aed5b1fd1a8601de0f0ae34eb05162e34b0389ae3418ee"
+            "dbf762f64959634a968313a6516dba3a97b34efba4753bbed3a33d409ecbd45ac75007cd8e9101");
+        input.release_stakerestake();
+    }
+    { // sign stakechangecandidate
+        auto action = input.mutable_stakechangecandidate();
+        action->set_bucketindex(10);
+        action->set_candidatename("io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza");
+        action->set_payload("payload");
+        ANY_SIGN(input, TWCoinTypeIoTeX);
+        ASSERT_EQ(
+            hex(output.encoded()),
+            "0a43080118c0843d22023130ea0236080a1229696f3178707136326177383575717a7263636739793568"
+            "6e727976386c64326e6b7079636333677a611a077061796c6f6164124104755ce6d8903f6b3793bddb4e"
+            "a5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef3"
+            "0dd6a1038ed9da8daf331a41d519eb3747163b945b862989b7e82a7f8468001e9683757cb88d5ddd95f8"
+            "1895047429e858bd48f7d59a88bfec92de231d216293aeba1e4fbe11461d9c9fc99801");
+        input.release_stakechangecandidate();
+    }
+    { // sign staketransfer
+        auto action = input.mutable_staketransferownership();
+        action->set_bucketindex(10);
+        action->set_voteraddress("io1xpq62aw85uqzrccg9y5hnryv8ld2nkpycc3gza");
+        action->set_payload("payload");
+        ANY_SIGN(input, TWCoinTypeIoTeX);
+        ASSERT_EQ(
+            hex(output.encoded()),
+            "0a43080118c0843d22023130ea0236080a1229696f3178707136326177383575717a7263636739793568"
+            "6e727976386c64326e6b7079636333677a611a077061796c6f6164124104755ce6d8903f6b3793bddb4e"
+            "a5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef3"
+            "0dd6a1038ed9da8daf331a41d519eb3747163b945b862989b7e82a7f8468001e9683757cb88d5ddd95f8"
+            "1895047429e858bd48f7d59a88bfec92de231d216293aeba1e4fbe11461d9c9fc99801");
+        input.release_staketransferownership();
+    }
+    { // sign candidateupdate
+        auto action = input.mutable_candidateupdate();
+        action->set_name("test");
+        action->set_operatoraddress("io1cl6rl2ev5dfa988qmgzg2x4hfazmp9vn2g66ng");
+        action->set_rewardaddress("io1juvx5g063eu4ts832nukp4vgcwk2gnc5cu9ayd");
+        ANY_SIGN(input, TWCoinTypeIoTeX);
+        ASSERT_EQ(
+            hex(output.encoded()),
+            "0a69080118c0843d2202313082035c0a04746573741229696f31636c36726c3265763564666139383871"
+            "6d677a673278346866617a6d7039766e326736366e671a29696f316a7576783567303633657534747338"
+            "33326e756b7034766763776b32676e6335637539617964124104755ce6d8903f6b3793bddb4ea5d3589d"
+            "637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99a5c1335b583c0bc76ef30dd6a103"
+            "8ed9da8daf331a4101885c9c6684a4a8f2f5bf11f8326f27be48658f292e8f55ec8a11a604bb0c563a11"
+            "ebf12d995ca1c152e00f8e0f0edf288db711aa10dbdfd5b7d73b4a28e1f701");
+        input.release_candidateupdate();
+    }
+    { // sign candidateregister
+        input.set_gasprice("1000");
+        auto cbi = input.mutable_candidateregister()->mutable_candidate();
+        cbi->set_name("test");
+        cbi->set_operatoraddress("io10a298zmzvrt4guq79a9f4x7qedj59y7ery84he");
+        cbi->set_rewardaddress("io13sj9mzpewn25ymheukte4v39hvjdtrfp00mlyv");
+
+        auto action = input.mutable_candidateregister();
+        action->set_stakedamount("100");
+        action->set_stakedduration(10000);
+        action->set_autostake(false);
+        action->set_owneraddress("io19d0p3ah4g8ww9d7kcxfq87yxe7fnr8rpth5shj");
+        action->set_payload("payload");
+        ANY_SIGN(input, TWCoinTypeIoTeX);
+        ASSERT_EQ(hex(output.encoded()),
+                  "0aaa01080118c0843d220431303030fa029a010a5c0a04746573741229696f3130613239387a6d7a"
+                  "7672743467"
+                  "757137396139663478377165646a35397937657279383468651a29696f3133736a396d7a7065776e"
+                  "3235796d68"
+                  "65756b74653476333968766a647472667030306d6c7976120331303018904e2a29696f3139643070"
+                  "3361683467"
+                  "3877773964376b63786671383779786537666e7238727074683573686a32077061796c6f61641241"
+                  "04755ce6d8"
+                  "903f6b3793bddb4ea5d3589d637de2d209ae0ea930815c82db564ee8cc448886f639e8a0c7e94e99"
+                  "a5c1335b58"
+                  "3c0bc76ef30dd6a1038ed9da8daf331a417819b5bcb635e3577acc8ca757f2c3d6afa451c2b6ff8a"
+                  "9179b141ac"
+                  "68e2c50305679e5d09d288da6f0fb52876a86c74deab6a5247edc6d371de5c2f121e159400");
     }
 }
